@@ -1,0 +1,9 @@
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/TheQuestofNoReturn.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/edit_cache.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/rebuild_cache.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/list_install_components.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/install.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/install/local.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/install/strip.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/TheQuestofNoReturn_autogen_timestamp_deps.dir
+/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/TheQuestofNoReturn_autogen.dir
