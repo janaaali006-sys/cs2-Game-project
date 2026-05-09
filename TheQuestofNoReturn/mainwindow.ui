@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>-80</x>
-      <y>0</y>
-      <width>1201</width>
-      <height>641</height>
+      <x>-40</x>
+      <y>60</y>
+      <width>1331</width>
+      <height>751</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -30,7 +30,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="mainMenuPage">
      <property name="autoFillBackground">
@@ -44,7 +44,7 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>1191</width>
+        <width>1311</width>
         <height>821</height>
        </rect>
       </property>
@@ -68,7 +68,7 @@
        <rect>
         <x>-1</x>
         <y>10</y>
-        <width>1191</width>
+        <width>1321</width>
         <height>231</height>
        </rect>
       </property>
@@ -145,7 +145,7 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>0</x>
          <y>160</y>
          <width>1131</width>
          <height>61</height>
@@ -280,14 +280,14 @@ QPushButton:hover {
      <widget class="QLabel" name="storyBackgroundLabel">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>10</y>
-        <width>1131</width>
-        <height>611</height>
+        <x>-200</x>
+        <y>40</y>
+        <width>1351</width>
+        <height>621</height>
        </rect>
       </property>
       <property name="autoFillBackground">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -300,6 +300,917 @@ QPushButton:hover {
       <property name="pixmap">
        <pixmap>storyBackground.png</pixmap>
       </property>
+     </widget>
+     <widget class="QLabel" name="storyTitleLabel">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>40</y>
+        <width>471</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    color: #f4d58d;
+
+    background-color: transparent;
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>THE TOMB AWAKENS</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="storyTextLabel">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>140</y>
+        <width>781</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    background-color: rgba(10, 5, 0, 180);
+
+    color: #ffe6a7;
+
+    border-radius: 22px;
+
+    padding: 18px;
+
+    font-size: 16px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>For centuries, the Tomb of No Return remained buried beneath the desert sands.
+
+Many explorers entered seeking power and immortality.
+
+None ever returned.
+
+Now, the gates have opened once more...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="enterTombButton">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>480</y>
+        <width>252</width>
+        <height>92</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+
+    background-color: qradialgradient(
+        cx:0.5, cy:0.5,
+        radius:1.2,
+        fx:0.5, fy:0.5,
+        stop:0 #ffcf70,
+        stop:0.5 #d97706,
+        stop:1 #5a2d0c
+    );
+
+    color: #2b1200;
+
+    border: none;
+
+    border-radius: 35px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    padding: 16px;
+
+    min-width: 220px;
+
+    min-height: 60px;
+}
+
+
+
+QPushButton:hover {
+
+    background-color: #ffb703;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>ENTER THE TOMB</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="gamePage">
+     <widget class="QLabel" name="gameBackgroundLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1291</width>
+        <height>741</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    border-image: url(:/images/gameBackground.png);
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>gameBackground.png</pixmap>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="topBarFrame">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1280</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+
+    background-color: rgba(13, 10, 5, 220);
+
+    border-bottom: 2px solid #c8a03c;
+
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>1241</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="livesLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>♥ ♥ ♥</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="timerLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>07:32</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="scoreLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>🏆 0</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="levelLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}
+</string>
+          </property>
+          <property name="text">
+           <string>1 / 6</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="templeMapTitle">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>90</y>
+        <width>231</width>
+        <height>631</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+
+    background-color: rgba(13, 10, 5, 210);
+
+    border-right: 2px solid #c8a03c;
+
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="hudPortraitLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>19</y>
+         <width>151</width>
+         <height>151</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>Zara.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="hudNameLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>190</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+
+    background-color: #c8a03c;
+
+    color: #0d0a05;
+
+    border-radius: 10px;
+
+    padding: 6px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+       </property>
+       <property name="text">
+        <string>Zara</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="hudTraitLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>240</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+
+    background-color: rgba(232, 208, 128, 230);
+
+    color: #0d0a05;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 10px;
+
+    padding: 5px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+       </property>
+       <property name="text">
+        <string>Scholar</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="inventoryTitle">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>290</y>
+         <width>121</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+    padding-left: 4px;
+
+    letter-spacing: 1px;
+
+}</string>
+       </property>
+       <property name="text">
+        <string>Inventory</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>390</y>
+         <width>171</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+    padding-left: 4px;
+
+    letter-spacing: 1px;
+
+}</string>
+       </property>
+       <property name="text">
+        <string>Temple Map</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>320</y>
+         <width>161</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="inventorySlot1">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(20, 14, 8, 220);
+
+    border: 2px solid #907060;
+
+    border-radius: 10px;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Slot1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="inventorySlot2">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(20, 14, 8, 220);
+
+    border: 2px solid #907060;
+
+    border-radius: 10px;
+
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Slot2</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>350</y>
+         <width>161</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="inventorySlot3">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(20, 14, 8, 220);
+
+    border: 2px solid #907060;
+
+    border-radius: 10px;
+
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Slot3</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="inventorySlot4">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(20, 14, 8, 220);
+
+    border: 2px solid #907060;
+
+    border-radius: 10px;
+
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Slot4</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>430</y>
+         <width>221</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Entrance Chamber</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Guardian Hall</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Hall of Echoes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Trial Room</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Ankh Sanctuary</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="minimumSize">
+           <size>
+            <width>2</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    background-color: rgba(15, 10, 5, 180);
+
+    color: #e2cfa0;
+
+    border-left: 3px solid #c8a03c;
+
+    border-radius: 6px;
+
+    padding-left: 8px;
+
+    font-size: 12px;
+
+    font-family: &quot;Copperplate&quot;;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Anubis Gate</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>110</y>
+        <width>891</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QGraphicsView {
+
+    background-color: rgba(10, 7, 4, 220);
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+}</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="bottomStripFrame">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>580</y>
+        <width>951</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+
+    background-color: rgba(13, 10, 5, 235);
+
+    border-top: 2px solid #c8a03c;
+
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>941</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="roomNameLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>Temple Entrance</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="eventLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e2cfa0;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    font-family: &quot;Georgia&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>A cold wind echoes through the chamber...</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="controlsLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #907060;
+
+    font-size: 13px;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>WASD Move | E Interact | I Inventory | ESC Pause</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="characterSetupScreen">

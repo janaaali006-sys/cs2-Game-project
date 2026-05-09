@@ -27,6 +27,7 @@ qt_add_resources(TheQuestofNoReturn "resources"
         survivorIcon.png
         speedsterIcon.png
         storyBackground.png
+        gameBackground.png
 )
 
 target_link_libraries(TheQuestofNoReturn
