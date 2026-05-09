@@ -11,6 +11,11 @@ qt_add_executable(TheQuestofNoReturn
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    player.h player.cpp
+    riddlegenerator.h riddlegenerator.cpp
+    avatargenerator.h avatargenerator.cpp
+    savemanager.h savemanager.cpp
+    SharedEnums.h
 
 )
 
