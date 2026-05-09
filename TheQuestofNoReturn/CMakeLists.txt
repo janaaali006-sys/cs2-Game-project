@@ -11,7 +11,22 @@ qt_add_executable(TheQuestofNoReturn
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    resources.qrc
+
+)
+
+qt_add_resources(TheQuestofNoReturn "resources"
+    PREFIX "/images"
+    FILES
+        background.png
+	characterPage.png
+	Zara.png
+	Karim.png
+        RAMI.png
+	NOOR.png
+        scholarIcon.png
+        survivorIcon.png
+        speedsterIcon.png
+        storyBackground.png
 )
 
 target_link_libraries(TheQuestofNoReturn
