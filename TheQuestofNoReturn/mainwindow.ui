@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1206</width>
-    <height>760</height>
+    <width>1276</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,20 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>10</y>
-      <width>661</width>
-      <height>711</height>
+      <x>-80</x>
+      <y>0</y>
+      <width>1201</width>
+      <height>641</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
     </property>
     <widget class="QWidget" name="mainMenuPage">
      <property name="autoFillBackground">
@@ -34,15 +43,17 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>661</width>
-        <height>711</height>
+        <y>10</y>
+        <width>1191</width>
+        <height>821</height>
        </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">QFrame {
     border-image: url(:/images/background.png);
-    border-radius: 20px;
 }</string>
       </property>
       <property name="frameShape">
@@ -52,8 +63,924 @@
        <enum>QFrame::Shadow::Raised</enum>
       </property>
      </widget>
+     <widget class="QFrame" name="menuOverlayFrame">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>10</y>
+        <width>1191</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>500</width>
+        <height>500</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+    background-color: rgba(0, 0, 0, 120);
+    border-radius: 20px;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titleLabel">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>30</y>
+         <width>691</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    color: rgb(255, 215, 120);
+    font-size: 46px;
+    font-weight: bold;
+    font-family: &quot;Copperplate&quot;;
+    background: transparent;
+}</string>
+       </property>
+       <property name="text">
+        <string>The Quest of No Return</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="subtitleLabel">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>100</y>
+         <width>311</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    color: rgb(220, 220, 220);
+    font-size: 18px;
+    font-family: &quot;Helvetica&quot;;
+    background: transparent;
+}</string>
+       </property>
+       <property name="text">
+        <string>An Egyptian Temple Adventure</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>160</y>
+         <width>1131</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="startButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgba(255, 140, 0, 180);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 180, 50, 220);
+}</string>
+          </property>
+          <property name="text">
+           <string>Start Game </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="continueButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgba(255, 140, 0, 180);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 180, 50, 220);
+}</string>
+          </property>
+          <property name="text">
+           <string>Continue</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="difficultyButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgba(255, 140, 0, 180);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 180, 50, 220);
+}</string>
+          </property>
+          <property name="text">
+           <string>Difficulty</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="howToPlayButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgba(255, 140, 0, 180);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 180, 50, 220);
+}</string>
+          </property>
+          <property name="text">
+           <string>How to Play</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="exitButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgba(255, 140, 0, 180);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 180, 50, 220);
+}</string>
+          </property>
+          <property name="text">
+           <string>Exit</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_2"/>
+    <widget class="QWidget" name="storyPage">
+     <widget class="QLabel" name="storyBackgroundLabel">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>10</y>
+        <width>1131</width>
+        <height>611</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    border-image: url(:/images/storyBackground.png);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>storyBackground.png</pixmap>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="characterSetupScreen">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <widget class="QLabel" name="characterBackground">
+      <property name="geometry">
+       <rect>
+        <x>-130</x>
+        <y>-30</y>
+        <width>1331</width>
+        <height>671</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    border-image: url(:/images/characterPage.png) 0 0 0 0 stretch stretch;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>characterPage.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="setupOverlayFrame">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>951</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+    background-color: rgba(0, 0, 0, 140);
+    border-radius: 20px;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="chooseYourIdentityTitle">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>10</y>
+         <width>351</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Brush scipt MT</family>
+         <pointsize>-1</pointsize>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: #e8d080;
+font-size: 34px;
+font-weight: bold;
+font-family: &quot;Brush scipt MT&quot;;
+background: transparent;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Choose Your Identity&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="portraitFrame">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>90</y>
+        <width>341</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 3px solid #c8a03c;
+border-radius: 14px;
+background-color: rgba(20, 12, 5, 180);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>450</y>
+        <width>281</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    background-color: rgba(20,12,5,220);
+    color: #e2cfa0;
+    border: 2px solid #c8a03c;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 16px;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="portraitLabel">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>120</y>
+        <width>241</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    border: 3px solid #c8a03c;
+    border-radius: 16px;
+    background-color: rgba(10, 10, 10, 170);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="portraitFrame_2">
+      <property name="geometry">
+       <rect>
+        <x>789</x>
+        <y>91</y>
+        <width>341</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 3px solid #c8a03c;
+border-radius: 14px;
+background-color: rgba(20, 12, 5, 180);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="chooseYourIdentityTitle_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>410</y>
+        <width>121</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cinzel</family>
+        <pointsize>-1</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: #e8d080;
+font-size: 14px;
+font-weight: bold;
+font-family: &quot;Cinzel&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>EXPLORER NAME:</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>520</y>
+        <width>321</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="zaraButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}</string>
+         </property>
+         <property name="text">
+          <string>Zara</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="karimButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Karim</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="nourButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Nour</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ramiButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}</string>
+         </property>
+         <property name="text">
+          <string>Rami</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>220</y>
+        <width>58</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="descriptionLabel">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>340</y>
+        <width>281</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    background-color: rgba(35, 5, 5, 220);
+
+    color: #ffcf99;
+
+    border: 3px solid #ff5e3a;
+
+    border-radius: 22px;
+
+    padding: 14px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    qproperty-alignment: AlignCenter;
+
+    letter-spacing: 1px;
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="traitDescriptionLabel">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>440</y>
+        <width>311</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    background-color: rgba(35, 5, 5, 220);
+
+    color: #ffcf99;
+
+    border: 3px solid #ff5e3a;
+
+    border-radius: 22px;
+
+    padding: 14px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    qproperty-alignment: AlignCenter;
+
+    letter-spacing: 1px;
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="survivorButton">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>320</y>
+        <width>299</width>
+        <height>42</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>Survivor</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="scholarButton">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>260</y>
+        <width>299</width>
+        <height>42</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}</string>
+      </property>
+      <property name="text">
+       <string> Scholar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="speedsterButton">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>380</y>
+        <width>299</width>
+        <height>42</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+
+    background-color: rgba(35, 20, 5, 220);
+
+    color: #f0d080;
+
+    border: 2px solid #c8a03c;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+QPushButton:hover {
+
+    background-color: rgba(70, 40, 10, 240);
+
+    border: 2px solid #e8d080;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>Speedster</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="confirmButton">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>270</y>
+        <width>256</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+
+    background-color: qradialgradient(
+        cx:0.5, cy:0.5,
+        radius:1.2,
+        fx:0.5, fy:0.5,
+        stop:0 #ffcc66,
+        stop:0.4 #d97706,
+        stop:1 #5a2d0c
+    );
+
+    color: #2b1200;
+
+    border: none;
+
+    border-radius: 45px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    padding: 18px;
+
+    
+
+    /* subtle inner glow feeling */
+
+    min-width: 220px;
+
+    min-height: 70px;
+
+}
+
+
+
+QPushButton:hover {
+
+    background-color: qradialgradient(
+        cx:0.5, cy:0.5,
+        radius:1.3,
+        fx:0.5, fy:0.5,
+        stop:0 #ffe29a,
+        stop:0.4 #f59e0b,
+        stop:1 #7c2d12
+    );
+
+}
+
+
+
+QPushButton:pressed {
+
+    background-color: #4a1f00;
+
+    color: #ffdd99;
+
+}</string>
+      </property>
+      <property name="text">
+       <string>Enter The Tomb</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="traitIconLabel">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>130</y>
+        <width>321</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+
+    background-color: rgba(25, 10, 5, 210);
+
+    border: 3px solid #d4a017;
+
+    border-radius: 20px;
+
+    padding: 10px;
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="pickTraitTitle">
+      <property name="geometry">
+       <rect>
+        <x>910</x>
+        <y>90</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cinzel</family>
+        <pointsize>-1</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: #e8d080;
+font-size: 20px;
+font-weight: bold;
+font-family: &quot;Cinzel&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Pick Trait</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

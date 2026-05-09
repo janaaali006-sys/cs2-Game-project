@@ -10,5 +10,6 @@
         <file>survivorIcon.png</file>
         <file>speedsterIcon.png</file>
         <file>scholarIcon.png</file>
+        <file>storyBackground.png</file>
     </qresource>
 </RCC>
