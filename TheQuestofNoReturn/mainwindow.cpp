@@ -23,40 +23,35 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // PORTRAIT SETTINGS
+    // IMAGE SETTINGS
     // =====================================================
 
     ui->portraitLabel->setScaledContents(true);
-
     ui->traitIconLabel->setScaledContents(true);
+    ui->hudPortraitLabel->setScaledContents(true);
 
 
 
     // =====================================================
-    // DEFAULT CHARACTER
+    // DEFAULT PLAYER DATA
     // =====================================================
 
     selectedCharacter = "Zara";
+    selectedTrait = "Scholar";
+
+
+
+    // =====================================================
+    // CHARACTER SETUP DEFAULTS
+    // =====================================================
 
     ui->portraitLabel->setPixmap(
         QPixmap(":/images/Zara.png")
         );
 
-
-
-    // =====================================================
-    // DEFAULT TRAIT ICON
-    // =====================================================
-
     ui->traitIconLabel->setPixmap(
         QPixmap(":/images/scholarIcon.png")
         );
-
-
-
-    // =====================================================
-    // DEFAULT TEXT
-    // =====================================================
 
     ui->descriptionLabel->setText(
         "Fearless explorer driven by curiosity and courage."
@@ -69,70 +64,179 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
+    // GAME HUD DEFAULTS
+    // =====================================================
+
+    ui->hudPortraitLabel->setPixmap(
+        QPixmap(":/images/Zara.png")
+        );
+
+    ui->hudNameLabel->setText(
+        "ZARA"
+        );
+
+    ui->hudTraitLabel->setText(
+        "SCHOLAR"
+        );
+
+    ui->livesLabel->setText(
+        "♥ ♥ ♥"
+        );
+
+    ui->timerLabel->setText(
+        "07:32"
+        );
+
+    ui->scoreLabel->setText(
+        "🏆 0"
+        );
+
+    ui->levelLabel->setText(
+        "1 / 6"
+        );
+
+    ui->roomNameLabel->setText(
+        "Temple Entrance"
+        );
+
+    ui->eventLabel->setText(
+        "A cold wind echoes through the chamber..."
+        );
+
+    ui->controlsLabel->setText(
+        "WASD Move | E Interact | I Inventory | ESC Pause"
+        );
+
+
+
+    // =====================================================
+    // INVENTORY SLOT SETTINGS
+    // =====================================================
+
+    ui->inventorySlot1->setScaledContents(true);
+    ui->inventorySlot2->setScaledContents(true);
+    ui->inventorySlot3->setScaledContents(true);
+    ui->inventorySlot4->setScaledContents(true);
+
+    ui->inventorySlot1->setPixmap(
+        QPixmap(":/images/emptySlot.png")
+        );
+
+    ui->inventorySlot2->setPixmap(
+        QPixmap(":/images/emptySlot.png")
+        );
+
+    ui->inventorySlot3->setPixmap(
+        QPixmap(":/images/emptySlot.png")
+        );
+
+    ui->inventorySlot4->setPixmap(
+        QPixmap(":/images/emptySlot.png")
+        );
+
+
+
+    // =====================================================
+    // START GAME BUTTON
+    // =====================================================
+
+    connect(ui->startButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->characterSetupScreen
+                    );
+
+            });
+
+
+
+    // =====================================================
+    // EXIT BUTTON
+    // =====================================================
+
+    connect(ui->exitButton, &QPushButton::clicked,
+            this, [=]() {
+
+                close();
+
+            });
+
+
+
+    // =====================================================
     // CHARACTER BUTTONS
     // =====================================================
 
     // ZARA
-    connect(ui->zaraButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->zaraButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedCharacter = "Zara";
+                selectedCharacter = "Zara";
 
-        ui->portraitLabel->setPixmap(
-            QPixmap(":/images/Zara.png")
-            );
+                ui->portraitLabel->setPixmap(
+                    QPixmap(":/images/Zara.png")
+                    );
 
-        ui->descriptionLabel->setText(
-            "Fearless explorer driven by curiosity and courage."
-            );
-    });
+                ui->descriptionLabel->setText(
+                    "Fearless explorer driven by curiosity and courage."
+                    );
+
+            });
 
 
 
     // KARIM
-    connect(ui->karimButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->karimButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedCharacter = "Karim";
+                selectedCharacter = "Karim";
 
-        ui->portraitLabel->setPixmap(
-            QPixmap(":/images/Karim.png")
-            );
+                ui->portraitLabel->setPixmap(
+                    QPixmap(":/images/Karim.png")
+                    );
 
-        ui->descriptionLabel->setText(
-            "Balanced adventurer skilled in combat and survival."
-            );
-    });
+                ui->descriptionLabel->setText(
+                    "Balanced adventurer skilled in combat and survival."
+                    );
+
+            });
 
 
 
     // NOUR
-    connect(ui->nourButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->nourButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedCharacter = "Nour";
+                selectedCharacter = "Nour";
 
-        ui->portraitLabel->setPixmap(
-            QPixmap(":/images/NOOR.png")
-            );
+                ui->portraitLabel->setPixmap(
+                    QPixmap(":/images/NOOR.png")
+                    );
 
-        ui->descriptionLabel->setText(
-            "Strategic thinker who uncovers hidden ancient secrets."
-            );
-    });
+                ui->descriptionLabel->setText(
+                    "Strategic thinker who uncovers hidden ancient secrets."
+                    );
+
+            });
 
 
 
     // RAMI
-    connect(ui->ramiButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->ramiButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedCharacter = "Rami";
+                selectedCharacter = "Rami";
 
-        ui->portraitLabel->setPixmap(
-            QPixmap(":/images/RAMI.png")
-            );
+                ui->portraitLabel->setPixmap(
+                    QPixmap(":/images/RAMI.png")
+                    );
 
-        ui->descriptionLabel->setText(
-            "Fast and daring explorer who trusts instinct."
-            );
-    });
+                ui->descriptionLabel->setText(
+                    "Fast and daring explorer who trusts instinct."
+                    );
+
+            });
 
 
 
@@ -141,50 +245,56 @@ MainWindow::MainWindow(QWidget *parent)
     // =====================================================
 
     // SCHOLAR
-    connect(ui->scholarButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->scholarButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedTrait = "Scholar";
+                selectedTrait = "Scholar";
 
-        ui->traitDescriptionLabel->setText(
-            "Gain intelligence bonuses and uncover hidden clues."
-            );
+                ui->traitDescriptionLabel->setText(
+                    "Gain intelligence bonuses and uncover hidden clues."
+                    );
 
-        ui->traitIconLabel->setPixmap(
-            QPixmap(":/images/scholarIcon.png")
-            );
-    });
+                ui->traitIconLabel->setPixmap(
+                    QPixmap(":/images/scholarIcon.png")
+                    );
+
+            });
 
 
 
     // SURVIVOR
-    connect(ui->survivorButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->survivorButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedTrait = "Survivor";
+                selectedTrait = "Survivor";
 
-        ui->traitDescriptionLabel->setText(
-            "Higher endurance and resistance to danger."
-            );
+                ui->traitDescriptionLabel->setText(
+                    "Higher endurance and resistance to danger."
+                    );
 
-        ui->traitIconLabel->setPixmap(
-            QPixmap(":/images/survivorIcon.png")
-            );
-    });
+                ui->traitIconLabel->setPixmap(
+                    QPixmap(":/images/survivorIcon.png")
+                    );
+
+            });
 
 
 
     // SPEEDSTER
-    connect(ui->speedsterButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->speedsterButton, &QPushButton::clicked,
+            this, [=]() {
 
-        selectedTrait = "Speedster";
+                selectedTrait = "Speedster";
 
-        ui->traitDescriptionLabel->setText(
-            "Move faster and escape traps more easily."
-            );
+                ui->traitDescriptionLabel->setText(
+                    "Move faster and escape traps more easily."
+                    );
 
-        ui->traitIconLabel->setPixmap(
-            QPixmap(":/images/speedsterIcon.png")
-            );
-    });
+                ui->traitIconLabel->setPixmap(
+                    QPixmap(":/images/speedsterIcon.png")
+                    );
+
+            });
 
 
 
@@ -192,59 +302,97 @@ MainWindow::MainWindow(QWidget *parent)
     // CONFIRM BUTTON
     // =====================================================
 
-    connect(ui->confirmButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->confirmButton, &QPushButton::clicked,
+            this, [=]() {
 
-        QString playerName = ui->lineEdit->text();
-
-
-
-        // EMPTY NAME
-        if(playerName.isEmpty()) {
-
-            ui->traitDescriptionLabel->setText(
-                "Enter your explorer name first."
-                );
-
-            return;
-        }
+                QString playerName = ui->lineEdit->text();
 
 
 
-        // NO CHARACTER
-        if(selectedCharacter.isEmpty()) {
+                // EMPTY NAME
+                if(playerName.isEmpty()) {
 
-            ui->traitDescriptionLabel->setText(
-                "Choose your explorer first."
-                );
+                    ui->traitDescriptionLabel->setText(
+                        "Enter your explorer name first."
+                        );
 
-            return;
-        }
-
-
-
-        // NO TRAIT
-        if(selectedTrait.isEmpty()) {
-
-            ui->traitDescriptionLabel->setText(
-                "Choose a trait before entering the tomb."
-                );
-
-            return;
-        }
+                    return;
+                }
 
 
 
-        // FINAL CONFIRMATION
-        ui->traitDescriptionLabel->setText(
+                // =================================================
+                // UPDATE HUD NAME + TRAIT
+                // =================================================
 
-            "Explorer " + playerName +
-            " the " + selectedCharacter +
-            " enters the tomb as a " +
-            selectedTrait + "."
+                ui->hudNameLabel->setText(
+                    playerName.toUpper()
+                    );
 
-            );
+                ui->hudTraitLabel->setText(
+                    selectedTrait.toUpper()
+                    );
 
-    });
+
+
+                // =================================================
+                // UPDATE HUD PORTRAIT
+                // =================================================
+
+                if(selectedCharacter == "Zara") {
+
+                    ui->hudPortraitLabel->setPixmap(
+                        QPixmap(":/images/Zara.png")
+                        );
+                }
+
+                else if(selectedCharacter == "Karim") {
+
+                    ui->hudPortraitLabel->setPixmap(
+                        QPixmap(":/images/Karim.png")
+                        );
+                }
+
+                else if(selectedCharacter == "Nour") {
+
+                    ui->hudPortraitLabel->setPixmap(
+                        QPixmap(":/images/NOOR.png")
+                        );
+                }
+
+                else if(selectedCharacter == "Rami") {
+
+                    ui->hudPortraitLabel->setPixmap(
+                        QPixmap(":/images/RAMI.png")
+                        );
+                }
+
+
+
+                // =================================================
+                // GO TO STORY PAGE
+                // =================================================
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->storyPage
+                    );
+
+            });
+
+
+
+    // =====================================================
+    // ENTER TOMB BUTTON
+    // =====================================================
+
+    connect(ui->enterTombButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->gamePage
+                    );
+
+            });
 
 }
 
@@ -257,17 +405,4 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-
-
-// =====================================================
-// START BUTTON
-// =====================================================
-
-void MainWindow::on_startButton_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(
-        ui->characterSetupScreen
-        );
 }
