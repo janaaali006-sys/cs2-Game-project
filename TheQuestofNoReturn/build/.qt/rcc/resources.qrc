@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="/images">
+    <file alias="background.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/background.png</file>
+    <file alias="characterPage.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/characterPage.png</file>
+    <file alias="Zara.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/Zara.png</file>
+    <file alias="Karim.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/Karim.png</file>
+    <file alias="RAMI.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/RAMI.png</file>
+    <file alias="NOOR.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/NOOR.png</file>
+    <file alias="scholarIcon.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/scholarIcon.png</file>
+    <file alias="survivorIcon.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/survivorIcon.png</file>
+    <file alias="speedsterIcon.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/speedsterIcon.png</file>
+    <file alias="storyBackground.png">/home/rafik/cs2-Game-project/TheQuestofNoReturn/storyBackground.png</file>
+  </qresource>
+</RCC>
+
