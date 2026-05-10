@@ -11,6 +11,9 @@ qt_add_executable(TheQuestofNoReturn
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    pausemenudialog.h pausemenudialog.cpp pausemenudialog.ui
+    difficultydialog.h difficultydialog.cpp difficultydialog.ui
+    SharedEnums.h
 
 )
 

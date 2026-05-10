@@ -12,5 +12,9 @@
         <file>scholarIcon.png</file>
         <file>storyBackground.png</file>
         <file>gameBackground.png</file>
+        <file>gameover_background.png</file>
+        <file>winBackground.png</file>
+        <file>ankh.png</file>
+        <file>difficulty.png</file>
     </qresource>
 </RCC>

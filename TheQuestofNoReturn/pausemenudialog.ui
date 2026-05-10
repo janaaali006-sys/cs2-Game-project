@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PauseMenuDialog</class>
+ <widget class="QDialog" name="PauseMenuDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1221</width>
+    <height>841</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgba(0, 0, 0, 220);
+border: 2px solid #c8a03c;
+border-radius: 20px;</string>
+  </property>
+  <widget class="QLabel" name="pauseTitleLabel">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>180</y>
+     <width>191</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #f4d98a;
+font-size: 40px;
+font-weight: bold;
+font-family: &quot;Times New Roman&quot;;
+letter-spacing: 4px;
+background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>PAUSED</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>460</y>
+     <width>751</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="resumeButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(20, 15, 5, 220);
+    color: #f4d98a;
+    border: 2px solid #c8a03c;
+    border-radius: 16px;
+
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(200, 160, 60, 180);
+    color: black;
+}</string>
+      </property>
+      <property name="text">
+       <string>Resume</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="restartButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(20, 15, 5, 220);
+    color: #f4d98a;
+    border: 2px solid #c8a03c;
+    border-radius: 16px;
+
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(200, 160, 60, 180);
+    color: black;
+}</string>
+      </property>
+      <property name="text">
+       <string>Restart</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="menuButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(20, 15, 5, 220);
+    color: #f4d98a;
+    border: 2px solid #c8a03c;
+    border-radius: 16px;
+
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(200, 160, 60, 180);
+    color: black;
+}</string>
+      </property>
+      <property name="text">
+       <string>Main Menu</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="exitButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(20, 15, 5, 220);
+    color: #f4d98a;
+    border: 2px solid #c8a03c;
+    border-radius: 16px;
+
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(200, 160, 60, 180);
+    color: black;
+}</string>
+      </property>
+      <property name="text">
+       <string>Exit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
