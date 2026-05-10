@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_TheQuestofNoReturn_FILE /Users/janaali/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_11_0_for_macOS-Debug/TheQuestofNoReturn.app/Contents/MacOS/TheQuestofNoReturn)
+set(__QT_DEPLOY_TARGET_TheQuestofNoReturn_TYPE EXECUTABLE)

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-7d93f7b8664633039704.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "TheQuestofNoReturn",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "TheQuestofNoReturn::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TheQuestofNoReturn-Debug-29340f6f5c64cf8403c9.json",
+					"name" : "TheQuestofNoReturn",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TheQuestofNoReturn_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TheQuestofNoReturn_autogen-Debug-7a19d7ccaf883dcf4bc9.json",
+					"name" : "TheQuestofNoReturn_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TheQuestofNoReturn_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TheQuestofNoReturn_autogen_timestamp_deps-Debug-95810e01f07fd258bfb8.json",
+					"name" : "TheQuestofNoReturn_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/janaali/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_11_0_for_macOS-Debug",
+		"source" : "/Users/janaali/cs2-Game-project/TheQuestofNoReturn"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
