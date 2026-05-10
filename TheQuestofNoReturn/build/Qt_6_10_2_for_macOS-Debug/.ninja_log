@@ -1,0 +1,11 @@
+# ninja log v6
+8	2373	1778412349571118205	TheQuestofNoReturn_autogen/timestamp	a5c4b10e7599fbe1
+8	2373	1778412349571118205	TheQuestofNoReturn_autogen/mocs_compilation.cpp	a5c4b10e7599fbe1
+2383	3575	1778412350820213089	/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp	d071492c144c8bac
+8	2373	1778412349571118205	/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/timestamp	a5c4b10e7599fbe1
+8	2373	1778412349571118205	/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/mocs_compilation.cpp	a5c4b10e7599fbe1
+2383	3575	1778412350820213089	.qt/rcc/qrc_resources.cpp	d071492c144c8bac
+3578	6613	1778412350833949399	CMakeFiles/TheQuestofNoReturn.dir/riddles/LogicRiddle.cpp.o	5eafd8ea8cc03351
+6610	8753	1778412353865674947	CMakeFiles/TheQuestofNoReturn.dir/riddles/SequenceRiddle.cpp.o	f7b498cbc7924160
+3577	6608	1778412350832855162	CMakeFiles/TheQuestofNoReturn.dir/riddles/Riddle.cpp.o	af1f33590e7b0f31
+6614	8744	1778412353869279001	CMakeFiles/TheQuestofNoReturn.dir/riddles/IdentityRiddle.cpp.o	d11471dce84b7fbe
