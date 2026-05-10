@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(TheQuestofNoReturn LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Network)
 
 qt_standard_project_setup()
 
@@ -11,6 +11,11 @@ qt_add_executable(TheQuestofNoReturn
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    player.h player.cpp
+    riddlegenerator.h riddlegenerator.cpp
+    avatargenerator.h avatargenerator.cpp
+    savemanager.h savemanager.cpp
+    SharedEnums.h
 
 )
 
@@ -33,6 +38,7 @@ target_link_libraries(TheQuestofNoReturn
     PRIVATE
         Qt::Core
         Qt::Widgets
+        Qt::Network
 )
 
 include(GNUInstallDirs)
