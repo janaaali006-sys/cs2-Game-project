@@ -10,6 +10,7 @@
 #include <QStandardPaths>
 #include <QEventLoop>
 #include <QDebug>
+#include <QTimer>
 
 AvatarGenerator::AvatarGenerator(QObject* parent) : QObject(parent) {
     m_timeoutTimer = new QTimer(this);

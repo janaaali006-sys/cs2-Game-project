@@ -20,7 +20,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_startButton_clicked();
     void onGameEnded(bool won);
     void onAvatarReady(QString path);
 
@@ -29,16 +28,18 @@ private:
     Game*            m_game      = nullptr;
     AvatarGenerator* m_avatarGen = nullptr;
 
-    // Selected values from character setup screen
     QString    m_selectedCharacter  = "Zara";
     QString    m_selectedTrait      = "Scholar";
     Difficulty m_selectedDifficulty = Difficulty::MEDIUM;
 
     void setupCharacterButtons();
     void setupConfirmButton();
+    void setupMenuButtons();
+    void setupHUDButtons();
     void setupAvatarGenerator();
     void setupPlayerHUDSignals();
     void startGame();
+    void updateHUDDefaults();
 };
 
 #endif // MAINWINDOW_H

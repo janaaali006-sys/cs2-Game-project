@@ -14,22 +14,22 @@ enum class CharacterTrait {
 };
 
 enum class CharacterID {
-    ZARA,   // Dr. Zara Khalil
-    KARIM,  // Dr. Karim Hassan
-    NOUR,   // Dr. Nour Farouk
-    RAMI    // Dr. Rami Saad
+    ZARA,
+    KARIM,
+    NOUR,
+    RAMI
 };
 
 enum class RiddleType {
-    IDENTITY,   // "Who am I?" format
-    LOGIC,      // reasoning / deduction
-    SEQUENCE    // pattern / order completion
+    IDENTITY,
+    LOGIC,
+    SEQUENCE
 };
 
 enum class RoomMood {
-    CALM,    // standard gameplay
-    CURSED,  // decoy answer added, -15s on wrong answer
-    BLESSED  // first-try correct answer = bonus artefact drop
+    CALM,
+    CURSED,
+    BLESSED
 };
 
 enum class ArtefactType {
@@ -50,9 +50,9 @@ enum class GameState {
 };
 
 enum class GuardianType {
-    WATCHER,   // strategic choice
-    PURSUER,   // reflex keypress
-    RIDDLER    // hard riddle
+    WATCHER,
+    PURSUER,
+    RIDDLER
 };
 
 #endif // SHAREDENUMS_H

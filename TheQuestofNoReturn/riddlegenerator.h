@@ -49,3 +49,5 @@ private:
 
     Riddle* getFallback(const QString& godName, RiddleType type);
 };
+
+#endif

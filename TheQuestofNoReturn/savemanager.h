@@ -17,3 +17,5 @@ public:
 private:
     static QString savePath();
 };
+
+#endif
