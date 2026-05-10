@@ -14,25 +14,39 @@ qt_add_executable(TheQuestofNoReturn
     mainwindow.h
     mainwindow.ui
 
+    # Person 5 — Player, AI generators, Save
     player.cpp
     player.h
-
     riddlegenerator.cpp
     riddlegenerator.h
-
     avatargenerator.cpp
     avatargenerator.h
-
     savemanager.cpp
     savemanager.h
+    config.h
 
+    # Person 5 — OOP base classes
     SharedEnums.h
+    GameObject.h
+    GameObject.cpp
+    Artefact.h
+    Artefact.cpp
 
+    # Person 1 — Game engine, rooms, sprites
     Game.h
     Game.cpp
-    GameHUD.h
+    Room.h
+    Room.cpp
+    RoomManager.h
+    RoomManager.cpp
+    PlayerSprite.h
+    PlayerSprite.cpp
+    DoorItem.h
+    DoorItem.cpp
+    TrapItem.h
+    TrapItem.cpp
 
-    # Riddles
+    # Person 2 — Riddles
     riddles/Riddle.cpp
     riddles/Riddle.h
     riddles/LogicRiddle.cpp
@@ -44,13 +58,13 @@ qt_add_executable(TheQuestofNoReturn
     riddles/RiddleFallbackPool.cpp
     riddles/RiddleFallbackPool.h
 
-    # World
+    # Person 2 — World objects
     world/RiddleManager.cpp
     world/RiddleManager.h
     world/RiddleAltar.cpp
     world/RiddleAltar.h
 
-    # Dialogs
+    # Person 2 — Dialogs
     dialogs/RiddleDialog.cpp
     dialogs/RiddleDialog.h
     dialogs/DilemmaDialog.cpp
@@ -58,27 +72,25 @@ qt_add_executable(TheQuestofNoReturn
     dialogs/RevelationDialog.cpp
     dialogs/RevelationDialog.h
 
-    # Outcomes
+    # Person 2 — Outcomes
     outcomes/GoodOutcome.cpp
     outcomes/GoodOutcome.h
     outcomes/HintOutcome.cpp
     outcomes/HintOutcome.h
     outcomes/LoseLifeOutcome.cpp
     outcomes/LoseLifeOutcome.h
-    game.h game.cpp
-    GameHUD.h
-    config.h
+    GameObject.cpp GameObject.h
 )
 
 qt_add_resources(TheQuestofNoReturn "resources"
     PREFIX "/images"
     FILES
         background.png
-	characterPage.png
-	Zara.png
-	Karim.png
+        characterPage.png
+        Zara.png
+        Karim.png
         RAMI.png
-	NOOR.png
+        NOOR.png
         scholarIcon.png
         survivorIcon.png
         speedsterIcon.png
@@ -99,10 +111,3 @@ install(TARGETS TheQuestofNoReturn
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-
-#qt_generate_deploy_app_script(
-#    TARGET TheQuestofNoReturn
-#    OUTPUT_SCRIPT deploy_script
-#    NO_UNSUPPORTED_PLATFORM_ERROR
-#)
-#install(SCRIPT ${deploy_script})

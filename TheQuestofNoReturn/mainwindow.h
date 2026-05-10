@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "player.h"
-#include "riddlegenerator.h"
+#include "Game.h"
 #include "avatargenerator.h"
 #include "savemanager.h"
+#include "SharedEnums.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,25 +21,24 @@ public:
 
 private slots:
     void on_startButton_clicked();
-    void onGameOver();          // called when player dies or timer runs out
+    void onGameEnded(bool won);
     void onAvatarReady(QString path);
 
 private:
-    Ui::MainWindow* ui;
-
-    // Core objects — created once in the constructor, live for the whole app
-    Player*          m_player    = nullptr;
-    RiddleGenerator* m_riddleGen = nullptr;
+    Ui::MainWindow*  ui;
+    Game*            m_game      = nullptr;
     AvatarGenerator* m_avatarGen = nullptr;
 
-    // Selected values from the character setup screen
-    // (keep these — the character/trait buttons still set them)
-    QString          m_selectedCharacter = "Zara";
-    QString          m_selectedTrait     = "Scholar";
-    Difficulty       m_selectedDifficulty = Difficulty::MEDIUM;
+    // Selected values from character setup screen
+    QString    m_selectedCharacter  = "Zara";
+    QString    m_selectedTrait      = "Scholar";
+    Difficulty m_selectedDifficulty = Difficulty::MEDIUM;
 
-    void setupPlayerSignals();  // wires player → UI updates
-    void startGame();           // called after confirm button passes validation
+    void setupCharacterButtons();
+    void setupConfirmButton();
+    void setupAvatarGenerator();
+    void setupPlayerHUDSignals();
+    void startGame();
 };
 
 #endif // MAINWINDOW_H
