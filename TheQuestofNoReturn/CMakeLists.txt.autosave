@@ -17,7 +17,7 @@ qt_add_executable(TheQuestofNoReturn
     howtoplaydialog.h howtoplaydialog.cpp howtoplaydialog.ui
     Artefact.h
     Artefact.cpp
-    Guardiansprite.h Guardiansprite.cpp
+    GuardianSprite.h GuardianSprite.cpp
     watcherguardian.h watcherguardian.cpp
     watcherdialog.h watcherdialog.cpp
     pursuerguardian.h pursuerguardian.cpp
