@@ -1,5 +1,5 @@
 #include "GoodOutcome.h"
-#include "../entities/Player.h"
+#include "../player.h"
 
 GoodOutcome::GoodOutcome(QString description, int scoreBonus)
     : m_description(description),

@@ -394,6 +394,18 @@
 	"HEADERS" : 
 	[
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/Game.h",
+			"MU",
+			"EWIEGA46WW/moc_Game.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/GameHUD.h",
+			"MU",
+			"EWIEGA46WW/moc_GameHUD.cpp",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/SharedEnums.h",
 			"MU",
 			"EWIEGA46WW/moc_SharedEnums.cpp",
@@ -406,9 +418,51 @@
 			null
 		],
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/config.h",
+			"MU",
+			"EWIEGA46WW/moc_config.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/DilemmaDialog.h",
+			"MU",
+			"2NRMJ5X7RK/moc_DilemmaDialog.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RevelationDialog.h",
+			"MU",
+			"2NRMJ5X7RK/moc_RevelationDialog.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RiddleDialog.h",
+			"MU",
+			"2NRMJ5X7RK/moc_RiddleDialog.cpp",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/GoodOutcome.h",
+			"MU",
+			"YKNHMYEGSF/moc_GoodOutcome.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/HintOutcome.h",
+			"MU",
+			"YKNHMYEGSF/moc_HintOutcome.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/LoseLifeOutcome.h",
+			"MU",
+			"YKNHMYEGSF/moc_LoseLifeOutcome.cpp",
 			null
 		],
 		[
@@ -424,9 +478,51 @@
 			null
 		],
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/IdentityRiddle.h",
+			"MU",
+			"D2ILJDDHCX/moc_IdentityRiddle.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/LogicRiddle.h",
+			"MU",
+			"D2ILJDDHCX/moc_LogicRiddle.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/Riddle.h",
+			"MU",
+			"D2ILJDDHCX/moc_Riddle.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/RiddleFallbackPool.h",
+			"MU",
+			"D2ILJDDHCX/moc_RiddleFallbackPool.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/SequenceRiddle.h",
+			"MU",
+			"D2ILJDDHCX/moc_SequenceRiddle.cpp",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/savemanager.h",
 			"MU",
 			"EWIEGA46WW/moc_savemanager.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleAltar.h",
+			"MU",
+			"2ZOQL7OZDV/moc_RiddleAltar.cpp",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleManager.h",
+			"MU",
+			"2ZOQL7OZDV/moc_RiddleManager.cpp",
 			null
 		]
 	],
@@ -494,7 +590,27 @@
 	"SOURCES" : 
 	[
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/Game.cpp",
+			"MU",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/avatargenerator.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/DilemmaDialog.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RevelationDialog.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RiddleDialog.cpp",
 			"MU",
 			null
 		],
@@ -509,6 +625,21 @@
 			null
 		],
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/GoodOutcome.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/HintOutcome.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/LoseLifeOutcome.cpp",
+			"MU",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/player.cpp",
 			"MU",
 			null
@@ -519,7 +650,42 @@
 			null
 		],
 		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/IdentityRiddle.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/LogicRiddle.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/Riddle.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/RiddleFallbackPool.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/SequenceRiddle.cpp",
+			"MU",
+			null
+		],
+		[
 			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/savemanager.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleAltar.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleManager.cpp",
 			"MU",
 			null
 		]

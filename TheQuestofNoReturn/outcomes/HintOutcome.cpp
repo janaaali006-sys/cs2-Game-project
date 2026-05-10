@@ -1,5 +1,5 @@
 #include "HintOutcome.h"
-#include "../entities/Player.h"
+#include "../player.h"
 
 HintOutcome::HintOutcome(QString description)
     : m_description(description)

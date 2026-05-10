@@ -1,9 +1,0 @@
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/TheQuestofNoReturn.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/edit_cache.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/rebuild_cache.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/list_install_components.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/install.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/install/local.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/install/strip.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/TheQuestofNoReturn_autogen_timestamp_deps.dir
-/home/rafik/cs2-Game-project/TheQuestofNoReturn/build/CMakeFiles/TheQuestofNoReturn_autogen.dir

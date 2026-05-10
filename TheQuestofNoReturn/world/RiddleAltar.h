@@ -17,6 +17,7 @@ public:
     void trigger(Player* player) override;
     bool isPassable() const override { return false; }
     QString objectName() const override { return "RiddleAltar"; }
+    void setRiddle(Riddle* riddle) { m_riddle = riddle; }
 
 signals:
     void riddleTriggered(Riddle* riddle);

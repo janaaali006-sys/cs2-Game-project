@@ -7,16 +7,67 @@ qt_standard_project_setup()
 
 qt_add_executable(TheQuestofNoReturn
     WIN32 MACOSX_BUNDLE
+
     main.cpp
+
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    player.h player.cpp
-    riddlegenerator.h riddlegenerator.cpp
-    avatargenerator.h avatargenerator.cpp
-    savemanager.h savemanager.cpp
+
+    player.cpp
+    player.h
+
+    riddlegenerator.cpp
+    riddlegenerator.h
+
+    avatargenerator.cpp
+    avatargenerator.h
+
+    savemanager.cpp
+    savemanager.h
+
     SharedEnums.h
 
+    Game.h
+    Game.cpp
+    GameHUD.h
+
+    # Riddles
+    riddles/Riddle.cpp
+    riddles/Riddle.h
+    riddles/LogicRiddle.cpp
+    riddles/LogicRiddle.h
+    riddles/SequenceRiddle.cpp
+    riddles/SequenceRiddle.h
+    riddles/IdentityRiddle.cpp
+    riddles/IdentityRiddle.h
+    riddles/RiddleFallbackPool.cpp
+    riddles/RiddleFallbackPool.h
+
+    # World
+    world/RiddleManager.cpp
+    world/RiddleManager.h
+    world/RiddleAltar.cpp
+    world/RiddleAltar.h
+
+    # Dialogs
+    dialogs/RiddleDialog.cpp
+    dialogs/RiddleDialog.h
+    dialogs/DilemmaDialog.cpp
+    dialogs/DilemmaDialog.h
+    dialogs/RevelationDialog.cpp
+    dialogs/RevelationDialog.h
+
+    # Outcomes
+    outcomes/GoodOutcome.cpp
+    outcomes/GoodOutcome.h
+    outcomes/HintOutcome.cpp
+    outcomes/HintOutcome.h
+    outcomes/LoseLifeOutcome.cpp
+    outcomes/LoseLifeOutcome.h
+    game.h game.cpp
+    GameHUD.h
+    config.h
 )
 
 qt_add_resources(TheQuestofNoReturn "resources"

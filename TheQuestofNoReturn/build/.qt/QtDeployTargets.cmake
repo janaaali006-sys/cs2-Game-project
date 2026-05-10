@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_TheQuestofNoReturn_FILE /home/rafik/cs2-Game-project/TheQuestofNoReturn/build/TheQuestofNoReturn)
-set(__QT_DEPLOY_TARGET_TheQuestofNoReturn_TYPE EXECUTABLE)

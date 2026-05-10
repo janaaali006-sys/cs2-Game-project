@@ -1,5 +1,5 @@
 #include "LoseLifeOutcome.h"
-#include "../entities/Player.h"
+#include "../player.h"
 
 LoseLifeOutcome::LoseLifeOutcome(QString description)
     : m_description(description)

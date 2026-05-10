@@ -105,6 +105,118 @@ build CMakeFiles/TheQuestofNoReturn.dir/savemanager.cpp.o: CXX_COMPILER__TheQues
   OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
   OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir
 
+build CMakeFiles/TheQuestofNoReturn.dir/Game.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/Game.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/Game.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir
+
+build CMakeFiles/TheQuestofNoReturn.dir/riddles/Riddle.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/Riddle.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/riddles/Riddle.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/riddles
+
+build CMakeFiles/TheQuestofNoReturn.dir/riddles/LogicRiddle.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/LogicRiddle.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/riddles/LogicRiddle.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/riddles
+
+build CMakeFiles/TheQuestofNoReturn.dir/riddles/SequenceRiddle.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/SequenceRiddle.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/riddles/SequenceRiddle.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/riddles
+
+build CMakeFiles/TheQuestofNoReturn.dir/riddles/IdentityRiddle.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/IdentityRiddle.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/riddles/IdentityRiddle.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/riddles
+
+build CMakeFiles/TheQuestofNoReturn.dir/riddles/RiddleFallbackPool.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/riddles/RiddleFallbackPool.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/riddles/RiddleFallbackPool.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/riddles
+
+build CMakeFiles/TheQuestofNoReturn.dir/world/RiddleManager.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleManager.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/world/RiddleManager.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/world
+
+build CMakeFiles/TheQuestofNoReturn.dir/world/RiddleAltar.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/world/RiddleAltar.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/world/RiddleAltar.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/world
+
+build CMakeFiles/TheQuestofNoReturn.dir/dialogs/RiddleDialog.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RiddleDialog.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/dialogs/RiddleDialog.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/dialogs
+
+build CMakeFiles/TheQuestofNoReturn.dir/dialogs/DilemmaDialog.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/DilemmaDialog.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/dialogs/DilemmaDialog.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/dialogs
+
+build CMakeFiles/TheQuestofNoReturn.dir/dialogs/RevelationDialog.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/dialogs/RevelationDialog.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/dialogs/RevelationDialog.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/dialogs
+
+build CMakeFiles/TheQuestofNoReturn.dir/outcomes/GoodOutcome.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/GoodOutcome.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/outcomes/GoodOutcome.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/outcomes
+
+build CMakeFiles/TheQuestofNoReturn.dir/outcomes/HintOutcome.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/HintOutcome.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/outcomes/HintOutcome.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/outcomes
+
+build CMakeFiles/TheQuestofNoReturn.dir/outcomes/LoseLifeOutcome.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/outcomes/LoseLifeOutcome.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/outcomes/LoseLifeOutcome.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/TheQuestofNoReturn_autogen/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/mariamelashmawy/Qt/6.10.2/macos/lib -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/include -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Headers -isystem /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers
+  OBJECT_DIR = CMakeFiles/TheQuestofNoReturn.dir
+  OBJECT_FILE_DIR = CMakeFiles/TheQuestofNoReturn.dir/outcomes
+
 build CMakeFiles/TheQuestofNoReturn.dir/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp.o: CXX_COMPILER__TheQuestofNoReturn_unscanned_Debug /Users/mariamelashmawy/cs2-Game-project/TheQuestofNoReturn/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp || cmake_object_order_depends_target_TheQuestofNoReturn
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/TheQuestofNoReturn.dir/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp.o.d
@@ -121,7 +233,7 @@ build CMakeFiles/TheQuestofNoReturn.dir/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/
 #############################################
 # Link the executable TheQuestofNoReturn.app/Contents/MacOS/TheQuestofNoReturn
 
-build TheQuestofNoReturn.app/Contents/MacOS/TheQuestofNoReturn: CXX_EXECUTABLE_LINKER__TheQuestofNoReturn_Debug CMakeFiles/TheQuestofNoReturn.dir/TheQuestofNoReturn_autogen/mocs_compilation.cpp.o CMakeFiles/TheQuestofNoReturn.dir/main.cpp.o CMakeFiles/TheQuestofNoReturn.dir/mainwindow.cpp.o CMakeFiles/TheQuestofNoReturn.dir/player.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddlegenerator.cpp.o CMakeFiles/TheQuestofNoReturn.dir/avatargenerator.cpp.o CMakeFiles/TheQuestofNoReturn.dir/savemanager.cpp.o CMakeFiles/TheQuestofNoReturn.dir/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp.o | /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Versions/A/QtNetwork /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore || TheQuestofNoReturn_autogen TheQuestofNoReturn_autogen_timestamp_deps
+build TheQuestofNoReturn.app/Contents/MacOS/TheQuestofNoReturn: CXX_EXECUTABLE_LINKER__TheQuestofNoReturn_Debug CMakeFiles/TheQuestofNoReturn.dir/TheQuestofNoReturn_autogen/mocs_compilation.cpp.o CMakeFiles/TheQuestofNoReturn.dir/main.cpp.o CMakeFiles/TheQuestofNoReturn.dir/mainwindow.cpp.o CMakeFiles/TheQuestofNoReturn.dir/player.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddlegenerator.cpp.o CMakeFiles/TheQuestofNoReturn.dir/avatargenerator.cpp.o CMakeFiles/TheQuestofNoReturn.dir/savemanager.cpp.o CMakeFiles/TheQuestofNoReturn.dir/Game.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddles/Riddle.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddles/LogicRiddle.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddles/SequenceRiddle.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddles/IdentityRiddle.cpp.o CMakeFiles/TheQuestofNoReturn.dir/riddles/RiddleFallbackPool.cpp.o CMakeFiles/TheQuestofNoReturn.dir/world/RiddleManager.cpp.o CMakeFiles/TheQuestofNoReturn.dir/world/RiddleAltar.cpp.o CMakeFiles/TheQuestofNoReturn.dir/dialogs/RiddleDialog.cpp.o CMakeFiles/TheQuestofNoReturn.dir/dialogs/DilemmaDialog.cpp.o CMakeFiles/TheQuestofNoReturn.dir/dialogs/RevelationDialog.cpp.o CMakeFiles/TheQuestofNoReturn.dir/outcomes/GoodOutcome.cpp.o CMakeFiles/TheQuestofNoReturn.dir/outcomes/HintOutcome.cpp.o CMakeFiles/TheQuestofNoReturn.dir/outcomes/LoseLifeOutcome.cpp.o CMakeFiles/TheQuestofNoReturn.dir/build/Qt_6_10_2_for_macOS-Debug/.qt/rcc/qrc_resources.cpp.o | /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Versions/A/QtNetwork /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore || TheQuestofNoReturn_autogen TheQuestofNoReturn_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   LINK_LIBRARIES = -Wl,-rpath,/Users/mariamelashmawy/Qt/6.10.2/macos/lib  /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets  /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtNetwork.framework/Versions/A/QtNetwork  /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui  -framework AppKit  -framework OpenGL  -framework ImageIO  -framework Metal  /Users/mariamelashmawy/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore  -framework IOKit  -framework DiskArbitration  -framework UniformTypeIdentifiers
   LINK_PATH = -F/Users/mariamelashmawy/Qt/6.10.2/macos/lib
