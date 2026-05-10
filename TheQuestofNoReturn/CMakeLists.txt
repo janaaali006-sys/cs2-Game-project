@@ -80,6 +80,8 @@ qt_add_executable(TheQuestofNoReturn
     outcomes/LoseLifeOutcome.cpp
     outcomes/LoseLifeOutcome.h
     GameObject.cpp GameObject.h
+    avatargenerator.cpp avatargenerator.h CMakeLists.txt config.h DoorItem.cpp DoorItem.h Game.cpp Game.h GameHUD.h GameObject.cpp GameObject.h mainwindow.cpp mainwindow.h player.cpp player.h PlayerSprite.cpp PlayerSprite.h riddlegenerator.cpp riddlegenerator.h Room.cpp Room.h RoomManager.cpp RoomManager.h savemanager.cpp savemanager.h SharedEnums.h TrapItem.cpp TrapItem.h background.png characterPage.png Karim.png main.cpp mainwindow.ui manuscript.png NOOR.png RAMI.png resources.qrc resources.qrc.autosave scholarIcon.png speedsterIcon.png storyBackground.png survivorIcon.png Zara.png
+    GameObject.cpp GameObject.h
 )
 
 qt_add_resources(TheQuestofNoReturn "resources"
