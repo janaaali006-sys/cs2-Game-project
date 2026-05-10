@@ -1,5 +1,5 @@
 #include "DilemmaDialog.h"
-#include "../entities/Player.h"
+#include "../player.h"
 #include "../outcomes/Outcome.h"
 
 #include <QVBoxLayout>

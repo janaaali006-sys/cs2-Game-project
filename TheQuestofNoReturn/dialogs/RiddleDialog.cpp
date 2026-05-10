@@ -1,7 +1,7 @@
 #include "RiddleDialog.h"
 
 #include "../riddles/Riddle.h"
-#include "../entities/Player.h"
+#include "../player.h"
 #include "../world/RiddleManager.h"
 
 #include <QVBoxLayout>
