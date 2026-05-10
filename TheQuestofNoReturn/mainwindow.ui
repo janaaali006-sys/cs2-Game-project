@@ -30,7 +30,7 @@
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="mainMenuPage">
      <property name="autoFillBackground">
