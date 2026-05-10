@@ -1269,6 +1269,131 @@
 		},
 		{
 			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkConfigVersionImpl.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkDependencies.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkPlugins.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QAppleNetworkInformationPluginConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QAppleNetworkInformationPluginTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QAppleNetworkInformationPluginTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QAppleNetworkInformationPluginAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6Network/Qt6NetworkVersionlessAliasTargets.cmake"
+		},
+		{
+			"isExternal" : true,
 			"path" : "/Users/mariamelashmawy/Qt/6.10.2/macos/lib/cmake/Qt6/Qt6ConfigVersion.cmake"
 		},
 		{
