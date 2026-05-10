@@ -1,8 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "pausemenudialog.h"
+#include "difficultydialog.h"
 
 QString selectedCharacter = "";
 QString selectedTrait = "";
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // START ON MAIN MENU
+    // START PAGE
     // =====================================================
 
     ui->stackedWidget->setCurrentWidget(
@@ -29,6 +33,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->portraitLabel->setScaledContents(true);
     ui->traitIconLabel->setScaledContents(true);
     ui->hudPortraitLabel->setScaledContents(true);
+
+    ui->inventorySlot1->setScaledContents(true);
+    ui->inventorySlot2->setScaledContents(true);
+    ui->inventorySlot3->setScaledContents(true);
+    ui->inventorySlot4->setScaledContents(true);
 
 
 
@@ -110,13 +119,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // INVENTORY SLOT SETTINGS
+    // INVENTORY DEFAULT ICONS
     // =====================================================
-
-    ui->inventorySlot1->setScaledContents(true);
-    ui->inventorySlot2->setScaledContents(true);
-    ui->inventorySlot3->setScaledContents(true);
-    ui->inventorySlot4->setScaledContents(true);
 
     ui->inventorySlot1->setPixmap(
         QPixmap(":/images/emptySlot.png")
@@ -137,9 +141,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // START GAME BUTTON
+    // MAIN MENU BUTTONS
     // =====================================================
 
+    // START GAME
     connect(ui->startButton, &QPushButton::clicked,
             this, [=]() {
 
@@ -151,10 +156,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // =====================================================
-    // EXIT BUTTON
-    // =====================================================
-
+    // EXIT GAME
     connect(ui->exitButton, &QPushButton::clicked,
             this, [=]() {
 
@@ -165,7 +167,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // CHARACTER BUTTONS
+    // CHARACTER SELECTION
     // =====================================================
 
     // ZARA
@@ -241,7 +243,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // TRAIT BUTTONS
+    // TRAIT SELECTION
     // =====================================================
 
     // SCHOLAR
@@ -299,7 +301,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // =====================================================
-    // CONFIRM BUTTON
+    // CONFIRM CHARACTER BUTTON
     // =====================================================
 
     connect(ui->confirmButton, &QPushButton::clicked,
@@ -309,7 +311,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-                // EMPTY NAME
                 if(playerName.isEmpty()) {
 
                     ui->traitDescriptionLabel->setText(
@@ -321,10 +322,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-                // =================================================
-                // UPDATE HUD NAME + TRAIT
-                // =================================================
-
+                // UPDATE HUD
                 ui->hudNameLabel->setText(
                     playerName.toUpper()
                     );
@@ -335,10 +333,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-                // =================================================
-                // UPDATE HUD PORTRAIT
-                // =================================================
-
+                // UPDATE PORTRAIT
                 if(selectedCharacter == "Zara") {
 
                     ui->hudPortraitLabel->setPixmap(
@@ -369,10 +364,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-                // =================================================
                 // GO TO STORY PAGE
-                // =================================================
-
                 ui->stackedWidget->setCurrentWidget(
                     ui->storyPage
                     );
@@ -393,6 +385,188 @@ MainWindow::MainWindow(QWidget *parent)
                     );
 
             });
+
+
+
+    // =====================================================
+    // PAUSE MENU BUTTON
+    // =====================================================
+
+    connect(ui->pauseTestButton, &QPushButton::clicked,
+            this, [=]() {
+
+                PauseMenuDialog dialog(this);
+
+
+
+                // RESUME
+                connect(&dialog, &PauseMenuDialog::resumeClicked,
+                        this, [=]() {
+
+                            ui->stackedWidget->setCurrentWidget(
+                                ui->gamePage
+                                );
+
+                        });
+
+
+
+                // RESTART
+                connect(&dialog, &PauseMenuDialog::restartClicked,
+                        this, [=]() {
+
+                            ui->stackedWidget->setCurrentWidget(
+                                ui->gamePage
+                                );
+
+                        });
+
+
+
+                // MAIN MENU
+                connect(&dialog, &PauseMenuDialog::mainMenuClicked,
+                        this, [=]() {
+
+                            ui->stackedWidget->setCurrentWidget(
+                                ui->mainMenuPage
+                                );
+
+                        });
+
+
+
+                // EXIT
+                connect(&dialog, &PauseMenuDialog::exitClicked,
+                        this, [=]() {
+
+                            close();
+
+                        });
+
+
+
+                dialog.exec();
+
+            });
+
+
+
+    // =====================================================
+    // GAME OVER BUTTONS
+    // =====================================================
+
+    // TRY AGAIN
+    connect(ui->tryAgainButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->gamePage
+                    );
+
+            });
+
+
+
+    // RETURN TO MAIN MENU
+    connect(ui->returnMenuButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->mainMenuPage
+                    );
+
+            });
+
+
+
+    // =====================================================
+    // WIN SCREEN BUTTONS
+    // =====================================================
+
+    // PLAY AGAIN
+    connect(ui->playAgainButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->gamePage
+                    );
+
+            });
+
+
+
+    // LEAVE TEMPLE
+    connect(ui->leaveTempleButton, &QPushButton::clicked,
+            this, [=]() {
+
+                ui->stackedWidget->setCurrentWidget(
+                    ui->mainMenuPage
+                    );
+
+            });
+
+
+
+
+    // =====================================================
+    // DIFFICULTY BUTTON
+    // =====================================================
+
+    connect(ui->difficultyButton, &QPushButton::clicked,
+            this, [=]() {
+
+                DifficultyDialog dialog(this);
+
+
+
+                // =============================================
+                // RECEIVE SELECTED DIFFICULTY
+                // =============================================
+
+                connect(&dialog,
+                        &DifficultyDialog::difficultySelected,
+                        this,
+                        [=](Difficulty difficulty) {
+
+                            if(difficulty == Difficulty::EASY) {
+
+                                ui->timerLabel->setText("12:00");
+                                ui->livesLabel->setText("♥ ♥ ♥ ♥");
+                            }
+
+                            else if(difficulty == Difficulty::MEDIUM) {
+
+                                ui->timerLabel->setText("08:00");
+                                ui->livesLabel->setText("♥ ♥ ♥");
+                            }
+
+                            else if(difficulty == Difficulty::HARD) {
+
+                                ui->timerLabel->setText("05:00");
+                                ui->livesLabel->setText("♥ ♥");
+                            }
+
+                        });
+
+
+
+                dialog.exec();
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

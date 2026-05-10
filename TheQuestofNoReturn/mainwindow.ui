@@ -17,20 +17,20 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>-40</x>
-      <y>60</y>
-      <width>1331</width>
-      <height>751</height>
+      <x>-80</x>
+      <y>30</y>
+      <width>1341</width>
+      <height>771</height>
      </rect>
     </property>
     <property name="autoFillBackground">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="mainMenuPage">
      <property name="autoFillBackground">
@@ -43,8 +43,8 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>10</y>
-        <width>1311</width>
+        <y>0</y>
+        <width>1361</width>
         <height>821</height>
        </rect>
       </property>
@@ -68,7 +68,7 @@
        <rect>
         <x>-1</x>
         <y>10</y>
-        <width>1321</width>
+        <width>1361</width>
         <height>231</height>
        </rect>
       </property>
@@ -96,8 +96,8 @@
       <widget class="QLabel" name="titleLabel">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>30</y>
+         <x>310</x>
+         <y>20</y>
          <width>691</width>
          <height>71</height>
         </rect>
@@ -121,7 +121,7 @@
       <widget class="QLabel" name="subtitleLabel">
        <property name="geometry">
         <rect>
-         <x>370</x>
+         <x>470</x>
          <y>100</y>
          <width>311</width>
          <height>31</height>
@@ -145,8 +145,8 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>160</y>
+         <x>120</x>
+         <y>150</y>
          <width>1131</width>
          <height>61</height>
         </rect>
@@ -281,9 +281,9 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>-200</x>
-        <y>40</y>
-        <width>1351</width>
-        <height>621</height>
+        <y>-10</y>
+        <width>1561</width>
+        <height>791</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -424,8 +424,8 @@ QPushButton:hover {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1291</width>
-        <height>741</height>
+        <width>1351</width>
+        <height>771</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -445,148 +445,10 @@ QPushButton:hover {
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QFrame" name="topBarFrame">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>1280</width>
-        <height>60</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QFrame {
-
-    background-color: rgba(13, 10, 5, 220);
-
-    border-bottom: 2px solid #c8a03c;
-
-}</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
-      </property>
-      <widget class="QWidget" name="">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>20</y>
-         <width>1241</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="livesLabel">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
-
-    color: #e8d080;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    font-family: &quot;Copperplate&quot;;
-
-    background: transparent;
-
-}</string>
-          </property>
-          <property name="text">
-           <string>♥ ♥ ♥</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="timerLabel">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
-
-    color: #e8d080;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    font-family: &quot;Copperplate&quot;;
-
-    background: transparent;
-
-}</string>
-          </property>
-          <property name="text">
-           <string>07:32</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="scoreLabel">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
-
-    color: #e8d080;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    font-family: &quot;Copperplate&quot;;
-
-    background: transparent;
-
-}</string>
-          </property>
-          <property name="text">
-           <string>🏆 0</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="levelLabel">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
-
-    color: #e8d080;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    font-family: &quot;Copperplate&quot;;
-
-    background: transparent;
-
-}
-</string>
-          </property>
-          <property name="text">
-           <string>1 / 6</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
      <widget class="QFrame" name="templeMapTitle">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>120</x>
         <y>90</y>
         <width>231</width>
         <height>631</height>
@@ -1090,8 +952,8 @@ QPushButton:hover {
      <widget class="QGraphicsView" name="graphicsView">
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>110</y>
+        <x>390</x>
+        <y>120</y>
         <width>891</width>
         <height>421</height>
        </rect>
@@ -1111,7 +973,7 @@ QPushButton:hover {
      <widget class="QFrame" name="bottomStripFrame">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>350</x>
         <y>580</y>
         <width>951</width>
         <height>151</height>
@@ -1211,6 +1073,550 @@ QPushButton:hover {
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="pauseTestButton">
+      <property name="geometry">
+       <rect>
+        <x>1220</x>
+        <y>730</y>
+        <width>100</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(10, 6, 3, 180);
+    border: 2px solid #c8a03c;
+    border-radius: 10px;
+    color: #e8d080;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    padding: 4px;
+}
+
+QPushButton:hover {
+    background-color: rgba(200, 160, 60, 80);
+    border: 2px solid #e8d080;
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #c8a03c;
+    color: black;
+}</string>
+      </property>
+      <property name="text">
+       <string>PAUSE</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="topBarFrame">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>20</y>
+        <width>1251</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+
+    background-color: rgba(13, 10, 5, 220);
+
+    border-bottom: 2px solid #c8a03c;
+
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>1241</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="livesLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>♥ ♥ ♥</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="timerLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>07:32</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="scoreLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}</string>
+          </property>
+          <property name="text">
+           <string>🏆 0</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="levelLabel">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+
+    color: #e8d080;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    font-family: &quot;Copperplate&quot;;
+
+    background: transparent;
+
+}
+</string>
+          </property>
+          <property name="text">
+           <string>1 / 6</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="gameOverPage">
+     <widget class="QLabel" name="gameOverBackground">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1341</width>
+        <height>771</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>gameover_background.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="gameOverOverlay">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>30</y>
+        <width>971</width>
+        <height>691</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(0, 0, 0, 140);
+border: none;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>0</y>
+         <width>621</width>
+         <height>631</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="gameOverTitle">
+          <property name="styleSheet">
+           <string notr="true">color: #e8d080;
+font-family: &quot;Georgia&quot;;
+font-size: 72px;
+font-weight: bold;
+font-style: italic;
+letter-spacing: 6px;
+background: transparent;</string>
+          </property>
+          <property name="text">
+           <string>GAME OVER</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="gameOverCauseLabel">
+          <property name="styleSheet">
+           <string notr="true">color: #e8d080;
+font-family: &quot;Georgia&quot;;
+font-size: 18px;
+font-weight: bold;
+font-style: italic;
+letter-spacing: 6px;
+background: transparent;</string>
+          </property>
+          <property name="text">
+           <string>You were lost within the tomb.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="finalScoreLabel">
+          <property name="styleSheet">
+           <string notr="true">color: #907060;
+font-family: &quot;Georgia&quot;;
+font-size: 18px;
+font-weight: bold;
+letter-spacing: 4px;
+background: transparent;</string>
+          </property>
+          <property name="text">
+           <string>FINAL SCORE</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="styleSheet">
+           <string notr="true">color: #907060;
+font-size: 25px;
+font-weight: bold;
+letter-spacing: 3px;
+background: transparent;</string>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QPushButton" name="tryAgainButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgba(15, 10, 5, 210);
+    color: #e8d080;
+    border: 2px solid #c8a03c;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(40, 25, 10, 230);
+    border: 2px solid #e8d080;
+}</string>
+            </property>
+            <property name="text">
+             <string>TRY AGAIN</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="returnMenuButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgba(15, 10, 5, 210);
+    color: #e8d080;
+    border: 2px solid #c8a03c;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(40, 25, 10, 230);
+    border: 2px solid #e8d080;
+}</string>
+            </property>
+            <property name="text">
+             <string>MAIN MENU</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="winPage">
+     <widget class="QLabel" name="winBackgroundLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1341</width>
+        <height>771</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../Desktop/winBackground.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="winOverlayFrame">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>70</y>
+        <width>701</width>
+        <height>591</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(0, 0, 0, 140);
+border: 2px solid #c8a03c;
+border-radius: 25px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="winTitleLabel">
+         <property name="styleSheet">
+          <string notr="true">color: #f4d98a;
+font-size: 34px;
+font-weight: 800;
+font-family: &quot;Times New Roman&quot;;
+letter-spacing: 3px;
+background: transparent;</string>
+         </property>
+         <property name="text">
+          <string>YOU HAVE REACHED THE ANKH !!</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="ankhLabel">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>ankh.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="winFinalScoreLabel">
+         <property name="styleSheet">
+          <string notr="true">color: #c8a03c;
+font-size: 22px;
+font-weight: bold;
+letter-spacing: 3px;
+background: transparent;</string>
+         </property>
+         <property name="text">
+          <string>FINAL SCORE</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="winScoreLabel">
+         <property name="styleSheet">
+          <string notr="true">color: #f4d98a;
+font-size: 48px;
+font-weight: bold;
+background: transparent;</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="victoryMessageLabel">
+         <property name="baseSize">
+          <size>
+           <width>0</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: #e2cfa0;
+font-size: 22px;
+font-style: italic;
+font-family: &quot;Georgia&quot;;
+background: transparent;</string>
+         </property>
+         <property name="text">
+          <string>The gods bow before your wisdom.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QPushButton" name="playAgainButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: rgba(15, 10, 5, 210);
+    color: #e8d080;
+    border: 2px solid #c8a03c;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(40, 25, 10, 230);
+    border: 2px solid #e8d080;
+}</string>
+           </property>
+           <property name="text">
+            <string>Play Again</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="leaveTempleButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: rgba(15, 10, 5, 210);
+    color: #e8d080;
+    border: 2px solid #c8a03c;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+QPushButton:hover {
+    background-color: rgba(40, 25, 10, 230);
+    border: 2px solid #e8d080;
+}</string>
+           </property>
+           <property name="text">
+            <string>Leave the Temple</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="characterSetupScreen">

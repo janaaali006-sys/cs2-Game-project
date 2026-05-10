@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>difficultyDialog</class>
+ <widget class="QDialog" name="difficultyDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1284</width>
+    <height>858</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="difficultbackground">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>851</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>difficulty.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QFrame" name="overlayFrame">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>10</y>
+     <width>1221</width>
+     <height>781</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+    background-color: rgba(0, 0, 0, 120);
+    border: 2px solid rgba(212, 175, 55, 180);
+    border-radius: 25px;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Raised</enum>
+   </property>
+   <widget class="QLabel" name="difficultyTitle">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>40</y>
+      <width>541</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #F5D78E;
+font-size: 44px;
+font-weight: bold;
+font-family: &quot;Cinzel&quot;;
+background: transparent;
+letter-spacing: 4px;</string>
+    </property>
+    <property name="text">
+     <string>CHOOSE YOUR FATE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confirmDifficultyButton">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>640</y>
+      <width>241</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #D4AF37;
+    color: black;
+
+    border-radius: 18px;
+
+    font-size: 24px;
+    font-weight: bold;
+    font-family: &quot;Cinzel&quot;;
+
+    padding: 15px;
+}
+
+QPushButton:hover {
+    background-color: #F5D78E;
+}</string>
+    </property>
+    <property name="text">
+     <string>CONFIRM</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>160</y>
+      <width>1141</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="easyCard">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: rgba(0,0,0,180);
+    border: 4px solid #3CB043;
+    border-radius: 25px;
+
+    color: #E8FFE8;
+
+    font-size: 24px;
+    font-weight: bold;
+    font-family: &quot;Cinzel&quot;;
+
+    padding: 25px;
+}
+
+QPushButton:hover {
+    background-color: rgba(60,176,67,60);
+}</string>
+       </property>
+       <property name="text">
+        <string>EASY
+
+♥ ♥ ♥ ♥
+12:00
+
+Perfect for beginners</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mediumCard">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: rgba(0,0,0,180);
+    border: 4px solid #D4AF37;
+    border-radius: 25px;
+
+    color: #F5D78E;
+
+    font-size: 24px;
+    font-weight: bold;
+    font-family: &quot;Cinzel&quot;;
+
+    padding: 25px;
+}
+
+QPushButton:hover {
+    background-color: rgba(212,175,55,60);
+}</string>
+       </property>
+       <property name="text">
+        <string>MEDIUM
+
+♥ ♥ ♥
+08:00
+
+Balanced challenge
+for experienced explorers.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="hardCard">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: rgba(0,0,0,180);
+    border: 4px solid #8B0000;
+    border-radius: 25px;
+
+    color: #FFB3B3;
+
+    font-size: 24px;
+    font-weight: bold;
+    font-family: &quot;Cinzel&quot;;
+
+    padding: 25px;
+}
+
+QPushButton:hover {
+    background-color: rgba(139,0,0,70);
+}</string>
+       </property>
+       <property name="text">
+        <string>HARD
+
+♥ ♥
+05:00
+
+Only the fearless
+survive the tomb.</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
