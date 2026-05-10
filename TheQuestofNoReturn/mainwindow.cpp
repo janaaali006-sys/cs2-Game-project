@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "pausemenudialog.h"
 #include "difficultydialog.h"
+#include "howtoplaydialog.h"
 
 QString selectedCharacter = "";
 QString selectedTrait = "";
@@ -555,7 +556,15 @@ MainWindow::MainWindow(QWidget *parent)
             });
 
 
+    // HOW TO PLAY BUTTON
 
+    connect(ui->howToPlayButton, &QPushButton::clicked,
+            this, [=]() {
+
+                HowToPlayDialog dialog(this);
+                dialog.exec();
+
+            });
 
 
 

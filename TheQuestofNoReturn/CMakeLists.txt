@@ -14,6 +14,7 @@ qt_add_executable(TheQuestofNoReturn
     pausemenudialog.h pausemenudialog.cpp pausemenudialog.ui
     difficultydialog.h difficultydialog.cpp difficultydialog.ui
     SharedEnums.h
+    howtoplaydialog.h howtoplaydialog.cpp howtoplaydialog.ui
 
 )
 
@@ -31,6 +32,7 @@ qt_add_resources(TheQuestofNoReturn "resources"
         speedsterIcon.png
         storyBackground.png
         gameBackground.png
+        difficulty.png
 )
 
 target_link_libraries(TheQuestofNoReturn
