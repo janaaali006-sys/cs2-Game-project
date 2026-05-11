@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTimer>
+#include <QCloseEvent>
 
 class Riddle;
 class Player;
@@ -20,6 +21,10 @@ public:
     RiddleDialog(Riddle* riddle, Player* player, QWidget* parent = nullptr);
 
     void setManager(RiddleManager* manager);
+
+protected:
+    void closeEvent(QCloseEvent* event) override;
+    void reject() override;
 
 private slots:
     void onSubmit();
@@ -42,7 +47,8 @@ private:
     QProgressBar* m_timerBar;
 
     QTimer m_timer;
-    int m_timeLeft;
+    int m_timeLeft = 0;
+    bool m_finished = false;
 };
 
 #endif

@@ -19,9 +19,20 @@ AvatarGenerator::AvatarGenerator(QObject* parent) : AIGenerator(parent) {
     connect(m_timeoutTimer, &QTimer::timeout, this, &AvatarGenerator::onTimeout);
 }
 
+void AvatarGenerator::useLocalPhotoFallback(const QString& reason)
+{
+    qDebug() << "Avatar fallback to local photo:" << reason;
+    m_timeoutTimer->stop();
+    emit progressUpdate("AI avatar unavailable (" + reason + ") - using your uploaded photo.");
+    if (!m_photoPath.isEmpty()) {
+        emit avatarReady(m_photoPath);
+    } else {
+        emit generationFailed();
+    }
+}
+
 void AvatarGenerator::onTimeout() {
-    qDebug() << "Avatar generation timed out";
-    emit generationFailed();
+    useLocalPhotoFallback("Request timed out");
 }
 
 void AvatarGenerator::generateFromPhoto(const QString& photoPath) {
@@ -41,6 +52,11 @@ void AvatarGenerator::generateFromPhoto(const QString& photoPath) {
     QString base64 = fileData.toBase64();
     QString ext = QFileInfo(photoPath).suffix().toLower();
     QString mimeType = (ext == "png") ? "image/png" : "image/jpeg";
+
+    if (m_apiKey.trimmed().isEmpty() || m_openAiKey.trimmed().isEmpty()) {
+        useLocalPhotoFallback("Missing API key(s)");
+        return;
+    }
 
     emit progressUpdate("Analysing your appearance with AI...");
     stepOneDescribe(base64, mimeType);
@@ -83,7 +99,7 @@ void AvatarGenerator::stepOneDescribe(const QString& base64Image,
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << "Gemini vision error:" << reply->errorString();
         reply->deleteLater();
-        emit generationFailed();
+        useLocalPhotoFallback("Gemini vision request failed");
         return;
     }
 
@@ -101,7 +117,7 @@ void AvatarGenerator::stepOneDescribe(const QString& base64Image,
                               .trimmed();
 
     if (description.isEmpty()) {
-        emit generationFailed();
+        useLocalPhotoFallback("Gemini returned empty description");
         return;
     }
 
@@ -139,7 +155,7 @@ void AvatarGenerator::stepTwoRender(const QString& description) {
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << "HuggingFace error:" << reply->errorString();
         reply->deleteLater();
-        emit generationFailed();
+        useLocalPhotoFallback("Image generation request failed");
         return;
     }
 
@@ -148,7 +164,7 @@ void AvatarGenerator::stepTwoRender(const QString& description) {
     reply->deleteLater();
 
     if (imageData.isEmpty()) {
-        emit generationFailed();
+        useLocalPhotoFallback("Image generation returned empty data");
         return;
     }
 
@@ -164,7 +180,7 @@ void AvatarGenerator::stepThreeDownload(const QByteArray& imageData) {
 
     QFile outFile(savePath);
     if (!outFile.open(QIODevice::WriteOnly)) {
-        emit generationFailed();
+        useLocalPhotoFallback("Could not save generated image");
         return;
     }
     outFile.write(imageData);

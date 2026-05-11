@@ -16,5 +16,15 @@
         <file>winBackground.png</file>
         <file>ankh.png</file>
         <file>difficulty.png</file>
+        <file>room1.png</file>
+        <file>room2.png</file>
+        <file>room3.png</file>
+        <file>room4.png</file>
+        <file>room5.png</file>
+        <file>room6.png</file>
+        <file>altar.png</file>
+        <file>door.png</file>
+        <file>trap.png</file>
+        <file>emptySlot.png</file>
     </qresource>
 </RCC>

@@ -43,6 +43,7 @@ enum class ArtefactType {
 enum class GameState {
     MENU,
     CHARACTER_SETUP,
+    STORY,
     PLAYING,
     PAUSED,
     GAMEOVER,

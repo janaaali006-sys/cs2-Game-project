@@ -1,10 +1,15 @@
 #include "DoorItem.h"
 #include "Room.h"
+#include <QFileInfo>
 #include <QPixmap>
 DoorItem::DoorItem(Room* room, QGraphicsItem* parent)
     : GameObject(parent), m_room(room)
 {
     QPixmap pixmap(":/images/door.png");
+    if (pixmap.isNull()) {
+        const QString sourceDir = QFileInfo(QString::fromUtf8(__FILE__)).absolutePath();
+        pixmap.load(sourceDir + "/door.png");
+    }
     if (pixmap.isNull()) {
         pixmap = QPixmap(50, 80);
         pixmap.fill(Qt::darkYellow);

@@ -227,6 +227,19 @@ void Player::fromJson(const QString& jsonStr) {
                     (c == "NOUR")  ? CharacterID::NOUR  :
                     (c == "RAMI")  ? CharacterID::RAMI  : CharacterID::ZARA;
 
-    // Inventory is restored by the room system, not from JSON
-    // (artefact objects live in the scene, not in the player JSON)
+    qDeleteAll(m_inventory);
+    m_inventory.clear();
+    const QJsonArray inv = obj["inventory"].toArray();
+    for (const QJsonValue& v : inv) {
+        const QString t = v.toString();
+        if (t == "EYE_OF_HORUS")      m_inventory.append(new EyeOfHorus());
+        else if (t == "HOURGLASS")    m_inventory.append(new Hourglass());
+        else if (t == "SCARAB_OF_RA") m_inventory.append(new ScarabOfRa());
+        else if (t == "SCROLL_OF_ANUBIS") m_inventory.append(new ScrollOfAnubis());
+        else if (t == "BLADE_OF_SEKHMET") m_inventory.append(new BladeOfSekhmet());
+    }
+
+    emit livesChanged(m_lives);
+    emit scoreChanged(m_score);
+    emit timerTick(m_secondsRemaining);
 }

@@ -6,6 +6,8 @@
 #include "avatargenerator.h"
 #include "savemanager.h"
 #include "SharedEnums.h"
+#include <QLabel>
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,12 +18,16 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
     void onGameEnded(bool won);
     void onAvatarReady(QString path);
+
+protected:
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     Ui::MainWindow*  ui;
@@ -30,6 +36,7 @@ private:
 
     QString    m_selectedCharacter  = "Zara";
     QString    m_selectedTrait      = "Scholar";
+    QString    m_pendingAvatarPath;
     Difficulty m_selectedDifficulty = Difficulty::MEDIUM;
 
     void setupCharacterButtons();
@@ -40,6 +47,13 @@ private:
     void setupPlayerHUDSignals();
     void startGame();
     void updateHUDDefaults();
+    void applyPageBackgrounds();
+    void updateInventoryHUD();
+    QString artefactIconForType(ArtefactType type) const;
+    void setUiState(GameState state);
+    QStringList validateCriticalAssets() const;
+    void layoutGamePage();
+
 };
 
 #endif // MAINWINDOW_H

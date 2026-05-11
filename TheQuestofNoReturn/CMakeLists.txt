@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(TheQuestofNoReturn LANGUAGES CXX)
 
+
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Network)
 
 qt_standard_project_setup()
@@ -25,7 +26,7 @@ qt_add_executable(TheQuestofNoReturn
     riddlegenerator.cpp riddlegenerator.h
     avatargenerator.cpp avatargenerator.h
     savemanager.cpp savemanager.h
-    config.h AIgenerator.h
+    config.h AIGenerator.h
 
     # ── Person 5 — OOP base classes ─────────────────
     SharedEnums.h
@@ -88,10 +89,23 @@ qt_add_resources(TheQuestofNoReturn "resources"
         ankh.png
         difficulty.png
         manuscript.png
+        room1.png
+        room2.png
+        room3.png
+        room4.png
+        room5.png
+        room6.png
+        altar.png
+        door.png
+        trap.png
+        emptySlot.png
 )
 
 target_link_libraries(TheQuestofNoReturn
-    PRIVATE Qt::Core Qt::Widgets Qt::Network
+    PRIVATE
+        Qt::Core
+        Qt::Widgets
+        Qt::Network
 )
 
 include(GNUInstallDirs)
@@ -101,3 +115,11 @@ install(TARGETS TheQuestofNoReturn
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
+
+qt_generate_deploy_app_script(
+    TARGET TheQuestofNoReturn
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script})
+

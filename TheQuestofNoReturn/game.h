@@ -31,6 +31,7 @@ public:
     void resumeGame();
     void restartGame();
     void endGame(bool won);
+    void transitionTo(GameState state);
 
     Player*      player()      const;
     RoomManager* roomManager() const;

@@ -18,6 +18,7 @@ public:
     int currentLevel() const;
 signals:
     void gameWon();
+    void roomEntered(int level, QString chamberName, RoomMood mood, bool guardianSpawned);
 private:
     Room* buildRoom(int level);
     RoomMood randomMood(int level) const;

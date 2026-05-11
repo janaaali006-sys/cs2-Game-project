@@ -28,6 +28,7 @@ private:
     void stepOneDescribe(const QString& base64Image, const QString& mimeType);
     void stepTwoRender(const QString& description);
     void stepThreeDownload(const QByteArray& imageData);  // HF returns bytes directly
+    void useLocalPhotoFallback(const QString& reason);
 
     QString               m_openAiKey;   // holds HuggingFace token
     QString               m_photoPath;

@@ -6,37 +6,77 @@
 #include "pausemenudialog.h"
 #include "difficultydialog.h"
 #include "howtoplaydialog.h"
+#include "Artefact.h"
 #include "player.h"
+#include <QMessageBox>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QGraphicsView>
+#include <QPainter>
 #include <QDebug>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QStringList>
 
-// =====================================================
-// CONSTRUCTOR
-// =====================================================
+static QPixmap loadGamePixmap(const QString& resourceOrFilePath)
+{
+    QPixmap px(resourceOrFilePath);
+    if (!px.isNull())
+        return px;
+
+    if (resourceOrFilePath.startsWith(":/images/")) {
+        const QString baseName = resourceOrFilePath.mid(QString(":/images/").size());
+        const QString sourceDir = QFileInfo(QString::fromUtf8(__FILE__)).absolutePath();
+        px.load(sourceDir + "/" + baseName);
+    }
+    return px;
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    applyPageBackgrounds();
 
-    // ---- Find the gameView widget Person 4 added to mainwindow.ui ----
-    QGraphicsView* gameView = findChild<QGraphicsView*>("gameView");
+    // ---- Find graphicsView (Person 4's actual widget name in mainwindow.ui) ----
+    QGraphicsView* gameView = findChild<QGraphicsView*>("graphicsView");
     if (!gameView) {
-        gameView = new QGraphicsView(this);
-        gameView->hide();
+        // Fallback: create one and add it to gamePage so it's visible
+        gameView = new QGraphicsView(ui->gamePage);
+        gameView->setGeometry(390, 120, 891, 480);
     }
+    gameView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    gameView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    gameView->setFocusPolicy(Qt::StrongFocus);
+    gameView->setAlignment(Qt::AlignCenter);
+    gameView->setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+    gameView->setResizeAnchor(QGraphicsView::AnchorViewCenter);
+    gameView->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    gameView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
     // ---- Core game object ----
     m_game = new Game(gameView, this);
     connect(m_game, &Game::gameEnded, this, &MainWindow::onGameEnded);
+    connect(m_game, &Game::stateChanged, this, [this](GameState state) {
+        setUiState(state);
+    });
 
     // ---- Avatar generator ----
     setupAvatarGenerator();
 
     // ---- Start on main menu ----
-    ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+    setUiState(GameState::MENU);
+    connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, [this](int) {
+        applyPageBackgrounds();
+    });
+
+    const QStringList missingAssets = validateCriticalAssets();
+    if (!missingAssets.isEmpty()) {
+        ui->eventLabel->setText(
+            QString("Missing assets detected: %1").arg(missingAssets.join(", ")));
+    }
+    layoutGamePage();
 
     // ---- Portrait / icon labels ----
     ui->portraitLabel->setScaledContents(true);
@@ -46,10 +86,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->inventorySlot2->setScaledContents(true);
     ui->inventorySlot3->setScaledContents(true);
     ui->inventorySlot4->setScaledContents(true);
+    ui->inventorySlot1->setFixedSize(64, 44);
+    ui->inventorySlot2->setFixedSize(64, 44);
+    ui->inventorySlot3->setFixedSize(64, 44);
+    ui->inventorySlot4->setFixedSize(64, 44);
 
     // ---- Character setup defaults ----
-    ui->portraitLabel->setPixmap(QPixmap(":/images/Zara.png"));
-    ui->traitIconLabel->setPixmap(QPixmap(":/images/scholarIcon.png"));
+    ui->portraitLabel->setPixmap(loadGamePixmap(":/images/Zara.png"));
+    ui->traitIconLabel->setPixmap(loadGamePixmap(":/images/scholarIcon.png"));
+    ui->winBackgroundLabel->setPixmap(loadGamePixmap(":/images/winBackground.png"));
+    ui->gameOverBackground->setPixmap(loadGamePixmap(":/images/gameover_background.png"));
+    ui->storyBackgroundLabel->setPixmap(loadGamePixmap(":/images/storyBackground.png"));
+    ui->gameBackgroundLabel->setPixmap(loadGamePixmap(":/images/gameBackground.png"));
+    ui->storyBackgroundLabel->setScaledContents(true);
+    ui->gameBackgroundLabel->setScaledContents(true);
+    ui->gameOverBackground->setScaledContents(true);
+    ui->winBackgroundLabel->setScaledContents(true);
     ui->descriptionLabel->setText("Fearless explorer driven by curiosity and courage.");
     ui->traitDescriptionLabel->setText("Gain intelligence bonuses and uncover hidden clues.");
 
@@ -70,9 +122,76 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
-// =====================================================
-// DESTRUCTOR
-// =====================================================
+void MainWindow::applyPageBackgrounds()
+{
+    // Make backgrounds robust even if Designer stylesheet is overridden.
+    const QString stretch = "0 0 0 0 stretch stretch";
+    auto applyBgPalette = [](QWidget* w, const QPixmap& px) {
+        if (!w || px.isNull()) return;
+        QPalette pal = w->palette();
+        pal.setBrush(QPalette::Window, QBrush(px.scaled(w->size(),
+                                                        Qt::KeepAspectRatioByExpanding,
+                                                        Qt::SmoothTransformation)));
+        w->setAutoFillBackground(true);
+        w->setPalette(pal);
+    };
+
+    applyBgPalette(ui->mainMenuPage, loadGamePixmap(":/images/background.png"));
+    applyBgPalette(ui->storyPage, loadGamePixmap(":/images/storyBackground.png"));
+    applyBgPalette(ui->gamePage, loadGamePixmap(":/images/gameBackground.png"));
+    applyBgPalette(ui->gameOverPage, loadGamePixmap(":/images/gameover_background.png"));
+    applyBgPalette(ui->winPage, loadGamePixmap(":/images/winBackground.png"));
+    applyBgPalette(ui->characterSetupScreen, loadGamePixmap(":/images/characterPage.png"));
+
+    // Ensure all dedicated background widgets fully cover their pages.
+    if (ui->backgroundFrame) {
+        ui->backgroundFrame->setGeometry(ui->mainMenuPage->rect());
+    }
+    if (ui->storyBackgroundLabel) {
+        ui->storyBackgroundLabel->setGeometry(ui->storyPage->rect());
+    }
+    if (ui->gameBackgroundLabel) {
+        ui->gameBackgroundLabel->setGeometry(ui->gamePage->rect());
+    }
+    if (ui->gameOverBackground) {
+        ui->gameOverBackground->setGeometry(ui->gameOverPage->rect());
+    }
+    if (ui->winBackgroundLabel) {
+        ui->winBackgroundLabel->setGeometry(ui->winPage->rect());
+    }
+    if (ui->characterBackground) {
+        ui->characterBackground->setGeometry(ui->characterSetupScreen->rect());
+    }
+
+    if (ui->backgroundFrame) {
+        ui->backgroundFrame->setStyleSheet(
+            QString("QFrame#backgroundFrame { border-image: url(:/images/background.png) %1; }").arg(stretch));
+        ui->backgroundFrame->show();
+        ui->backgroundFrame->lower();
+    }
+    if (ui->menuOverlayFrame)
+        ui->menuOverlayFrame->raise();
+    if (ui->characterBackground) {
+        ui->characterBackground->setPixmap(loadGamePixmap(":/images/characterPage.png"));
+        ui->characterBackground->setScaledContents(true);
+        ui->characterBackground->show();
+        ui->characterBackground->lower();
+    }
+
+    // Keep interactive overlays above background layers.
+    if (ui->setupOverlayFrame) ui->setupOverlayFrame->raise();
+    if (ui->portraitLabel) ui->portraitLabel->raise();
+    if (ui->lineEdit) ui->lineEdit->raise();
+    if (ui->confirmButton) ui->confirmButton->raise();
+    // Ensure character/trait buttons stay clickable.
+    if (ui->zaraButton) ui->zaraButton->raise();
+    if (ui->karimButton) ui->karimButton->raise();
+    if (ui->nourButton) ui->nourButton->raise();
+    if (ui->ramiButton) ui->ramiButton->raise();
+    if (ui->scholarButton) ui->scholarButton->raise();
+    if (ui->survivorButton) ui->survivorButton->raise();
+    if (ui->speedsterButton) ui->speedsterButton->raise();
+}
 
 MainWindow::~MainWindow()
 {
@@ -81,49 +200,86 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// =====================================================
-// HUD DEFAULTS
-// =====================================================
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+    applyPageBackgrounds();
+    layoutGamePage();
+}
 
 void MainWindow::updateHUDDefaults()
 {
-    ui->hudPortraitLabel->setPixmap(QPixmap(":/images/Zara.png"));
+    ui->hudPortraitLabel->setPixmap(loadGamePixmap(":/images/Zara.png"));
     ui->hudNameLabel->setText("ZARA");
     ui->hudTraitLabel->setText("SCHOLAR");
-    ui->livesLabel->setText("♥ ♥");
-    ui->timerLabel->setText("08:00");
+    ui->livesLabel->setText("♥ ♥ ♥");
+    ui->timerLabel->setText("07:32");
     ui->scoreLabel->setText("🏆 0");
     ui->levelLabel->setText("1 / 6");
     ui->roomNameLabel->setText("Temple Entrance");
     ui->eventLabel->setText("A cold wind echoes through the chamber...");
     ui->controlsLabel->setText("Arrow Keys: Move  |  ESC: Pause");
-    ui->inventorySlot1->setPixmap(QPixmap(":/images/emptySlot.png"));
-    ui->inventorySlot2->setPixmap(QPixmap(":/images/emptySlot.png"));
-    ui->inventorySlot3->setPixmap(QPixmap(":/images/emptySlot.png"));
-    ui->inventorySlot4->setPixmap(QPixmap(":/images/emptySlot.png"));
+    ui->inventorySlot1->setPixmap(loadGamePixmap(":/images/emptySlot.png"));
+    ui->inventorySlot2->setPixmap(loadGamePixmap(":/images/emptySlot.png"));
+    ui->inventorySlot3->setPixmap(loadGamePixmap(":/images/emptySlot.png"));
+    ui->inventorySlot4->setPixmap(loadGamePixmap(":/images/emptySlot.png"));
 }
-
-// =====================================================
-// MAIN MENU BUTTONS
-// =====================================================
 
 void MainWindow::setupMenuButtons()
 {
-    // START → character setup
     connect(ui->startButton, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->characterSetupScreen);
+        if (m_game) m_game->transitionTo(GameState::CHARACTER_SETUP);
     });
 
-    // EXIT
     connect(ui->exitButton, &QPushButton::clicked, this, [=]() { close(); });
 
-    // DIFFICULTY — opens DifficultyDialog, receives chosen difficulty
+    connect(ui->continueButton, &QPushButton::clicked, this, [=]() {
+        if (!SaveManager::hasSaveFile()) {
+            ui->eventLabel->setText("No saved game found yet.");
+            return;
+        }
+
+        Player loaded;
+        int savedLevel = 1;
+        if (!SaveManager::loadGame(&loaded, savedLevel)) {
+            ui->eventLabel->setText("Save file exists but could not be loaded.");
+            return;
+        }
+
+        m_selectedDifficulty = loaded.getDifficulty();
+        m_selectedTrait = (loaded.getTrait() == CharacterTrait::SCHOLAR)  ? "Scholar" :
+                          (loaded.getTrait() == CharacterTrait::SURVIVOR) ? "Survivor" : "Speedster";
+        m_selectedCharacter = (loaded.getCharacterID() == CharacterID::ZARA)  ? "Zara" :
+                              (loaded.getCharacterID() == CharacterID::KARIM) ? "Karim" :
+                              (loaded.getCharacterID() == CharacterID::NOUR)  ? "Nour" : "Rami";
+
+        m_game->startNewGame(loaded.getDifficulty(),
+                             loaded.getTrait(),
+                             loaded.getCharacterID(),
+                             loaded.getCharacterName(),
+                             loaded.getAvatarPath());
+
+        for (int level = 1; level < savedLevel; ++level) {
+            if (m_game->roomManager())
+                m_game->roomManager()->loadNextRoom();
+        }
+
+        setupPlayerHUDSignals();
+        if (m_game) m_game->transitionTo(GameState::PLAYING);
+        QGraphicsView* gv = findChild<QGraphicsView*>("graphicsView");
+        if (gv) {
+            gv->setFocus();
+            if (Room* room = qobject_cast<Room*>(gv->scene()))
+                room->focusPlayer();
+        }
+        updateInventoryHUD();
+    });
+
     connect(ui->difficultyButton, &QPushButton::clicked, this, [=]() {
         DifficultyDialog dialog(this);
         connect(&dialog, &DifficultyDialog::difficultySelected,
                 this, [=](Difficulty d) {
                     m_selectedDifficulty = d;
-                    // Update HUD timer/lives preview
                     if (d == Difficulty::EASY) {
                         ui->timerLabel->setText("12:00");
                         ui->livesLabel->setText("♥ ♥ ♥ ♥");
@@ -138,45 +294,54 @@ void MainWindow::setupMenuButtons()
         dialog.exec();
     });
 
-    // HOW TO PLAY
     connect(ui->howToPlayButton, &QPushButton::clicked, this, [=]() {
         HowToPlayDialog dialog(this);
         dialog.exec();
     });
 
-    // STORY PAGE → enter tomb button
+    // enterTombButton: switch page AND give graphics view focus for keyboard input
     connect(ui->enterTombButton, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->gamePage);
+        if (m_game) m_game->transitionTo(GameState::PLAYING);
+        QGraphicsView* gv = findChild<QGraphicsView*>("graphicsView");
+        if (gv) {
+            gv->setFocus();
+            if (Room* room = qobject_cast<Room*>(gv->scene()))
+                room->focusPlayer();
+        }
     });
 
-    // GAME OVER → try again
     connect(ui->tryAgainButton, &QPushButton::clicked, this, [=]() {
         m_game->restartGame();
         setupPlayerHUDSignals();
-        ui->stackedWidget->setCurrentWidget(ui->gamePage);
+        if (m_game) m_game->transitionTo(GameState::PLAYING);
+        QGraphicsView* gv = findChild<QGraphicsView*>("graphicsView");
+        if (gv) {
+            gv->setFocus();
+            if (Room* room = qobject_cast<Room*>(gv->scene()))
+                room->focusPlayer();
+        }
     });
 
-    // GAME OVER → main menu
     connect(ui->returnMenuButton, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+        if (m_game) m_game->transitionTo(GameState::MENU);
     });
 
-    // WIN → play again
     connect(ui->playAgainButton, &QPushButton::clicked, this, [=]() {
         m_game->restartGame();
         setupPlayerHUDSignals();
-        ui->stackedWidget->setCurrentWidget(ui->gamePage);
+        if (m_game) m_game->transitionTo(GameState::PLAYING);
+        QGraphicsView* gv = findChild<QGraphicsView*>("graphicsView");
+        if (gv) {
+            gv->setFocus();
+            if (Room* room = qobject_cast<Room*>(gv->scene()))
+                room->focusPlayer();
+        }
     });
 
-    // WIN → leave temple
     connect(ui->leaveTempleButton, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+        if (m_game) m_game->transitionTo(GameState::MENU);
     });
 }
-
-// =====================================================
-// HUD BUTTONS (pause)
-// =====================================================
 
 void MainWindow::setupHUDButtons()
 {
@@ -187,17 +352,22 @@ void MainWindow::setupHUDButtons()
 
         connect(&dialog, &PauseMenuDialog::resumeClicked, this, [=]() {
             m_game->resumeGame();
-            ui->stackedWidget->setCurrentWidget(ui->gamePage);
+            QGraphicsView* gv = findChild<QGraphicsView*>("graphicsView");
+            if (gv) {
+                gv->setFocus();
+                if (Room* room = qobject_cast<Room*>(gv->scene()))
+                    room->focusPlayer();
+            }
         });
 
         connect(&dialog, &PauseMenuDialog::restartClicked, this, [=]() {
             m_game->restartGame();
             setupPlayerHUDSignals();
-            ui->stackedWidget->setCurrentWidget(ui->gamePage);
+            if (m_game) m_game->transitionTo(GameState::PLAYING);
         });
 
         connect(&dialog, &PauseMenuDialog::mainMenuClicked, this, [=]() {
-            ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+            if (m_game) m_game->transitionTo(GameState::MENU);
         });
 
         connect(&dialog, &PauseMenuDialog::exitClicked, this, [=]() {
@@ -208,58 +378,50 @@ void MainWindow::setupHUDButtons()
     });
 }
 
-// =====================================================
-// CHARACTER BUTTONS
-// =====================================================
-
 void MainWindow::setupCharacterButtons()
 {
     connect(ui->zaraButton, &QPushButton::clicked, this, [=]() {
         m_selectedCharacter = "Zara";
-        ui->portraitLabel->setPixmap(QPixmap(":/images/Zara.png"));
+        ui->portraitLabel->setPixmap(loadGamePixmap(":/images/Zara.png"));
         ui->descriptionLabel->setText("Fearless explorer driven by curiosity and courage.");
     });
 
     connect(ui->karimButton, &QPushButton::clicked, this, [=]() {
         m_selectedCharacter = "Karim";
-        ui->portraitLabel->setPixmap(QPixmap(":/images/Karim.png"));
+        ui->portraitLabel->setPixmap(loadGamePixmap(":/images/Karim.png"));
         ui->descriptionLabel->setText("Balanced adventurer skilled in combat and survival.");
     });
 
     connect(ui->nourButton, &QPushButton::clicked, this, [=]() {
         m_selectedCharacter = "Nour";
-        ui->portraitLabel->setPixmap(QPixmap(":/images/NOOR.png"));
+        ui->portraitLabel->setPixmap(loadGamePixmap(":/images/NOOR.png"));
         ui->descriptionLabel->setText("Strategic thinker who uncovers hidden ancient secrets.");
     });
 
     connect(ui->ramiButton, &QPushButton::clicked, this, [=]() {
         m_selectedCharacter = "Rami";
-        ui->portraitLabel->setPixmap(QPixmap(":/images/RAMI.png"));
+        ui->portraitLabel->setPixmap(loadGamePixmap(":/images/RAMI.png"));
         ui->descriptionLabel->setText("Fast and daring explorer who trusts instinct.");
     });
 
     connect(ui->scholarButton, &QPushButton::clicked, this, [=]() {
         m_selectedTrait = "Scholar";
         ui->traitDescriptionLabel->setText("Gain intelligence bonuses and uncover hidden clues.");
-        ui->traitIconLabel->setPixmap(QPixmap(":/images/scholarIcon.png"));
+        ui->traitIconLabel->setPixmap(loadGamePixmap(":/images/scholarIcon.png"));
     });
 
     connect(ui->survivorButton, &QPushButton::clicked, this, [=]() {
         m_selectedTrait = "Survivor";
         ui->traitDescriptionLabel->setText("Higher endurance and resistance to danger.");
-        ui->traitIconLabel->setPixmap(QPixmap(":/images/survivorIcon.png"));
+        ui->traitIconLabel->setPixmap(loadGamePixmap(":/images/survivorIcon.png"));
     });
 
     connect(ui->speedsterButton, &QPushButton::clicked, this, [=]() {
         m_selectedTrait = "Speedster";
         ui->traitDescriptionLabel->setText("Move faster and escape traps more easily.");
-        ui->traitIconLabel->setPixmap(QPixmap(":/images/speedsterIcon.png"));
+        ui->traitIconLabel->setPixmap(loadGamePixmap(":/images/speedsterIcon.png"));
     });
 }
-
-// =====================================================
-// CONFIRM BUTTON
-// =====================================================
 
 void MainWindow::setupConfirmButton()
 {
@@ -284,29 +446,24 @@ void MainWindow::setupConfirmButton()
             "Explorer " + playerName + " the " + m_selectedCharacter +
             " enters the tomb as a " + m_selectedTrait + ".");
 
-        // Update HUD portrait + name
         ui->hudNameLabel->setText(playerName.toUpper());
         ui->hudTraitLabel->setText(m_selectedTrait.toUpper());
         if (m_selectedCharacter == "Zara")
-            ui->hudPortraitLabel->setPixmap(QPixmap(":/images/Zara.png"));
+            ui->hudPortraitLabel->setPixmap(loadGamePixmap(":/images/Zara.png"));
         else if (m_selectedCharacter == "Karim")
-            ui->hudPortraitLabel->setPixmap(QPixmap(":/images/Karim.png"));
+            ui->hudPortraitLabel->setPixmap(loadGamePixmap(":/images/Karim.png"));
         else if (m_selectedCharacter == "Nour")
-            ui->hudPortraitLabel->setPixmap(QPixmap(":/images/NOOR.png"));
+            ui->hudPortraitLabel->setPixmap(loadGamePixmap(":/images/NOOR.png"));
         else
-            ui->hudPortraitLabel->setPixmap(QPixmap(":/images/RAMI.png"));
+            ui->hudPortraitLabel->setPixmap(loadGamePixmap(":/images/RAMI.png"));
 
-        // Go to story page first (then enterTombButton starts the game)
-        ui->stackedWidget->setCurrentWidget(ui->storyPage);
-
-        // Pre-configure game (actual start happens on enterTombButton)
         startGame();
+        if (m_game) {
+            m_game->pauseGame();
+            m_game->transitionTo(GameState::STORY);
+        }
     });
 }
-
-// =====================================================
-// startGame
-// =====================================================
 
 void MainWindow::startGame()
 {
@@ -319,7 +476,9 @@ void MainWindow::startGame()
         (m_selectedTrait == "Scholar")  ? CharacterTrait::SCHOLAR  :
         (m_selectedTrait == "Survivor") ? CharacterTrait::SURVIVOR : CharacterTrait::SPEEDSTER;
 
-    QString avatarPath = m_game->player() ? m_game->player()->getAvatarPath() : "";
+    QString avatarPath = !m_pendingAvatarPath.isEmpty()
+                             ? m_pendingAvatarPath
+                             : (m_game->player() ? m_game->player()->getAvatarPath() : "");
 
     m_game->startNewGame(m_selectedDifficulty, trait, charID,
                          ui->lineEdit->text(), avatarPath);
@@ -327,67 +486,139 @@ void MainWindow::startGame()
     setupPlayerHUDSignals();
 }
 
-// =====================================================
-// setupPlayerHUDSignals
-// Wires Player signals → Person 4's HUD labels
-// =====================================================
-
 void MainWindow::setupPlayerHUDSignals()
 {
     Player* p = m_game->player();
     if (!p) return;
 
-    // Timer → timerLabel
     connect(p, &Player::timerTick, this, [=](int secondsLeft) {
         int mins = secondsLeft / 60, secs = secondsLeft % 60;
         ui->timerLabel->setText(
             QString("%1:%2").arg(mins).arg(secs, 2, 10, QChar('0')));
+        updateInventoryHUD();
     });
 
-    // Lives → livesLabel (hearts)
     connect(p, &Player::livesChanged, this, [=](int lives) {
         QString hearts = "";
         for (int i = 0; i < lives; i++) hearts += "♥ ";
         ui->livesLabel->setText(hearts.trimmed());
     });
 
-    // Score → scoreLabel
     connect(p, &Player::scoreChanged, this, [=](int score) {
         ui->scoreLabel->setText("🏆 " + QString::number(score));
     });
 
-    // Level → levelLabel (updated from RoomManager via Game)
-    connect(m_game, &Game::stateChanged, this, [=](GameState) {
-        if (m_game->roomManager()) {
-            int lvl = m_game->currentLevel();
-            ui->levelLabel->setText(QString("%1 / 6").arg(lvl));
-            // Update room name if available
-            if (m_game->roomManager()->currentRoom()) {
-                ui->roomNameLabel->setText(
-                    m_game->roomManager()->currentRoom()->chamberName());
-            }
-        }
-    });
-}
+    if (m_game->roomManager()) {
+        connect(m_game->roomManager(), &RoomManager::roomEntered, this,
+                [=](int level, const QString& chamberName, RoomMood mood, bool guardianSpawned) {
+                    ui->levelLabel->setText(QString("%1 / 6").arg(level));
+                    ui->roomNameLabel->setText(chamberName);
+                    QString moodText = (mood == RoomMood::CALM) ? "Calm" :
+                                       (mood == RoomMood::CURSED) ? "Cursed" : "Blessed";
+                    ui->eventLabel->setText(
+                        QString("Room mood: %1. %2 Objective: collect artefacts, solve the altar riddle, then unlock the door.")
+                            .arg(moodText, guardianSpawned
+                                               ? "A guardian presence is sensed."
+                                               : "No guardian detected yet."));
+                });
+    }
 
-// =====================================================
-// onGameEnded — routes to correct screen
-// =====================================================
+    updateInventoryHUD();
+}
 
 void MainWindow::onGameEnded(bool won)
 {
     if (won) {
-        // TODO: replace with actual win page name from mainwindow.ui
-        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+        if (m_game) m_game->transitionTo(GameState::WIN);
+        if (m_game && m_game->player())
+            ui->winScoreLabel->setText(QString::number(m_game->player()->getScore()));
     } else {
-        // TODO: replace with actual game over page name from mainwindow.ui
-        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+        if (m_game) m_game->transitionTo(GameState::GAMEOVER);
+        if (m_game && m_game->player())
+            ui->label_2->setText(QString::number(m_game->player()->getScore()));
     }
 }
 
-// =====================================================
-// setupAvatarGenerator
-// =====================================================
+void MainWindow::setUiState(GameState state)
+{
+    if (!ui || !ui->stackedWidget) return;
+    switch (state) {
+    case GameState::MENU:
+        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+        break;
+    case GameState::CHARACTER_SETUP:
+        ui->stackedWidget->setCurrentWidget(ui->characterSetupScreen);
+        break;
+    case GameState::STORY:
+        ui->stackedWidget->setCurrentWidget(ui->storyPage);
+        break;
+    case GameState::PLAYING:
+    case GameState::PAUSED:
+        ui->stackedWidget->setCurrentWidget(ui->gamePage);
+        break;
+    case GameState::GAMEOVER:
+        ui->stackedWidget->setCurrentWidget(ui->gameOverPage);
+        break;
+    case GameState::WIN:
+        ui->stackedWidget->setCurrentWidget(ui->winPage);
+        break;
+    }
+}
+
+QStringList MainWindow::validateCriticalAssets() const
+{
+    const QStringList required = {
+        ":/images/background.png", ":/images/characterPage.png", ":/images/storyBackground.png",
+        ":/images/gameBackground.png", ":/images/gameover_background.png", ":/images/winBackground.png",
+        ":/images/Zara.png", ":/images/Karim.png", ":/images/NOOR.png", ":/images/RAMI.png",
+        ":/images/emptySlot.png", ":/images/room1.png", ":/images/room2.png", ":/images/room3.png",
+        ":/images/room4.png", ":/images/room5.png", ":/images/room6.png"
+    };
+    QStringList missing;
+    for (const QString& path : required) {
+        if (loadGamePixmap(path).isNull()) {
+            missing << path;
+        }
+    }
+    return missing;
+}
+
+void MainWindow::layoutGamePage()
+{
+    if (!ui || !ui->gamePage) return;
+
+    const QRect page = ui->gamePage->rect();
+    const int margin = 16;
+    const int leftPanelW = qBound(220, page.width() / 5, 280);
+    const int topBarH = 64;
+    const int bottomH = qBound(96, page.height() / 7, 130);
+
+    if (ui->topBarFrame)
+        ui->topBarFrame->setGeometry(margin, margin, page.width() - (margin * 2), topBarH);
+
+    if (ui->templeMapTitle)
+        ui->templeMapTitle->setGeometry(
+            margin,
+            margin + topBarH + 8,
+            leftPanelW,
+            page.height() - topBarH - (margin * 3) - 8);
+
+    const int sceneX = margin + leftPanelW + 14;
+    const int sceneY = margin + topBarH + 8;
+    const int sceneW = page.width() - sceneX - margin;
+    const int sceneH = page.height() - sceneY - bottomH - margin - 10;
+    if (ui->graphicsView) {
+        ui->graphicsView->setGeometry(sceneX, sceneY, qMax(760, sceneW), qMax(440, sceneH));
+        if (ui->graphicsView->scene())
+            ui->graphicsView->fitInView(ui->graphicsView->scene()->sceneRect(), Qt::KeepAspectRatio);
+    }
+
+    if (ui->bottomStripFrame)
+        ui->bottomStripFrame->setGeometry(sceneX, page.height() - bottomH - margin, sceneW, bottomH);
+
+    if (ui->pauseTestButton)
+        ui->pauseTestButton->setGeometry(page.width() - 120, margin + topBarH + 14, 100, 34);
+}
 
 void MainWindow::setupAvatarGenerator()
 {
@@ -402,26 +633,45 @@ void MainWindow::setupAvatarGenerator()
             this, [=](QString msg) { ui->descriptionLabel->setText(msg); });
 
     connect(m_avatarGen, &AvatarGenerator::generationFailed, this, [=]() {
-        ui->descriptionLabel->setText("Photo generation failed — using default portrait.");
+        ui->descriptionLabel->setText("AI generation failed. Your uploaded photo will be used instead.");
     });
 
     QPushButton* uploadBtn = findChild<QPushButton*>("uploadButton");
+    if (!uploadBtn && ui->characterSetupScreen) {
+        uploadBtn = new QPushButton("Upload Photo (AI Avatar)", ui->characterSetupScreen);
+        uploadBtn->setObjectName("uploadButton");
+        uploadBtn->setGeometry(760, 670, 260, 44);
+        uploadBtn->setStyleSheet(
+            "QPushButton { background-color: rgba(255, 140, 0, 200); color: white; "
+            "border-radius: 10px; font-size: 14px; font-weight: bold; } "
+            "QPushButton:hover { background-color: rgba(255, 180, 50, 230); }");
+        uploadBtn->show();
+    }
+
     if (uploadBtn) {
         connect(uploadBtn, &QPushButton::clicked, this, [=]() {
             QString path = QFileDialog::getOpenFileName(
                 this, "Select Photo", "", "Images (*.png *.jpg *.jpeg)");
-            if (!path.isEmpty())
+            if (!path.isEmpty()) {
+                m_pendingAvatarPath = path;
+                QPixmap local(path);
+                if (!local.isNull()) {
+                    ui->portraitLabel->setPixmap(
+                        local.scaled(ui->portraitLabel->size(),
+                                     Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                }
                 m_avatarGen->generateFromPhoto(path);
+            }
         });
+    } else {
+        QMessageBox::warning(this, "Avatar Setup",
+                             "Upload button could not be created. AI avatar generation is unavailable.");
     }
 }
 
-// =====================================================
-// onAvatarReady
-// =====================================================
-
 void MainWindow::onAvatarReady(QString path)
 {
+    m_pendingAvatarPath = path;
     if (m_game->player()) m_game->player()->setAvatarPath(path);
     QPixmap avatar(path);
     if (!avatar.isNull()) {
@@ -430,4 +680,32 @@ void MainWindow::onAvatarReady(QString path)
                           Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
     ui->descriptionLabel->setText("Portrait ready! Confirm to enter the tomb.");
+}
+
+QString MainWindow::artefactIconForType(ArtefactType type) const
+{
+    switch (type) {
+    case ArtefactType::EYE_OF_HORUS:     return ":/images/ankh.png";
+    case ArtefactType::HOURGLASS:        return ":/images/difficulty.png";
+    case ArtefactType::SCARAB_OF_RA:     return ":/images/ankh.png";
+    case ArtefactType::SCROLL_OF_ANUBIS: return ":/images/manuscript.png";
+    case ArtefactType::BLADE_OF_SEKHMET: return ":/images/manuscript.png";
+    default:                             return ":/images/emptySlot.png";
+    }
+}
+
+void MainWindow::updateInventoryHUD()
+{
+    QLabel* inventorySlots[4] = { ui->inventorySlot1, ui->inventorySlot2, ui->inventorySlot3, ui->inventorySlot4 };
+    for (QLabel* slotLabel : inventorySlots)
+        slotLabel->setPixmap(loadGamePixmap(":/images/emptySlot.png"));
+
+    if (!m_game || !m_game->player())
+        return;
+
+    const QVector<Artefact*> inv = m_game->player()->getInventory();
+    for (int i = 0; i < inv.size() && i < 4; ++i) {
+        if (!inv[i]) continue;
+        inventorySlots[i]->setPixmap(QPixmap(artefactIconForType(inv[i]->getType())));
+    }
 }

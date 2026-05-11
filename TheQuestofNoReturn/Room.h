@@ -27,9 +27,11 @@ public:
     QString chamberName()   const;
     RoomMood mood()         const;
     bool    hasBoss()       const;
+    bool    guardianSpawned() const { return m_guardianSpawned; }
     bool    isRiddleSolved()const;
     void    setRiddleSolved(bool solved);
     void    completeRoom();
+    void    focusPlayer();
 
 signals:
     void roomComplete();
@@ -39,6 +41,8 @@ private:
     void addPlayer();
     void addDoor();
     void addTraps();
+    void addArtefacts();
+    void addGuardian();
     void addAltar();        // Person 5 addition — places RiddleAltar in scene
 
 private:
@@ -48,6 +52,7 @@ private:
     RoomMood   m_mood;
     Difficulty m_difficulty;           // stored for RiddleGenerator
     bool       m_hasBoss;
+    bool       m_guardianSpawned = false;
     bool       m_riddleSolved = false;
     QString    m_backgroundPath;
     Player*    m_player;

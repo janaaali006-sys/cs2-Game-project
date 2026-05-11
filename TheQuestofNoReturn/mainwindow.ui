@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>-80</x>
-      <y>30</y>
-      <width>1341</width>
-      <height>771</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1276</width>
+      <height>900</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -298,7 +298,7 @@ QPushButton:hover {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>storyBackground.png</pixmap>
+       <pixmap>:/images/storyBackground.png</pixmap>
       </property>
      </widget>
      <widget class="QLabel" name="storyTitleLabel">
@@ -439,7 +439,7 @@ QPushButton:hover {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>gameBackground.png</pixmap>
+       <pixmap>:/images/gameBackground.png</pixmap>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -485,7 +485,7 @@ QPushButton:hover {
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>Zara.png</pixmap>
+        <pixmap>:/images/Zara.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1264,7 +1264,7 @@ QPushButton:pressed {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>gameover_background.png</pixmap>
+       <pixmap>:/images/gameover_background.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1449,7 +1449,7 @@ QPushButton:hover {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../Desktop/winBackground.png</pixmap>
+       <pixmap>:/images/winBackground.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1503,7 +1503,7 @@ background: transparent;</string>
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>ankh.png</pixmap>
+          <pixmap>:/images/ankh.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -1641,7 +1641,7 @@ QPushButton:hover {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>characterPage.png</pixmap>
+       <pixmap>:/images/characterPage.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

@@ -92,6 +92,25 @@ void Game::endGame(bool won)
     emit gameEnded(won);
 }
 
+void Game::transitionTo(GameState state)
+{
+    // Keep state transitions explicit and centralized.
+    if (state == GameState::PLAYING) {
+        if (m_state == GameState::PAUSED) {
+            resumeGame();
+        } else {
+            if (m_player) m_player->resumeTimer();
+            setState(GameState::PLAYING);
+        }
+        return;
+    }
+    if (state == GameState::PAUSED) {
+        pauseGame();
+        return;
+    }
+    setState(state);
+}
+
 Player*      Game::player()       const { return m_player; }
 RoomManager* Game::roomManager()  const { return m_roomManager; }
 int          Game::currentLevel() const {
