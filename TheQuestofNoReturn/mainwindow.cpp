@@ -392,7 +392,7 @@ void MainWindow::onGameEnded(bool won)
 void MainWindow::setupAvatarGenerator()
 {
     m_avatarGen = new AvatarGenerator(this);
-    m_avatarGen->setApiKey(CLAUDE_API_KEY);
+    m_avatarGen->setApiKey(GOOGLEAI_API_KEY);
     m_avatarGen->setOpenAiKey(OPENAI_API_KEY);
 
     connect(m_avatarGen, &AvatarGenerator::avatarReady,

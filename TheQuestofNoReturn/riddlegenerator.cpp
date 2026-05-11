@@ -26,15 +26,15 @@ Riddle* RiddleGenerator::generate(const QString& godName,
                                    RoomMood   mood,
                                    bool       useAI) {
     if (useAI && m_useAI && !m_apiKey.isEmpty()) {
-        Riddle* result = callClaudeAPI(godName, difficulty, type, mood);
+        Riddle* result = callGeminiAPI(godName, difficulty, type, mood);
         if (result) return result;
-        qDebug() << "Claude API failed — using fallback riddle";
+        qDebug() << "Gemini API failed — using fallback riddle";
     }
     return getFallback(godName, type);
 }
 
 // ============================================================
-// Build the prompt — CURSED rooms add a decoy instruction
+// Build the prompt
 // ============================================================
 
 QString RiddleGenerator::buildPrompt(const QString& godName,
@@ -48,12 +48,10 @@ QString RiddleGenerator::buildPrompt(const QString& godName,
                       (type == RiddleType::LOGIC)    ? "logic (reasoning/deduction)" :
                                                        "sequence (pattern completion)";
 
-    // CURSED room: ask Claude to include a plausible wrong decoy answer
     QString cursedExtra = (mood == RoomMood::CURSED)
-        ? " Also add a field \\\"decoy\\\" with one plausible but incorrect answer to mislead the player."
+        ? " Also add a field \"decoy\" with one plausible but incorrect answer."
         : "";
 
-    // HARD difficulty: add misdirection in the clues themselves
     QString hardExtra = (difficulty == Difficulty::HARD)
         ? " Include one subtle misdirection in the riddle clues."
         : "";
@@ -71,26 +69,35 @@ QString RiddleGenerator::buildPrompt(const QString& godName,
 }
 
 // ============================================================
-// Call Claude API (synchronous via QEventLoop, 8s timeout)
+// Call Gemini API (free tier — gemini-2.0-flash model)
 // ============================================================
 
-Riddle* RiddleGenerator::callClaudeAPI(const QString& godName,
+Riddle* RiddleGenerator::callGeminiAPI(const QString& godName,
                                         Difficulty difficulty,
                                         RiddleType type,
                                         RoomMood   mood) {
-    QJsonObject message;
-    message["role"]    = "user";
-    message["content"] = buildPrompt(godName, difficulty, type, mood);
+    // Gemini endpoint — key goes in URL as query param (no auth header needed)
+    QString url = QString("https://generativelanguage.googleapis.com/v1beta/models/"
+                          "gemini-2.0-flash:generateContent?key=%1").arg(m_apiKey);
+
+    // Gemini request body format
+    QJsonObject textPart;
+    textPart["text"] = buildPrompt(godName, difficulty, type, mood);
+
+    QJsonObject content;
+    content["parts"] = QJsonArray{ textPart };
 
     QJsonObject body;
-    body["model"]      = "claude-sonnet-4-20250514";
-    body["max_tokens"] = 300;
-    body["messages"]   = QJsonArray{ message };
+    body["contents"] = QJsonArray{ content };
 
-    QNetworkRequest request(QUrl("https://api.anthropic.com/v1/messages"));
+    // Generation config — keep response short and deterministic
+    QJsonObject genConfig;
+    genConfig["temperature"]     = 0.7;
+    genConfig["maxOutputTokens"] = 300;
+    body["generationConfig"]     = genConfig;
+
+    QNetworkRequest request{QUrl(url)};
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader("x-api-key",          m_apiKey.toUtf8());
-    request.setRawHeader("anthropic-version",  "2023-06-01");
 
     QNetworkReply* reply = m_network.post(request, QJsonDocument(body).toJson());
 
@@ -105,7 +112,7 @@ Riddle* RiddleGenerator::callClaudeAPI(const QString& godName,
     loop.exec();
 
     if (!reply->isFinished() || reply->error() != QNetworkReply::NoError) {
-        qDebug() << "Claude API error:" << reply->errorString();
+        qDebug() << "Gemini API error:" << reply->errorString();
         reply->deleteLater();
         return nullptr;
     }
@@ -113,18 +120,29 @@ Riddle* RiddleGenerator::callClaudeAPI(const QString& godName,
     QByteArray responseData = reply->readAll();
     reply->deleteLater();
 
+    // Gemini response structure:
+    // { "candidates": [ { "content": { "parts": [ { "text": "..." } ] } } ] }
     QJsonDocument responseDoc = QJsonDocument::fromJson(responseData);
     if (responseDoc.isNull()) return nullptr;
 
-    QJsonArray content = responseDoc.object()["content"].toArray();
-    if (content.isEmpty()) return nullptr;
+    QJsonArray candidates = responseDoc.object()["candidates"].toArray();
+    if (candidates.isEmpty()) {
+        qDebug() << "Gemini returned no candidates:" << responseData;
+        return nullptr;
+    }
 
-    QString text = content[0].toObject()["text"].toString().trimmed();
+    QString text = candidates[0].toObject()["content"]
+                                .toObject()["parts"]
+                                .toArray()[0]
+                                .toObject()["text"]
+                                .toString()
+                                .trimmed();
+
     return parseJsonResponse(text, type, godName, difficulty);
 }
 
 // ============================================================
-// Parse Claude's JSON into a typed Riddle subclass
+// Parse JSON response into typed Riddle subclass
 // ============================================================
 
 Riddle* RiddleGenerator::parseJsonResponse(const QString& json,
@@ -132,7 +150,7 @@ Riddle* RiddleGenerator::parseJsonResponse(const QString& json,
                                             const QString& godName,
                                             Difficulty difficulty) {
     QString clean = json;
-    clean.remove("```json").remove("```").trimmed();
+    clean = clean.replace("```json", "").replace("```", "").trimmed();
 
     QJsonDocument doc = QJsonDocument::fromJson(clean.toUtf8());
     if (doc.isNull() || !doc.isObject()) {
@@ -147,7 +165,6 @@ Riddle* RiddleGenerator::parseJsonResponse(const QString& json,
 
     if (question.isEmpty() || answer.isEmpty()) return nullptr;
 
-    // Use the correct Riddle subclass (polymorphism via Riddle* base pointer)
     Riddle* riddle = nullptr;
     switch (expectedType) {
     case RiddleType::IDENTITY:
@@ -164,11 +181,11 @@ Riddle* RiddleGenerator::parseJsonResponse(const QString& json,
 }
 
 // ============================================================
-// Fallback — delegates to RiddleFallbackPool (Person 2's class)
+// Fallback
 // ============================================================
 
 Riddle* RiddleGenerator::getFallback(const QString& godName, RiddleType type) {
-    static RiddleFallbackPool pool;   // built once, reused
+    static RiddleFallbackPool pool;
     Riddle* r = pool.getRandom(type, godName);
     if (r) qDebug() << "Using fallback riddle for type" << (int)type;
     return r;

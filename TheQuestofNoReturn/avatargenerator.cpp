@@ -15,7 +15,7 @@
 AvatarGenerator::AvatarGenerator(QObject* parent) : AIGenerator(parent) {
     m_timeoutTimer = new QTimer(this);
     m_timeoutTimer->setSingleShot(true);
-    m_timeoutTimer->setInterval(15000);
+    m_timeoutTimer->setInterval(30000);  // 30s — HF can be slow
     connect(m_timeoutTimer, &QTimer::timeout, this, &AvatarGenerator::onTimeout);
 }
 
@@ -29,7 +29,6 @@ void AvatarGenerator::generateFromPhoto(const QString& photoPath) {
     m_timeoutTimer->start();
     emit progressUpdate("Reading your photo...");
 
-    // Read photo file
     QFile file(photoPath);
     if (!file.open(QIODevice::ReadOnly)) {
         emit generationFailed();
@@ -39,10 +38,7 @@ void AvatarGenerator::generateFromPhoto(const QString& photoPath) {
     QByteArray fileData = file.readAll();
     file.close();
 
-    // Encode to Base64
     QString base64 = fileData.toBase64();
-
-    // Determine MIME type from extension
     QString ext = QFileInfo(photoPath).suffix().toLower();
     QString mimeType = (ext == "png") ? "image/png" : "image/jpeg";
 
@@ -50,49 +46,42 @@ void AvatarGenerator::generateFromPhoto(const QString& photoPath) {
     stepOneDescribe(base64, mimeType);
 }
 
-// Step 1: Send photo to Claude, get appearance description
+// Step 1: Send photo to Gemini Vision, get appearance description
 
 void AvatarGenerator::stepOneDescribe(const QString& base64Image,
                                       const QString& mimeType) {
-    // Build message with image content
-    QJsonObject imageSource;
-    imageSource["type"]       = "base64";
-    imageSource["media_type"] = mimeType;
-    imageSource["data"]       = base64Image;
+    // Use Gemini for vision (free) — m_apiKey holds the Gemini key
+    QString url = QString("https://generativelanguage.googleapis.com/v1beta/models/"
+                          "gemini-2.0-flash:generateContent?key=%1").arg(m_apiKey);
 
-    QJsonObject imageContent;
-    imageContent["type"]   = "image";
-    imageContent["source"] = imageSource;
+    QJsonObject imagePart;
+    QJsonObject inlineData;
+    inlineData["mime_type"] = mimeType;
+    inlineData["data"]      = base64Image;
+    imagePart["inline_data"] = inlineData;
 
-    QJsonObject textContent;
-    textContent["type"] = "text";
-    textContent["text"] = "Describe this person's physical appearance for use in an illustration prompt. "
-                          "Include: hair color and style, skin tone, eye color, face shape, approximate age range. "
-                          "Be specific but concise — 2-3 sentences only. Do not mention clothing in detail.";
+    QJsonObject textPart;
+    textPart["text"] = "Describe this person's physical appearance for an illustration prompt. "
+                       "Include: hair color and style, skin tone, eye color, face shape, approximate age range. "
+                       "Be specific but concise — 2-3 sentences only.";
 
-    QJsonObject message;
-    message["role"]    = "user";
-    message["content"] = QJsonArray{ imageContent, textContent };
+    QJsonObject content;
+    content["parts"] = QJsonArray{ imagePart, textPart };
 
     QJsonObject body;
-    body["model"]      = "claude-sonnet-4-20250514";
-    body["max_tokens"] = 200;
-    body["messages"]   = QJsonArray{ message };
+    body["contents"] = QJsonArray{ content };
 
-    QNetworkRequest request(QUrl("https://api.anthropic.com/v1/messages"));
+    QNetworkRequest request{QUrl(url)};
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader("x-api-key", m_apiKey.toUtf8());
-    request.setRawHeader("anthropic-version", "2023-06-01");
 
     QNetworkReply* reply = m_network.post(request, QJsonDocument(body).toJson());
 
-    // Wait for reply (with our outer timeout still running)
     QEventLoop loop;
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "Claude vision error:" << reply->errorString();
+        qDebug() << "Gemini vision error:" << reply->errorString();
         reply->deleteLater();
         emit generationFailed();
         return;
@@ -102,7 +91,10 @@ void AvatarGenerator::stepOneDescribe(const QString& base64Image,
     reply->deleteLater();
 
     QJsonDocument doc = QJsonDocument::fromJson(data);
-    QString description = doc.object()["content"]
+    QString description = doc.object()["candidates"]
+                              .toArray()[0]
+                              .toObject()["content"]
+                              .toObject()["parts"]
                               .toArray()[0]
                               .toObject()["text"]
                               .toString()
@@ -118,25 +110,22 @@ void AvatarGenerator::stepOneDescribe(const QString& base64Image,
     stepTwoRender(description);
 }
 
-// Step 2: Send description to DALL-E 3, get image URL
+// Step 2: Send description to Hugging Face FLUX model, get image bytes
 
 void AvatarGenerator::stepTwoRender(const QString& description) {
     QString prompt = QString(
-                         "Egyptian archaeologist explorer portrait, %1, "
-                         "wearing archaeological field gear and Egyptian amulets, "
-                         "cinematic game concept art style, dramatic torch-lit ancient temple background, "
-                         "dark atmospheric lighting, highly detailed face, portrait orientation, "
-                         "professional digital painting"
-                         ).arg(description);
+        "Egyptian archaeologist explorer portrait, %1, "
+        "wearing archaeological field gear and Egyptian amulets, "
+        "cinematic game concept art style, dramatic torch-lit ancient temple background, "
+        "dark atmospheric lighting, highly detailed face, portrait orientation"
+    ).arg(description);
 
+    // Hugging Face Inference API — FLUX.1-schnell is free
     QJsonObject body;
-    body["model"]   = "dall-e-3";
-    body["prompt"]  = prompt;
-    body["n"]       = 1;
-    body["size"]    = "1024x1024";
-    body["quality"] = "standard";
+    body["inputs"] = prompt;
 
-    QNetworkRequest request(QUrl("https://api.openai.com/v1/images/generations"));
+    // m_openAiKey holds the HuggingFace token
+    QNetworkRequest request{QUrl("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell/v1/images/generations")};
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader("Authorization",
                          QString("Bearer %1").arg(m_openAiKey).toUtf8());
@@ -148,50 +137,28 @@ void AvatarGenerator::stepTwoRender(const QString& description) {
     loop.exec();
 
     if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "DALL-E error:" << reply->errorString();
+        qDebug() << "HuggingFace error:" << reply->errorString();
         reply->deleteLater();
         emit generationFailed();
         return;
     }
 
-    QByteArray data = reply->readAll();
-    reply->deleteLater();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    QString imageUrl = doc.object()["data"]
-                           .toArray()[0]
-                           .toObject()["url"]
-                           .toString();
-
-    if (imageUrl.isEmpty()) {
-        emit generationFailed();
-        return;
-    }
-
-    emit progressUpdate("Downloading your portrait...");
-    stepThreeDownload(imageUrl);
-}
-
-// Step 3: Download image, save locally, emit avatarReady
-
-void AvatarGenerator::stepThreeDownload(const QString& imageUrl) {
-    QNetworkRequest request{QUrl(imageUrl)};
-    QNetworkReply* reply = m_network.get(request);
-
-    QEventLoop loop;
-    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-
-    if (reply->error() != QNetworkReply::NoError) {
-        reply->deleteLater();
-        emit generationFailed();
-        return;
-    }
-
+    // HF returns raw image bytes directly (not JSON)
     QByteArray imageData = reply->readAll();
     reply->deleteLater();
 
-    // Save to temp location
+    if (imageData.isEmpty()) {
+        emit generationFailed();
+        return;
+    }
+
+    emit progressUpdate("Saving your portrait...");
+    stepThreeDownload(imageData);
+}
+
+// Step 3: Save image bytes to disk, emit avatarReady
+
+void AvatarGenerator::stepThreeDownload(const QByteArray& imageData) {
     QString savePath = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
                        + "/quest_avatar.png";
 

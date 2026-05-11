@@ -96,7 +96,7 @@ void Room::addTraps()
 void Room::addAltar()
 {
     RiddleGenerator* gen = new RiddleGenerator(this);
-    gen->setApiKey(CLAUDE_API_KEY);
+    gen->setApiKey(GOOGLEAI_API_KEY);
 
     RiddleType type = static_cast<RiddleType>(
         QRandomGenerator::global()->bounded(3));
