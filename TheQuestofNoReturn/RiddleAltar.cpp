@@ -1,8 +1,8 @@
 #include "RiddleAltar.h"
+#include "../Room.h"
 #include "../dialogs/RiddleDialog.h"
 #include "../world/RiddleManager.h"
 #include "../player.h"
-#include "../Room.h"
 
 // RiddleAltar::trigger — called by PlayerSprite::advance() on collision.
 // Shows the riddle dialog. On success, marks the room as solved

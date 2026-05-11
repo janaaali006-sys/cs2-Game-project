@@ -25,7 +25,7 @@ qt_add_executable(TheQuestofNoReturn
     riddlegenerator.cpp riddlegenerator.h
     avatargenerator.cpp avatargenerator.h
     savemanager.cpp savemanager.h
-    config.h
+    config.h AIgenerator.h
 
     # ── Person 5 — OOP base classes ─────────────────
     SharedEnums.h

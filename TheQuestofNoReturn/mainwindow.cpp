@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "RoomManager.h"
+#include "Room.h"
 #include "ui_mainwindow.h"
 #include "config.h"
 #include "pausemenudialog.h"

@@ -1,4 +1,5 @@
 #include "avatargenerator.h"
+#include "AIGenerator.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -10,9 +11,8 @@
 #include <QStandardPaths>
 #include <QEventLoop>
 #include <QDebug>
-#include <QTimer>
 
-AvatarGenerator::AvatarGenerator(QObject* parent) : QObject(parent) {
+AvatarGenerator::AvatarGenerator(QObject* parent) : AIGenerator(parent) {
     m_timeoutTimer = new QTimer(this);
     m_timeoutTimer->setSingleShot(true);
     m_timeoutTimer->setInterval(15000);
@@ -81,7 +81,7 @@ void AvatarGenerator::stepOneDescribe(const QString& base64Image,
 
     QNetworkRequest request(QUrl("https://api.anthropic.com/v1/messages"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader("x-api-key", m_claudeKey.toUtf8());
+    request.setRawHeader("x-api-key", m_apiKey.toUtf8());
     request.setRawHeader("anthropic-version", "2023-06-01");
 
     QNetworkReply* reply = m_network.post(request, QJsonDocument(body).toJson());
@@ -175,7 +175,7 @@ void AvatarGenerator::stepTwoRender(const QString& description) {
 // Step 3: Download image, save locally, emit avatarReady
 
 void AvatarGenerator::stepThreeDownload(const QString& imageUrl) {
-    QNetworkRequest request(QUrl(imageUrl));
+    QNetworkRequest request{QUrl(imageUrl)};
     QNetworkReply* reply = m_network.get(request);
 
     QEventLoop loop;
