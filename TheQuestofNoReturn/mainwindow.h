@@ -60,9 +60,11 @@ private:
 
     // ── Graphics scene ────────────────────────────────────
     struct Trap {
-        QGraphicsRectItem *item;
+        QGraphicsRectItem   *item;
+        QGraphicsPixmapItem *sprite;
         bool  horiz;
         float mn, mx, spd, dir;
+        int   type;
     };
 
     QGraphicsScene       *scene;
@@ -70,7 +72,8 @@ private:
     QGraphicsRectItem    *doorItem;
     QGraphicsTextItem    *pressEHint;
     QList<QGraphicsItem*> roomItems;   // decorations + door + hint (not traps)
-    QVector<Trap>         traps;
+    QVector<Trap>              traps;
+    QVector<QGraphicsRectItem*> obstacles;
 
     // ── Input ─────────────────────────────────────────────
     QSet<int>  heldKeys;
@@ -92,7 +95,9 @@ private:
 
     // ── Scene helpers ─────────────────────────────────────
     void addTrap(qreal x, qreal y, qreal w, qreal h,
-                 bool horiz, float mn, float mx, float spd, float startDir = 1.f);
+                 bool horiz, float mn, float mx, float spd,
+                 float startDir = 1.f, int enemyType = 0);
+    void addObstacle(qreal x, qreal y, qreal w, qreal h, int style = 0);
     QGraphicsRectItem* addRoomRect(qreal x, qreal y, qreal w, qreal h,
                                     QColor fill,
                                     QColor border = Qt::transparent,

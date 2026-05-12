@@ -68,6 +68,149 @@ static QPixmap createPlayerSprite(int frame = 0)
     return pix;
 }
 
+// ─── Mummy enemy sprite (pass dark=true for cursed black-bandage variant) ───
+static QPixmap createMummySprite(int w, int h, bool dark = false)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor bandage = dark ? QColor(112, 92, 72)  : QColor(215, 195, 155);
+    QColor wrap    = dark ? QColor( 50, 36, 22)  : QColor(135, 105,  65);
+    QColor eyes    = dark ? QColor(255,  50, 25)  : QColor( 45, 215,  75);
+
+    auto strip = [&](int x, int y, int sw, int sh){ p.fillRect(x, y, sw, sh, wrap);    };
+    auto block = [&](int x, int y, int bw, int bh){ p.fillRect(x, y, bw, bh, bandage); };
+
+    // Head (top 24 %)
+    int hH = h * 24 / 100, hW = w * 52 / 100, hX = (w - hW) / 2;
+    block(hX, 0, hW, hH);
+    strip(hX, hH / 3,     hW, qMax(1, h / 55));
+    strip(hX, hH * 2 / 3, hW, qMax(1, h / 55));
+    // Eyes
+    int eW = qMax(2, w * 7 / 100), eH = qMax(2, h * 4 / 100), eY = hH * 2 / 5;
+    p.fillRect(hX + hW / 5,      eY, eW, eH, eyes);
+    p.fillRect(hX + hW * 3 / 5,  eY, eW, eH, eyes);
+
+    // Body (24 – 70 %)
+    int bY = hH, bH = h * 46 / 100, bW = w * 68 / 100, bX = (w - bW) / 2;
+    block(bX, bY, bW, bH);
+    for (int i = 1; i <= 4; i++) strip(bX, bY + bH * i / 5, bW, qMax(1, h / 55));
+    strip(w / 2 - 1, bY, 2, bH);   // centre cross-wrap
+
+    // Arms
+    int aW = qMax(4, w * 13 / 100), aH = bH * 55 / 100, aY = bY + bH / 10;
+    block(bX - aW, aY, aW, aH);
+    block(bX + bW, aY, aW, aH);
+    strip(bX - aW, aY + aH / 2, aW, qMax(1, h / 65));
+    strip(bX + bW, aY + aH / 2, aW, qMax(1, h / 65));
+
+    // Legs (70 – 100 %)
+    int lY = bY + bH, lH = h - lY;
+    int lW = w * 25 / 100, gap = qMax(2, w * 4 / 100);
+    int llX = w / 2 - gap / 2 - lW, lrX = w / 2 + gap / 2;
+    block(llX, lY, lW, lH);
+    block(lrX, lY, lW, lH);
+    for (int i = 1; i <= 2; i++) {
+        strip(llX, lY + lH * i / 3, lW, qMax(1, h / 65));
+        strip(lrX, lY + lH * i / 3, lW, qMax(1, h / 65));
+    }
+    // Feet (slightly wider)
+    int fe = qMax(1, w / 20);
+    block(llX - fe, lY + lH * 4 / 5, lW + fe * 2, lH / 5 + 1);
+    block(lrX - fe, lY + lH * 4 / 5, lW + fe * 2, lH / 5 + 1);
+
+    p.end();
+    return pix;
+}
+
+// ─── Specter / ghost-mummy enemy sprite (Room 2 – Hall of Echoes) ────────────
+static QPixmap createSpecterSprite(int w, int h)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor core(145, 75, 210, 190);
+    QColor glow(185, 120, 255, 210);
+    QColor fade(115, 50, 180, 135);
+    QColor eyes(255, 210, 40, 245);
+
+    // Head (top 30 %)
+    int hW = w * 58 / 100, hH = h * 30 / 100, hX = (w - hW) / 2;
+    p.fillRect(hX, 0, hW, hH, glow);
+    // Bandage wraps across the face
+    p.fillRect(hX, hH / 3,     hW, qMax(1, h / 60), fade);
+    p.fillRect(hX, hH * 2 / 3, hW, qMax(1, h / 60), fade);
+    // Eyes
+    int eW = qMax(3, w / 9), eH = qMax(2, h / 14), eY = hH * 2 / 5;
+    p.fillRect(hX + hW / 5,     eY, eW, eH, eyes);
+    p.fillRect(hX + hW * 3 / 5, eY, eW, eH, eyes);
+
+    // Body (25 – 68 %)
+    int bY = hH * 4 / 5, bH = h * 42 / 100, bW = w * 70 / 100, bX = (w - bW) / 2;
+    p.fillRect(bX, bY, bW, bH, core);
+    for (int i = 1; i <= 3; i++)
+        p.fillRect(bX, bY + bH * i / 4, bW, qMax(1, h / 60), fade);
+
+    // Three wispy tendrils at bottom
+    int tY = bY + bH, tH = h - tY, tW = bW / 4;
+    for (int i = 0; i < 3; i++) {
+        int tx = bX + (bW - tW) * i / 2;
+        int th = (i % 2 == 0) ? tH : tH * 6 / 8;
+        p.fillRect(tx, tY, tW - 2, th, fade);
+    }
+
+    p.end();
+    return pix;
+}
+
+// ─── Scarab beetle enemy sprite (Room 4 – Ankh Sanctuary) ────────────────────
+static QPixmap createScarabSprite(int w, int h)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor shell(25, 88, 32, 240);
+    QColor shine(68, 158, 68, 210);
+    QColor lege (14, 48, 14, 235);
+    QColor eyes (195, 162, 12, 245);
+
+    // Head (top 18 %)
+    int hdW = w * 42 / 100, hdH = h * 18 / 100, hdX = (w - hdW) / 2;
+    p.fillRect(hdX, 0, hdW, hdH, shell);
+    // Antennae
+    p.fillRect(hdX + hdW / 4 - 1,     0, 2, h / 8, lege);
+    p.fillRect(hdX + hdW * 3 / 4 - 1, 0, 2, h / 8, lege);
+    // Eyes
+    int eW = qMax(3, w / 11), eH = qMax(2, h / 15);
+    p.fillRect(hdX + hdW / 5,      hdH / 3, eW, eH, eyes);
+    p.fillRect(hdX + hdW * 3 / 5,  hdH / 3, eW, eH, eyes);
+
+    // Shell body (18 – 90 %)
+    int bY = hdH, bH = h * 72 / 100, bW = w * 76 / 100, bX = (w - bW) / 2;
+    p.fillRect(bX, bY, bW, bH, shell);
+    p.fillRect(bX + bW / 5, bY + bH / 7, bW / 3, bH / 4, shine);   // highlight
+    p.fillRect(w / 2 - 1, bY + bH / 8, 2, bH * 7 / 8, lege);        // wing split
+    p.fillRect(bX, bY + bH * 2 / 5, bW, qMax(1, h / 50), lege);     // cross-ridge
+
+    // Abdomen nub
+    int aY = bY + bH, aH = h - aY;
+    if (aH > 0) p.fillRect(bX + bW / 8, aY, bW * 3 / 4, aH, shell);
+
+    // Legs – 3 per side
+    for (int i = 0; i < 3; i++) {
+        int ly = bY + bH * (i * 2 + 1) / 7;
+        int lLen = qMax(3, bX - 1);
+        p.fillRect(0,          ly, lLen,        qMax(2, h / 10), lege);
+        p.fillRect(bX + bW + 1, ly, lLen,       qMax(2, h / 10), lege);
+    }
+
+    p.end();
+    return pix;
+}
+
 // ═══════════════════════════════════════════════════════
 // ROOM NARRATIVE
 // ═══════════════════════════════════════════════════════
@@ -592,11 +735,23 @@ void MainWindow::onGameLoop()
     if (heldKeys.contains(Qt::Key_D)) dx += spd;
     if (dx && dy) { dx *= 0.707f; dy *= 0.707f; }
 
-    QPointF p = playerSprite->pos();
-    playerSprite->setPos(
-        qBound(0.f, float(p.x()) + dx, 836.f),  // 891 - 55
-        qBound(0.f, float(p.y()) + dy, 346.f)   // 421 - 75
-    );
+    QPointF op = playerSprite->pos();
+    float nx = qBound(0.f, float(op.x()) + dx, 836.f);
+    float ny = qBound(0.f, float(op.y()) + dy, 346.f);
+
+    // Axis-separated obstacle collision so the player slides along walls
+    if (!obstacles.isEmpty()) {
+        playerSprite->setPos(nx, op.y());
+        QRectF prx = playerSprite->sceneBoundingRect().adjusted(3, 3, -3, -3);
+        for (auto *obs : obstacles)
+            if (prx.intersects(obs->sceneBoundingRect())) { nx = op.x(); break; }
+
+        playerSprite->setPos(nx, ny);
+        QRectF pry = playerSprite->sceneBoundingRect().adjusted(3, 3, -3, -3);
+        for (auto *obs : obstacles)
+            if (pry.intersects(obs->sceneBoundingRect())) { ny = op.y(); break; }
+    }
+    playerSprite->setPos(nx, ny);
 
     // ── Walk animation ────────────────────────────────
     bool isMoving = (dx != 0.f || dy != 0.f);
@@ -625,6 +780,16 @@ void MainWindow::onGameLoop()
             if (ny <= t.mn) { ny = t.mn; t.dir = 1; }
             if (ny >= t.mx) { ny = t.mx; t.dir = -1; }
             t.item->setPos(tp.x(), ny);
+        }
+    }
+
+    // ── Specter flicker ───────────────────────────────
+    if (animTick % 18 == 0) {
+        for (auto &t : traps) {
+            if (t.type == 1 && t.sprite) {
+                double op = (t.sprite->opacity() > 0.8) ? 0.60 : 0.95;
+                t.sprite->setOpacity(op);
+            }
         }
     }
 
@@ -768,6 +933,7 @@ void MainWindow::clearRoom()
         delete item;
     }
     roomItems.clear();
+    obstacles.clear();   // raw pointers already freed above
 
     doorItem   = nullptr;
     pressEHint = nullptr;
@@ -836,19 +1002,44 @@ void MainWindow::loadRoom(int room)
     doorItem = addRoomRect(800,160,65,100, QColor(180,130,20,200), QColor(255,210,60), 3, 3);
     addRoomText("ENTER", 808, 272, QColor(255,230,120), 13, 4);
 
-    // Traps
+    // Enemies + Obstacles
     switch (room) {
-    case 0: break; // intro — no traps
-    case 1: addTrap(360,140,90,120, true,  160,680, 2.2f);         break;
-    case 2: addTrap(280, 20,65, 90, false,  20,290, 2.5f);
-            addTrap(560,100,65, 90, false, 100,330, 3.0f, -1.f);   break;
-    case 3: addTrap(200,120,80, 70, true,  180,700, 2.8f);
-            addTrap(200,250,80, 70, true,  180,700, 3.2f, -1.f);   break;
-    case 4: addTrap(160,180,75, 75, true,  140,620, 2.5f);
-            addTrap(430, 40,75, 75, false,  40,300, 2.8f);         break;
-    case 5: addTrap(160, 80,70, 70, true,  140,730, 3.0f);
-            addTrap(160,190,70, 70, true,  140,730, 3.6f, -1.f);
-            addTrap(160,300,70, 70, true,  140,730, 2.8f);         break;
+    case 0: // Entrance — no enemies, no obstacles (tutorial)
+        break;
+
+    case 1: // Guardian Hall — mummy patrols full width
+        addTrap(360,140,90,120, true, 160,680, 2.2f, 1.f, 0); // mummy
+        addObstacle(415,  20, 38, 100, 0);   // fallen pillar top
+        addObstacle(555, 250, 38,  95, 0);   // stone block bottom-right
+        break;
+
+    case 2: // Hall of Echoes — spectres drift vertically
+        addTrap(280, 20,65, 90, false,  20,290, 2.5f,  1.f, 1); // specter
+        addTrap(560,100,65, 90, false, 100,330, 3.0f, -1.f, 1); // specter
+        addObstacle(320,  55, 28, 150, 0);   // sarcophagus left
+        addObstacle(535, 165, 28, 145, 0);   // sarcophagus right
+        break;
+
+    case 3: // Trial Room — two mummies sweep horizontally
+        addTrap(200,120,80, 70, true, 180,700, 2.8f,  1.f, 0); // mummy
+        addTrap(200,250,80, 70, true, 180,700, 3.2f, -1.f, 0); // mummy
+        addObstacle(375, 135, 48, 48, 0);   // rubble chunk A
+        addObstacle(555, 225, 48, 48, 0);   // rubble chunk B
+        break;
+
+    case 4: // Ankh Sanctuary — two scarabs
+        addTrap(160,180,75, 75, true,  140,620, 2.5f, 1.f, 2); // scarab
+        addTrap(430, 40,75, 75, false,  40,300, 2.8f, 1.f, 2); // scarab
+        addObstacle(455, 90, 34, 175, 1);   // golden altar pillar
+        break;
+
+    case 5: // Anubis Gate — three dark mummies
+        addTrap(160, 80,70, 70, true, 140,730, 3.0f,  1.f, 3); // dark mummy
+        addTrap(160,190,70, 70, true, 140,730, 3.6f, -1.f, 3); // dark mummy
+        addTrap(160,300,70, 70, true, 140,730, 2.8f,  1.f, 3); // dark mummy
+        addObstacle(365,  40, 38,  92, 2);  // cursed dark stone A
+        addObstacle(545, 250, 38,  88, 2);  // cursed dark stone B
+        break;
     }
 
     // "Press E" hint above door
@@ -1056,24 +1247,64 @@ QGraphicsTextItem* MainWindow::addRoomText(const QString &txt, qreal x, qreal y,
 }
 
 void MainWindow::addTrap(qreal x, qreal y, qreal w, qreal h,
-                          bool horiz, float mn, float mx, float spd, float startDir)
+                          bool horiz, float mn, float mx, float spd,
+                          float startDir, int enemyType)
 {
+    // Invisible rect used purely for collision / movement bookkeeping
     auto *item = new QGraphicsRectItem(0, 0, w, h);
-    item->setPen(QPen(QColor(255,80,50), 2.5));
-    item->setBrush(QBrush(QColor(180,20,20,220)));
+    item->setPen(Qt::NoPen);
+    item->setBrush(Qt::NoBrush);
     item->setPos(x, y);
-    item->setZValue(2);
+    item->setZValue(5);
     scene->addItem(item);
 
-    // Warning "!" as child so it moves with the trap automatically
-    auto *sym = new QGraphicsSimpleTextItem("!", item);
-    QFont f("Arial", int(qMin(w,h) * 0.45), QFont::Bold);
-    sym->setFont(f);
-    sym->setBrush(QBrush(QColor(255,200,180)));
-    sym->setPos(w/2 - sym->boundingRect().width()/2,
-                h/2 - sym->boundingRect().height()/2);
+    // Choose sprite based on enemy type
+    QPixmap spr;
+    switch (enemyType) {
+    case 1: spr = createSpecterSprite(int(w), int(h));      break;  // specter
+    case 2: spr = createScarabSprite (int(w), int(h));      break;  // scarab
+    case 3: spr = createMummySprite  (int(w), int(h), true); break; // dark mummy
+    default: spr = createMummySprite (int(w), int(h));      break;  // mummy
+    }
 
-    traps.append({item, horiz, mn, mx, spd, startDir});
+    auto *sprite = new QGraphicsPixmapItem(spr, item);
+    sprite->setPos(0, 0);
+
+    traps.append({item, sprite, horiz, mn, mx, spd, startDir, enemyType});
+}
+
+void MainWindow::addObstacle(qreal x, qreal y, qreal w, qreal h, int style)
+{
+    QColor fill, border;
+    switch (style) {
+    case 1: // golden altar stone
+        fill   = QColor(138, 102, 34, 245);
+        border = QColor(192, 152, 55);
+        break;
+    case 2: // cursed dark stone
+        fill   = QColor(36, 26, 50, 248);
+        border = QColor(72, 46, 108);
+        break;
+    default: // sandy desert stone
+        fill   = QColor(90, 74, 50, 248);
+        border = QColor(122, 100, 66);
+        break;
+    }
+
+    auto *item = scene->addRect(x, y, w, h, QPen(border, 2), QBrush(fill));
+    item->setZValue(3);
+    roomItems.append(item);
+    obstacles.append(item);
+
+    // Carved diamond mark in the centre of larger blocks
+    if (w >= 22 && h >= 22) {
+        int mx = int(x) + int(w) / 2 - 4, my = int(y) + int(h) / 2 - 4;
+        auto *mark = scene->addRect(mx, my, 8, 8,
+                                     QPen(border.darker(145), 1),
+                                     QBrush(fill.darker(140)));
+        mark->setZValue(4);
+        roomItems.append(mark);
+    }
 }
 
 
