@@ -15,6 +15,7 @@ qt_add_executable(TheQuestofNoReturn
     difficultydialog.h difficultydialog.cpp difficultydialog.ui
     SharedEnums.h
     howtoplaydialog.h howtoplaydialog.cpp howtoplaydialog.ui
+    riddledialog.h riddledialog.cpp
 
 )
 
