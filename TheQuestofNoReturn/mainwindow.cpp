@@ -165,6 +165,117 @@ static QPixmap createSpecterSprite(int w, int h)
     return pix;
 }
 
+// ─── Khonshu boss sprite (Room 5 – Khonshu's Chamber) ───────────────────────
+static QPixmap createKhonshuSprite(int w = 120, int h = 200)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+    p.setRenderHint(QPainter::Antialiasing);
+
+    const QColor robeCol (220, 220, 240);
+    const QColor wrapCol (140, 140, 185);
+    const QColor headCol ( 50,  30,  10);
+    const QColor crownCol(215, 185,  50);
+    const QColor eyeCol  (255, 215,  50);
+    const QColor collarBl( 28,  52, 148);
+    const QColor jewelCol(195, 158,  38);
+    const QColor staffCol(190, 155,  35);
+    const QColor beakCol (160,  98,  18);
+    const QColor bgCut   ( 8,   4,  28, 255);
+
+    // ── Crescent moon crown ──────────────────────────────
+    p.setBrush(crownCol); p.setPen(Qt::NoPen);
+    p.drawEllipse(w/2 - 18, 0, 36, 26);
+    p.setBrush(bgCut);
+    p.drawEllipse(w/2 - 6, 0, 36, 26);
+
+    // Crown disc
+    p.setBrush(crownCol); p.setPen(QPen(QColor(255,230,100), 1));
+    p.drawEllipse(w/2 - 11, 20, 22, 14);
+
+    // ── Falcon head ──────────────────────────────────────
+    int hdY = 30, hdW = 50, hdH = 38, hdX = (w - hdW) / 2;
+    p.setBrush(headCol); p.setPen(Qt::NoPen);
+    p.fillRect(hdX, hdY, hdW, hdH, headCol);
+    p.fillRect(hdX + 4, hdY - 4, hdW - 8, 6, headCol);  // top rounding
+    // Eye
+    p.fillRect(hdX + hdW * 2/3, hdY + hdH/3, 7, 5, eyeCol);
+    // Beak
+    p.setBrush(beakCol);
+    QPolygonF beak;
+    beak << QPointF(hdX + hdW,      hdY + hdH * 0.40)
+         << QPointF(hdX + hdW + 14, hdY + hdH * 0.52)
+         << QPointF(hdX + hdW,      hdY + hdH * 0.68);
+    p.drawPolygon(beak);
+
+    // ── Broad collar ─────────────────────────────────────
+    int colY = hdY + hdH, colH = 18, colW = 62, colX = (w - colW) / 2;
+    p.fillRect(colX, colY, colW, colH, collarBl);
+    for (int i = 0; i < 4; i++)
+        p.fillRect(colX, colY + i * 4 + 1, colW, 2, jewelCol);
+
+    // ── Robe body ─────────────────────────────────────────
+    int bdY = colY + colH, bdW = 58, bdH = 94, bdX = (w - bdW) / 2;
+    p.fillRect(bdX, bdY, bdW, bdH, robeCol);
+    for (int i = 1; i <= 7; i++)
+        p.fillRect(bdX, bdY + bdH * i / 8, bdW, 2, wrapCol);
+    p.fillRect(w/2 - 1, bdY, 2, bdH, wrapCol);
+    p.fillRect(w/2 - 8, bdY + 4, 16, 11, jewelCol);  // chest jewel
+
+    // ── Arms ─────────────────────────────────────────────
+    // Left arm (down)
+    p.fillRect(bdX - 13, bdY + 4, 13, 54, robeCol);
+    p.fillRect(bdX - 13, bdY + 4,  13, 2, wrapCol);
+    p.fillRect(bdX - 13, bdY + 28, 13, 2, wrapCol);
+    // Right arm (raised, holding staff)
+    p.fillRect(bdX + bdW, bdY + 4, 13, 38, robeCol);
+    p.fillRect(bdX + bdW, bdY + 4,  13, 2, wrapCol);
+    p.fillRect(bdX + bdW, bdY + 22, 13, 2, wrapCol);
+
+    // ── Staff ────────────────────────────────────────────
+    int stX = bdX + bdW + 13 + 3;
+    p.fillRect(stX - 2, 2, 4, h - 2, staffCol);
+    // Staff crescent top
+    p.setBrush(staffCol); p.setPen(Qt::NoPen);
+    p.drawEllipse(stX - 11, 2, 22, 18);
+    p.setBrush(bgCut);
+    p.drawEllipse(stX - 3, 2, 22, 18);
+
+    // ── Legs / base ──────────────────────────────────────
+    int lgY = bdY + bdH, lgH = h - lgY;
+    if (lgH > 0) {
+        p.fillRect(bdX, lgY, bdW, lgH, robeCol);
+        for (int i = 1; i < 4; i++)
+            p.fillRect(bdX, lgY + i * lgH / 3, bdW, 2, wrapCol);
+    }
+
+    p.end();
+    return pix;
+}
+
+// ─── Moon crescent projectile ─────────────────────────────────────────────────
+static QPixmap createCrescentSprite(int w, int h)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+    p.setRenderHint(QPainter::Antialiasing);
+
+    // Outer golden disc
+    p.setBrush(QColor(220, 192, 60));
+    p.setPen(QPen(QColor(255, 232, 110), 1));
+    p.drawEllipse(1, 1, w - 2, h - 2);
+
+    // Inner cut-out shifted right → crescent shape
+    p.setBrush(QColor(8, 4, 28, 255));
+    p.setPen(Qt::NoPen);
+    p.drawEllipse(w / 3, 1, w - 2, h - 2);
+
+    p.end();
+    return pix;
+}
+
 // ─── Scarab beetle enemy sprite (Room 4 – Ankh Sanctuary) ────────────────────
 static QPixmap createScarabSprite(int w, int h)
 {
@@ -224,7 +335,7 @@ struct RoomInfo {
     int     bonusScore;
 };
 
-static const RoomInfo ROOMS[6] = {
+static const RoomInfo ROOMS[7] = {
     { "Entrance Chamber",
       "Ancient glyphs surround you. Reach the golden door and press E.",
       "The seal breaks — the passage is open!",
@@ -245,6 +356,10 @@ static const RoomInfo ROOMS[6] = {
       "Dark energy circles the altar. Avoid it and claim the Ankh.",
       "The Ankh glows — it has chosen you!",
       true, 140, 60 },
+    { "Khonshu's Chamber",
+      "The Moon God rises! Dodge the crescents — press R near Khonshu when he tires.",
+      "Khonshu falls — the final gate lies ahead!",
+      false, 300, 100 },
     { "Anubis Gate",
       "Anubis stands at the final gate. Prove your worth — reach him and answer.",
       "Anubis bows. The gate opens — you have conquered the tomb!",
@@ -255,7 +370,7 @@ static const RoomInfo ROOMS[6] = {
 // RIDDLES
 // ═══════════════════════════════════════════════════════
 
-static const RiddleDialog::Riddle RIDDLES[6] = {
+static const RiddleDialog::Riddle RIDDLES[7] = {
     { "A seal on the passage demands:\n\n"
       "\"I speak without a mouth, hear without ears,\n"
       "have no body, yet come alive with wind. What am I?\"",
@@ -285,6 +400,9 @@ static const RiddleDialog::Riddle RIDDLES[6] = {
       {"A circle and a cross", "A triangle and a line",
        "A star and a crescent", "Two crossing lines"}, 0,
       "Scholar Insight: Trace the Ankh on this altar — find its geometric outline..." },
+
+    // Room 5 — boss room, riddle never shown; placeholder required for array size
+    { "", {"", "", "", ""}, 0, "" },
 
     { "Anubis speaks:\n\n"
       "\"I weigh the heart against the Feather of Ma'at.\n"
@@ -341,6 +459,15 @@ MainWindow::MainWindow(QWidget *parent)
     , playerSprite(nullptr)
     , doorItem(nullptr)
     , pressEHint(nullptr)
+    , bossSprite(nullptr)
+    , bossHPBar(nullptr)
+    , bossState(BossState::INACTIVE)
+    , bossHP(0)
+    , bossShootCount(0)
+    , bossShootTimer(0)
+    , bossTiredTimer(0)
+    , bossHitsThisPhase(0)
+    , bossDyingTimer(0)
 {
     ui->setupUi(this);
 
@@ -682,6 +809,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_A: case Qt::Key_Left:  heldKeys.insert(Qt::Key_A); return;
         case Qt::Key_D: case Qt::Key_Right: heldKeys.insert(Qt::Key_D); return;
         case Qt::Key_E:   tryInteract();                                 return;
+        case Qt::Key_R:   tryBossHit();                                  return;
         case Qt::Key_Escape: ui->pauseTestButton->click();               return;
         default: break;
         }
@@ -819,6 +947,12 @@ void MainWindow::onGameLoop()
         float dist = qSqrt(qPow(pc.x()-dc.x(), 2) + qPow(pc.y()-dc.y(), 2));
         pressEHint->setVisible(dist < 130.f);
     }
+
+    // ── Boss fight (room 5 only) ───────────────────────
+    if (currentRoom == 5) {
+        updateBoss();
+        updateCrescents();
+    }
 }
 
 
@@ -828,7 +962,6 @@ void MainWindow::onGameLoop()
 
 void MainWindow::startGame()
 {
-    // Apply stored difficulty (diagnosis item 4)
     switch (selectedDifficulty) {
     case Difficulty::EASY: timeSeconds = 720; maxLives = 4; break;
     case Difficulty::HARD: timeSeconds = 300; maxLives = 2; break;
@@ -843,6 +976,18 @@ void MainWindow::startGame()
     invFrames   = 0;
     riddleOpen  = false;
     heldKeys.clear();
+
+    // Boss state reset
+    bossState        = BossState::INACTIVE;
+    bossHP           = 25;
+    bossShootCount   = 0;
+    bossShootTimer   = 0;
+    bossTiredTimer   = 0;
+    bossHitsThisPhase= 0;
+    bossDyingTimer   = 0;
+
+    // Sidebar: slot 5 now shows the boss room (7-room layout)
+    mapLabels[5]->setText("Khonshu Boss");
 
     // Reset room-map sidebar
     for (int i = 0; i < 6; i++) mapLabels[i]->setStyleSheet(S_NORMAL);
@@ -922,6 +1067,21 @@ void MainWindow::setupScene()
 
 void MainWindow::clearRoom()
 {
+    // Crescents are scene items not tracked in roomItems
+    for (auto &c : crescents) {
+        if (scene) scene->removeItem(c.item);
+        delete c.item;
+    }
+    crescents.clear();
+
+    // Boss sprite is also outside roomItems
+    if (bossSprite && scene) {
+        scene->removeItem(bossSprite);
+        delete bossSprite;
+        bossSprite = nullptr;
+    }
+    bossState = BossState::INACTIVE;
+
     for (auto &t : traps) {
         if (scene) scene->removeItem(t.item);
         delete t.item;
@@ -933,10 +1093,11 @@ void MainWindow::clearRoom()
         delete item;
     }
     roomItems.clear();
-    obstacles.clear();   // raw pointers already freed above
+    obstacles.clear();
 
     doorItem   = nullptr;
     pressEHint = nullptr;
+    bossHPBar  = nullptr;
 }
 
 
@@ -950,10 +1111,11 @@ void MainWindow::loadRoom(int room)
     clearRoom();
     if (playerSprite) playerSprite->setPos(20, 173);
 
-    // Background colour per room
-    static const QColor BG[6] = {
+    // Background colour per room (7 rooms: 0–5 normal + 5 boss + 6 Anubis)
+    static const QColor BG[7] = {
         {45,32,12}, {28,22,18}, {12,4,28},
-        {4,12,32},  {38,24,4},  {4,2,10}
+        {4,12,32},  {38,24,4},  {5,3,22},  // room 5: deep indigo moon-chamber
+        {4,2,10}                             // room 6: Anubis Gate
     };
     scene->setBackgroundBrush(QBrush(BG[room]));
 
@@ -990,17 +1152,63 @@ void MainWindow::loadRoom(int room)
         addRoomRect(800,80,60,42,   QColor(220,180,60,140), QColor(255,220,100), 2, 1);
         addRoomText("ANKH SANCTUARY", 265, 340, QColor(200,160,50,180), 16, 1);
         break;
-    case 5:
-        addRoomRect(760,0,131,420, QColor(15,8,30,200), QColor(80,40,120), 2, 1);
-        addRoomRect(790,20,70,140, QColor(30,10,60,220), QColor(120,60,180), 2, 1);
-        addRoomText("ANUBIS GATE", 310, 340, QColor(120,60,200,200), 18, 1);
+    case 5: // Khonshu's Chamber — no regular enemies, no door; boss fight only
+    {
+        // Moonlit atmosphere: scattered star particles
+        for (int i = 0; i < 14; i++) {
+            int sx = (i * 61 + 30) % 820;
+            int sy = (i * 43 + 15) % 320;
+            int sr = 2 + i % 4;
+            addRoomRect(sx, sy, sr * 2, sr * 2,
+                        QColor(200, 185, 255, 55 + i * 10));
+        }
+        // Pillars the player can use for cover
+        addObstacle(185, 20, 32, 320, 2);
+        addObstacle(570, 20, 32, 320, 2);
+        addRoomText("KHONSHU'S CHAMBER", 240, 340,
+                    QColor(175, 135, 255, 210), 16, 1);
+
+        // Boss HP bar (background + fill)
+        addRoomRect(326, 4, 206, 18, QColor(28, 10, 10, 210),
+                    QColor(140, 50, 50), 2, 15);
+        bossHPBar = addRoomRect(328, 6, 200, 14,
+                                QColor(190, 42, 42, 230), Qt::transparent, 0, 16);
+        addRoomText("KHONSHU HP", 232, 4, QColor(205, 155, 255, 230), 12, 15);
+
+        // Boss sprite (120×200 px, positioned center-right)
+        bossSprite = new QGraphicsPixmapItem(createKhonshuSprite(120, 200));
+        bossSprite->setPos(590, 90);
+        bossSprite->setZValue(6);
+        scene->addItem(bossSprite);
+
+        // Initialise boss state machine
+        bossState         = BossState::SHOOTING;
+        bossHP            = 25;
+        bossShootCount    = 0;
+        bossShootTimer    = 0;
+        bossTiredTimer    = 0;
+        bossHitsThisPhase = 0;
+        bossDyingTimer    = 0;
+
+        ui->controlsLabel->setText(
+            "WASD Move | R Strike Boss (when glowing) | ESC Pause");
         break;
     }
 
-    // Golden door
-    addRoomRect(793,152,79,116, QColor(255,200,50,40), QColor(255,200,50,100), 2, 2);
-    doorItem = addRoomRect(800,160,65,100, QColor(180,130,20,200), QColor(255,210,60), 3, 3);
-    addRoomText("ENTER", 808, 272, QColor(255,230,120), 13, 4);
+    case 6:
+        addRoomRect(760,0,131,420, QColor(15,8,30,200), QColor(80,40,120), 2, 1);
+        addRoomRect(790,20,70,140, QColor(30,10,60,220), QColor(120,60,180), 2, 1);
+        addRoomText("ANUBIS GATE", 310, 340, QColor(120,60,200,200), 18, 1);
+        ui->controlsLabel->setText("WASD Move | E Interact | ESC Pause");
+        break;
+    }
+
+    // Golden door — only for non-boss rooms
+    if (room != 5) {
+        addRoomRect(793,152,79,116, QColor(255,200,50,40), QColor(255,200,50,100), 2, 2);
+        doorItem = addRoomRect(800,160,65,100, QColor(180,130,20,200), QColor(255,210,60), 3, 3);
+        addRoomText("ENTER", 808, 272, QColor(255,230,120), 13, 4);
+    }
 
     // Enemies + Obstacles
     switch (room) {
@@ -1033,7 +1241,10 @@ void MainWindow::loadRoom(int room)
         addObstacle(455, 90, 34, 175, 1);   // golden altar pillar
         break;
 
-    case 5: // Anubis Gate — three dark mummies
+    case 5: // Khonshu's Chamber — boss fight; no regular enemies
+        break;
+
+    case 6: // Anubis Gate — three dark mummies
         addTrap(160, 80,70, 70, true, 140,730, 3.0f,  1.f, 3); // dark mummy
         addTrap(160,190,70, 70, true, 140,730, 3.6f, -1.f, 3); // dark mummy
         addTrap(160,300,70, 70, true, 140,730, 2.8f,  1.f, 3); // dark mummy
@@ -1042,20 +1253,22 @@ void MainWindow::loadRoom(int room)
         break;
     }
 
-    // "Press E" hint above door
-    pressEHint = scene->addText("Press  E");
-    pressEHint->setDefaultTextColor(QColor(255,255,120));
-    QFont hf; hf.setPixelSize(14); hf.setBold(true);
-    pressEHint->setFont(hf);
-    pressEHint->setPos(794, 132);
-    pressEHint->setZValue(20);
-    pressEHint->setVisible(false);
-    roomItems.append(pressEHint);
+    // "Press E" hint above door — only for rooms with a door
+    if (room != 5) {
+        pressEHint = scene->addText("Press  E");
+        pressEHint->setDefaultTextColor(QColor(255,255,120));
+        QFont hf; hf.setPixelSize(14); hf.setBold(true);
+        pressEHint->setFont(hf);
+        pressEHint->setPos(794, 132);
+        pressEHint->setZValue(20);
+        pressEHint->setVisible(false);
+        roomItems.append(pressEHint);
+    }
 
     // Update HUD
     ui->roomNameLabel->setText(ROOMS[room].name);
     setEventText(ROOMS[room].enterText);
-    ui->levelLabel->setText(QString("%1 / 6").arg(room + 1));
+    ui->levelLabel->setText(QString("%1 / 7").arg(room + 1));
     refreshMap();
 }
 
@@ -1135,7 +1348,7 @@ void MainWindow::onRiddleCorrect()
 
     setEventText(r.solvedText);
 
-    if (currentRoom == 5)
+    if (currentRoom == 6)
         triggerWin();
     else
         loadRoom(currentRoom + 1);
@@ -1329,14 +1542,193 @@ void MainWindow::refreshLives()
 
 void MainWindow::refreshMap()
 {
+    // 7 rooms but only 6 sidebar slots (rooms 0–5).
+    // Room 6 (Anubis Gate) has no slot; show all 6 as done when there.
     for (int i = 0; i < 6; i++) {
-        if      (i < currentRoom)  mapLabels[i]->setStyleSheet(S_DONE);
-        else if (i == currentRoom) mapLabels[i]->setStyleSheet(S_ACTIVE);
-        else                       mapLabels[i]->setStyleSheet(S_NORMAL);
+        bool allDone = (currentRoom > 5);
+        if      (allDone || i < currentRoom)  mapLabels[i]->setStyleSheet(S_DONE);
+        else if (i == currentRoom)            mapLabels[i]->setStyleSheet(S_ACTIVE);
+        else                                  mapLabels[i]->setStyleSheet(S_NORMAL);
     }
 }
 
 void MainWindow::setEventText(const QString &msg)
 {
     ui->eventLabel->setText(msg);
+}
+
+
+// ═══════════════════════════════════════════════════════
+// BOSS FIGHT — Khonshu (room 5)
+// State machine: SHOOTING (8 crescents) → TIRED (10 s) → SHOOTING → …
+// Player hits with R key during TIRED phase; max 5 hits per opening.
+// 25 total hits to kill the boss.
+// ═══════════════════════════════════════════════════════
+
+void MainWindow::updateBoss()
+{
+    if (!bossSprite || bossState == BossState::INACTIVE) return;
+
+    switch (bossState) {
+
+    case BossState::SHOOTING:
+        // Fire one crescent every 45 frames (~0.75 s at 60 fps)
+        bossShootTimer++;
+        if (bossShootTimer >= 45) {
+            bossShootTimer = 0;
+            fireCrescent();
+            bossShootCount++;
+            if (bossShootCount >= 8) {
+                // Transition to TIRED after 8 crescents
+                bossState         = BossState::TIRED;
+                bossTiredTimer    = 600;   // 10 seconds
+                bossHitsThisPhase = 0;
+                bossShootCount    = 0;
+                setEventText("Khonshu is exhausted! Move close and press R to strike! (max 5 hits)");
+            }
+        }
+        // Subtle float animation: oscillate opacity slightly
+        if (bossSprite)
+            bossSprite->setOpacity(0.92 + 0.08 * qSin(bossShootTimer * 0.15));
+        break;
+
+    case BossState::TIRED:
+    {
+        bossTiredTimer--;
+        // Pulse to signal vulnerability
+        double pulse = 0.45 + 0.40 * qSin(bossTiredTimer * 0.22);
+        bossSprite->setOpacity(pulse);
+
+        // 3-second warning before resuming
+        if (bossTiredTimer == 180)
+            setEventText("Khonshu is stirring — land your final hits now!");
+
+        if (bossTiredTimer <= 0) {
+            bossState = BossState::SHOOTING;
+            bossShootTimer = 0;
+            bossSprite->setOpacity(1.0);
+            setEventText("Khonshu rises again! Dodge the crescents!");
+        }
+        break;
+    }
+
+    case BossState::DYING:
+        bossDyingTimer--;
+        if (bossSprite)
+            bossSprite->setOpacity(qMax(0.0, double(bossDyingTimer) / 90.0));
+        if (bossDyingTimer <= 0) {
+            bossState = BossState::INACTIVE;
+            // Transition to the final room
+            score += ROOMS[5].baseScore;
+            ui->scoreLabel->setText(QString("🏆 %1").arg(score));
+            loadRoom(6);
+        }
+        break;
+
+    case BossState::INACTIVE:
+        break;
+    }
+}
+
+void MainWindow::fireCrescent()
+{
+    if (!playerSprite || !bossSprite) return;
+
+    QPointF bossCenter   = bossSprite->sceneBoundingRect().center();
+    QPointF playerCenter = playerSprite->sceneBoundingRect().center();
+
+    float dx = float(playerCenter.x() - bossCenter.x());
+    float dy = float(playerCenter.y() - bossCenter.y());
+    float len = qSqrt(dx * dx + dy * dy);
+    if (len < 1.f) len = 1.f;
+
+    const float speed = 3.5f;
+    float vx = dx / len * speed;
+    float vy = dy / len * speed;
+
+    auto *item = new QGraphicsPixmapItem(createCrescentSprite(22, 22));
+    item->setPos(bossCenter.x() - 11, bossCenter.y() - 11);
+    item->setZValue(8);
+    scene->addItem(item);
+
+    crescents.append({item, vx, vy});
+}
+
+void MainWindow::updateCrescents()
+{
+    if (!playerSprite) return;
+
+    const QRectF sceneRect(0, 0, 891, 421);
+    QRectF playerRect = playerSprite->sceneBoundingRect();
+
+    for (int i = crescents.size() - 1; i >= 0; i--) {
+        Crescent &c = crescents[i];
+        QPointF pos = c.item->pos();
+        pos.rx() += c.vx;
+        pos.ry() += c.vy;
+        c.item->setPos(pos);
+
+        // Remove crescent when it leaves the scene
+        if (!sceneRect.intersects(c.item->sceneBoundingRect())) {
+            scene->removeItem(c.item);
+            delete c.item;
+            crescents.remove(i);
+            continue;
+        }
+
+        // Crescent hits player (only when not already invincible)
+        if (!invincible && playerRect.intersects(c.item->sceneBoundingRect())) {
+            scene->removeItem(c.item);
+            delete c.item;
+            crescents.remove(i);
+            onTrapHit();   // reuses existing heart/invincibility logic
+        }
+    }
+}
+
+void MainWindow::tryBossHit()
+{
+    if (!gameActive || bossState != BossState::TIRED || !bossSprite || !playerSprite)
+        return;
+
+    if (bossHitsThisPhase >= 5) {
+        setEventText("Maximum hits reached for this phase — dodge until the next opening!");
+        return;
+    }
+
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+    QPointF bc = bossSprite->sceneBoundingRect().center();
+    float dist = qSqrt(qPow(pc.x() - bc.x(), 2) + qPow(pc.y() - bc.y(), 2));
+
+    if (dist > 160.f) {
+        setEventText("Move closer to Khonshu and press R to strike!");
+        return;
+    }
+
+    bossHitsThisPhase++;
+    bossHP--;
+
+    // Flash the boss white briefly
+    bossSprite->setOpacity(0.15);
+
+    // Shrink HP bar proportionally
+    if (bossHPBar) {
+        float ratio = float(bossHP) / 25.0f;
+        bossHPBar->setRect(328, 6, qMax(0.f, 200.f * ratio), 14);
+    }
+
+    if (bossHP <= 0) {
+        bossState      = BossState::DYING;
+        bossDyingTimer = 90;
+        // Clear all projectiles immediately
+        for (auto &c : crescents) {
+            scene->removeItem(c.item);
+            delete c.item;
+        }
+        crescents.clear();
+        setEventText("KHONSHU FALLS! The Moon God crumbles into dust...");
+    } else {
+        setEventText(QString("Hit! Khonshu HP: %1 | Hits this phase: %2 / 5")
+                     .arg(bossHP).arg(bossHitsThisPhase));
+    }
 }
