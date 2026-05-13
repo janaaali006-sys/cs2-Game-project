@@ -20,6 +20,64 @@ QT_END_NAMESPACE
 
 enum class BossState { INACTIVE, SHOOTING, TIRED, DYING };
 
+// ── Interactable object structures ────────────────────────
+struct ClueFragment {
+    QGraphicsPixmapItem *sprite;
+    QGraphicsRectItem   *glowEffect;
+    bool collected;
+    float glowPhase;
+};
+
+struct Statue {
+    QGraphicsPixmapItem *sprite;
+    QGraphicsRectItem   *hitbox;
+    QString loreText;
+};
+
+struct Tablet {
+    QGraphicsPixmapItem *sprite;
+    QGraphicsRectItem   *hitbox;
+    QString hintText;
+};
+
+struct Torch {
+    QGraphicsPixmapItem *sprite;
+    QGraphicsRectItem   *hitbox;
+    bool activated;
+    QList<QGraphicsItem*> revealsItems;
+};
+
+struct HiddenRelic {
+    QGraphicsPixmapItem *sprite;
+    bool collected;
+    bool visible;
+};
+
+struct Altar {
+    QGraphicsPixmapItem *sprite;
+    QGraphicsRectItem   *hitbox;
+    QGraphicsRectItem   *glowEffect;
+    QGraphicsTextItem   *hint;
+    bool active;
+};
+
+struct DestructibleCover {
+    QGraphicsRectItem *item;
+    int hp;  // breaks when hp reaches 0
+};
+
+// ── Room-specific mechanic types ──────────────────────────
+enum class RoomMechanic {
+    NONE,
+    TUTORIAL,
+    STEALTH_GUARDIAN,
+    FAKE_DOORS,
+    SPIKE_TRAPS,
+    HIDDEN_RELIC_PUZZLE,
+    BOSS_FIGHT,
+    COLLAPSING_FLOOR
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -67,6 +125,11 @@ private:
         bool  horiz;
         float mn, mx, spd, dir;
         int   type;
+        // Chase behavior
+        float detectionRadius;
+        float chaseSpeed;
+        bool  chasing;
+        float homeX, homeY;  // original patrol center
     };
 
     struct Crescent {
@@ -82,6 +145,29 @@ private:
     QVector<Trap>              traps;
     QVector<QGraphicsRectItem*> obstacles;
 
+    // ── Interactables ─────────────────────────────────────
+    QVector<ClueFragment>  clueFragments;
+    QVector<Statue>        statues;
+    QVector<Tablet>        tablets;
+    QVector<Torch>         torches;
+    QVector<HiddenRelic>   relics;
+    Altar                  altar;
+    int                    cluesFound;
+    int                    requiredClues;
+    int                    relicsCollected;
+    int                    totalRelicsInGame;
+    RoomMechanic           currentMechanic;
+
+    // ── Room-specific mechanic data ───────────────────────
+    QVector<QGraphicsRectItem*> fakeDoors;
+    QGraphicsRectItem          *realDoor;
+    QVector<QGraphicsRectItem*> spikeTraps;
+    QVector<bool>               spikeActive;
+    int                         spikeTimer;
+    QVector<QGraphicsRectItem*> collapsingTiles;
+    QVector<int>                collapseTriggerTimer;
+    QVector<bool>               tileCollapsed;
+
     // ── Boss fight ────────────────────────────────────────
     QGraphicsPixmapItem *bossSprite;
     QGraphicsRectItem   *bossHPBar;       // red bar shrinks as boss takes damage
@@ -93,6 +179,7 @@ private:
     int                  bossHitsThisPhase; // hits landed during current opening (max 5)
     int                  bossDyingTimer;  // death animation countdown
     QVector<Crescent>    crescents;
+    QVector<DestructibleCover> destructibleCovers;
 
     // ── Input ─────────────────────────────────────────────
     QSet<int>  heldKeys;
@@ -121,7 +208,8 @@ private:
     // ── Scene helpers ─────────────────────────────────────
     void addTrap(qreal x, qreal y, qreal w, qreal h,
                  bool horiz, float mn, float mx, float spd,
-                 float startDir = 1.f, int enemyType = 0);
+                 float startDir = 1.f, int enemyType = 0,
+                 float detectRadius = 0.f, float chaseSpd = 0.f);
     void addObstacle(qreal x, qreal y, qreal w, qreal h, int style = 0);
     QGraphicsRectItem* addRoomRect(qreal x, qreal y, qreal w, qreal h,
                                     QColor fill,
@@ -129,6 +217,31 @@ private:
                                     qreal bw = 0, int z = 1);
     QGraphicsTextItem* addRoomText(const QString &txt, qreal x, qreal y,
                                     QColor col, int sz, int z = 2);
+
+    // ── Interactable helpers ──────────────────────────────
+    void addClueFragment(qreal x, qreal y);
+    void addStatue(qreal x, qreal y, const QString &lore);
+    void addTablet(qreal x, qreal y, const QString &hint);
+    void addTorch(qreal x, qreal y, QList<QGraphicsItem*> reveals = {});
+    void addRelic(qreal x, qreal y, bool startVisible = false);
+    void addAltarToRoom(qreal x, qreal y);
+    void tryCollectClue();
+    void tryInteractStatue();
+    void tryInteractTablet();
+    void tryInteractTorch();
+    void tryCollectRelic();
+    void checkAltarActivation();
+    void updateClueGlow();
+    void updateEnemyChase();
+
+    // ── Room mechanic helpers ─────────────────────────────
+    void addFakeDoor(qreal x, qreal y);
+    void addSpikeTrap(qreal x, qreal y, qreal w, qreal h);
+    void addCollapsingTile(qreal x, qreal y, qreal w, qreal h);
+    void updateSpikeTraps();
+    void updateCollapsingFloor();
+    void checkFakeDoorCollision();
+    void showRoomIntro(int room);
 
     // ── HUD helpers ───────────────────────────────────────
     void refreshTimer();

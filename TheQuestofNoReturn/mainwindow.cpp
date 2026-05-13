@@ -9,10 +9,14 @@
 #include <QPainter>
 #include <QtMath>
 #include <QRandomGenerator>
+#include <QDialog>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
 
 static QPixmap createPlayerSprite(int frame = 0)
 {
-    QPixmap pix(55, 75);
+    QPixmap pix(44, 60);
     pix.fill(Qt::transparent);
     QPainter p(&pix);
 
@@ -25,44 +29,44 @@ static QPixmap createPlayerSprite(int frame = 0)
     const QColor boot ( 35,  18,   4);
 
     // Cowboy hat dome
-    p.fillRect(14,  2, 27, 14, hat);
+    p.fillRect(11,  2, 22, 11, hat);
     // Hat brim (wide)
-    p.fillRect( 2, 12, 51,  7, hat);
+    p.fillRect( 2, 10, 40,  5, hat);
     // Hat band
-    p.fillRect(14, 13, 27,  3, band);
+    p.fillRect(11, 10, 22,  2, band);
 
     // Face
-    p.fillRect(17, 20, 21, 17, skin);
+    p.fillRect(14, 16, 17, 14, skin);
     // Eyes
-    p.fillRect(21, 25,  3,  3, eye);
-    p.fillRect(31, 25,  3,  3, eye);
+    p.fillRect(17, 20,  2,  2, eye);
+    p.fillRect(25, 20,  2,  2, eye);
     // Mouth
-    p.fillRect(23, 34,  9,  2, QColor(170, 70, 50));
+    p.fillRect(18, 27,  7,  2, QColor(170, 70, 50));
 
     // Neck
-    p.fillRect(23, 37,  9,  5, skin);
+    p.fillRect(18, 30,  7,  4, skin);
 
     // Torso
-    p.fillRect(14, 42, 27, 16, shirt);
+    p.fillRect(11, 34, 22, 13, shirt);
     // Left arm
-    p.fillRect( 5, 42, 10, 14, shirt);
+    p.fillRect( 4, 34,  8, 11, shirt);
     // Right arm
-    p.fillRect(40, 42, 10, 14, shirt);
+    p.fillRect(32, 34,  8, 11, shirt);
     // Hands
-    p.fillRect( 5, 55, 10,  5, skin);
-    p.fillRect(40, 55, 10,  5, skin);
+    p.fillRect( 4, 44,  8,  4, skin);
+    p.fillRect(32, 44,  8,  4, skin);
 
     // Belt
-    p.fillRect(14, 58, 27,  3, QColor(50, 28, 6));
+    p.fillRect(11, 46, 22,  2, QColor(50, 28, 6));
     // Buckle
-    p.fillRect(24, 58,  7,  3, band);
+    p.fillRect(19, 46,  6,  2, band);
 
     // Legs and boots: frame 0 = neutral, frame 1 = stride (legs spread)
-    int lo = (frame == 0) ? 0 : 3;   // outward offset per leg
-    p.fillRect(15 - lo, 61, 11, 12, pants);
-    p.fillRect(29 + lo, 61, 11, 12, pants);
-    p.fillRect(13 - lo, 70, 14,  5, boot);
-    p.fillRect(28 + lo, 70, 14,  5, boot);
+    int lo = (frame == 0) ? 0 : 2;   // outward offset per leg
+    p.fillRect(12 - lo, 49,  9, 10, pants);
+    p.fillRect(23 + lo, 49,  9, 10, pants);
+    p.fillRect(10 - lo, 56, 11,  4, boot);
+    p.fillRect(22 + lo, 56, 11,  4, boot);
 
     p.end();
     return pix;
@@ -322,6 +326,237 @@ static QPixmap createScarabSprite(int w, int h)
     return pix;
 }
 
+// ─── Clue Fragment sprite (glowing golden shard) ─────────────────────────────
+static QPixmap createClueSprite(int w = 28, int h = 28)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+    p.setRenderHint(QPainter::Antialiasing);
+
+    // Outer glow
+    p.setBrush(QColor(255, 210, 80, 60));
+    p.setPen(Qt::NoPen);
+    p.drawEllipse(2, 2, w - 4, h - 4);
+
+    // Inner crystal shape
+    QPolygonF crystal;
+    crystal << QPointF(w / 2, 4)
+            << QPointF(w - 6, h / 2)
+            << QPointF(w / 2, h - 4)
+            << QPointF(6, h / 2);
+    p.setBrush(QColor(255, 200, 60, 230));
+    p.setPen(QPen(QColor(255, 240, 150), 2));
+    p.drawPolygon(crystal);
+
+    // Highlight
+    p.fillRect(w / 2 - 2, h / 3, 4, 4, QColor(255, 255, 200, 200));
+
+    p.end();
+    return pix;
+}
+
+// ─── Statue sprite (Egyptian figure) ─────────────────────────────────────────
+static QPixmap createStatueSprite(int w = 40, int h = 80)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor stone(120, 100, 70, 240);
+    QColor dark(80, 65, 45, 230);
+    QColor gold(200, 165, 50, 220);
+
+    // Base pedestal
+    p.fillRect(2, h - 12, w - 4, 12, dark);
+    p.fillRect(4, h - 14, w - 8, 4, stone);
+
+    // Body
+    int bodyH = h - 20;
+    p.fillRect(w / 4, 20, w / 2, bodyH - 6, stone);
+
+    // Head (pharaoh headdress shape)
+    p.fillRect(w / 4 - 4, 6, w / 2 + 8, 18, stone);
+    p.fillRect(w / 4, 0, w / 2, 10, gold);
+
+    // Face details
+    p.fillRect(w / 2 - 4, 12, 3, 2, dark);
+    p.fillRect(w / 2 + 2, 12, 3, 2, dark);
+    p.fillRect(w / 2 - 2, 18, 5, 2, dark);
+
+    // Arms crossed
+    p.fillRect(w / 4 - 2, 28, w / 2 + 4, 6, stone);
+    p.fillRect(w / 4, 32, 6, 20, stone);
+    p.fillRect(w - w / 4 - 6, 32, 6, 20, stone);
+
+    // Decorative bands
+    p.fillRect(w / 4, 26, w / 2, 2, gold);
+    p.fillRect(w / 4, 45, w / 2, 2, gold);
+
+    p.end();
+    return pix;
+}
+
+// ─── Tablet sprite (stone tablet with hieroglyphs) ───────────────────────────
+static QPixmap createTabletSprite(int w = 50, int h = 40)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor stone(160, 140, 100, 240);
+    QColor dark(100, 85, 55, 230);
+    QColor glyph(60, 45, 25, 200);
+
+    // Main tablet
+    p.fillRect(2, 4, w - 4, h - 6, stone);
+    p.fillRect(0, 2, w, 4, dark);
+    p.fillRect(0, h - 4, w, 4, dark);
+
+    // Hieroglyphs (simple shapes)
+    int glyphY = 12;
+    for (int row = 0; row < 2; row++) {
+        for (int col = 0; col < 4; col++) {
+            int gx = 8 + col * 10;
+            int gy = glyphY + row * 12;
+            // Vary shapes
+            if ((row + col) % 3 == 0)
+                p.fillRect(gx, gy, 6, 8, glyph);
+            else if ((row + col) % 3 == 1) {
+                p.fillRect(gx, gy, 8, 3, glyph);
+                p.fillRect(gx + 2, gy + 3, 4, 5, glyph);
+            } else {
+                p.fillRect(gx + 2, gy, 4, 8, glyph);
+                p.fillRect(gx, gy + 2, 8, 3, glyph);
+            }
+        }
+    }
+
+    p.end();
+    return pix;
+}
+
+// ─── Torch sprite (wall torch) ───────────────────────────────────────────────
+static QPixmap createTorchSprite(int w = 20, int h = 45, bool lit = false)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor handle(90, 60, 30, 245);
+    QColor metal(140, 120, 80, 240);
+
+    // Handle
+    p.fillRect(w / 2 - 3, h / 3, 6, h * 2 / 3, handle);
+
+    // Bracket
+    p.fillRect(w / 2 - 6, h / 3, 12, 4, metal);
+    p.fillRect(w / 2 - 8, h / 3 - 2, 4, 8, metal);
+
+    // Bowl
+    p.fillRect(w / 2 - 7, 8, 14, 10, metal);
+
+    if (lit) {
+        // Flame
+        p.setBrush(QColor(255, 180, 40, 200));
+        p.setPen(Qt::NoPen);
+        QPolygonF flame;
+        flame << QPointF(w / 2, 0)
+              << QPointF(w / 2 + 6, 12)
+              << QPointF(w / 2, 8)
+              << QPointF(w / 2 - 6, 12);
+        p.drawPolygon(flame);
+        // Inner flame
+        p.setBrush(QColor(255, 240, 120, 220));
+        QPolygonF inner;
+        inner << QPointF(w / 2, 3)
+              << QPointF(w / 2 + 3, 10)
+              << QPointF(w / 2, 7)
+              << QPointF(w / 2 - 3, 10);
+        p.drawPolygon(inner);
+    }
+
+    p.end();
+    return pix;
+}
+
+// ─── Relic sprite (golden scarab collectible) ────────────────────────────────
+static QPixmap createRelicSprite(int w = 32, int h = 24)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor gold(220, 180, 40, 245);
+    QColor shine(255, 240, 120, 230);
+    QColor dark(140, 100, 20, 240);
+
+    // Body
+    p.fillRect(w / 4, h / 4, w / 2, h / 2, gold);
+    p.fillRect(w / 3, h / 6, w / 3, h * 2 / 3, gold);
+
+    // Wings
+    p.fillRect(2, h / 3, w / 4 - 2, h / 3, gold);
+    p.fillRect(w - w / 4, h / 3, w / 4 - 2, h / 3, gold);
+
+    // Details
+    p.fillRect(w / 2 - 1, h / 4, 2, h / 2, dark);
+    p.fillRect(w / 3, h / 2 - 1, w / 3, 2, shine);
+
+    // Head
+    p.fillRect(w / 2 - 4, 2, 8, 6, gold);
+    p.fillRect(w / 2 - 2, 0, 2, 4, dark);
+    p.fillRect(w / 2 + 1, 0, 2, 4, dark);
+
+    p.end();
+    return pix;
+}
+
+// ─── Altar sprite (central altar, dormant or active) ─────────────────────────
+static QPixmap createAltarSprite(int w = 80, int h = 60, bool active = false)
+{
+    QPixmap pix(w, h);
+    pix.fill(Qt::transparent);
+    QPainter p(&pix);
+
+    QColor stone(100, 85, 60, 245);
+    QColor dark(65, 50, 35, 240);
+    QColor gold = active ? QColor(255, 210, 60, 230) : QColor(120, 100, 60, 200);
+    QColor glow = active ? QColor(255, 240, 120, 180) : QColor(80, 70, 50, 150);
+
+    // Base platform
+    p.fillRect(4, h - 14, w - 8, 14, dark);
+    p.fillRect(0, h - 18, w, 6, stone);
+
+    // Main altar body
+    p.fillRect(10, h / 3, w - 20, h - h / 3 - 18, stone);
+
+    // Top surface
+    p.fillRect(6, h / 3 - 4, w - 12, 8, stone);
+
+    // Decorative carvings
+    p.fillRect(14, h / 2, w - 28, 3, gold);
+    p.fillRect(w / 2 - 8, h / 3, 16, h / 3, gold);
+
+    // Eye of Horus symbol on front
+    p.fillRect(w / 2 - 6, h / 2 + 8, 12, 8, glow);
+    p.fillRect(w / 2 - 3, h / 2 + 6, 6, 4, gold);
+
+    // Corner decorations
+    p.fillRect(12, h / 3 + 2, 6, 6, gold);
+    p.fillRect(w - 18, h / 3 + 2, 6, 6, gold);
+
+    if (active) {
+        // Glowing aura on top
+        p.setBrush(QColor(255, 230, 100, 100));
+        p.setPen(Qt::NoPen);
+        p.drawEllipse(w / 4, 0, w / 2, h / 3);
+    }
+
+    p.end();
+    return pix;
+}
+
 // ═══════════════════════════════════════════════════════
 // ROOM NARRATIVE
 // ═══════════════════════════════════════════════════════
@@ -337,23 +572,23 @@ struct RoomInfo {
 
 static const RoomInfo ROOMS[7] = {
     { "Entrance Chamber",
-      "Ancient glyphs surround you. Reach the golden door and press E.",
+      "Explore the chamber. Collect 3 clue fragments to awaken the altar.",
       "The seal breaks — the passage is open!",
       false, 100, 60 },
     { "Guardian Hall",
-      "A stone guardian patrols the hall. Dodge it and reach the door.",
+      "A vigilant guardian patrols. Use cover, find clues, avoid detection.",
       "The colossus crumbles — you may pass!",
       false, 120, 60 },
     { "Hall of Echoes",
-      "Ethereal phantoms drift across the hall. Weave through and reach the door.",
+      "Spectres drift through illusions. Beware false doors. Seek the true altar.",
       "The echoes answer your wisdom — the path clears!",
       false, 130, 60 },
     { "Trial Room",
-      "Ancient mechanisms sweep the floor. Navigate them and answer the tablet.",
+      "Deadly spikes rise in rhythm. Time your steps. Gather the clues.",
       "The stone tablet shatters — trial complete!",
       false, 150, 70 },
     { "Ankh Sanctuary",
-      "Dark energy circles the altar. Avoid it and claim the Ankh.",
+      "Sacred scarabs guard hidden secrets. Light the torch to reveal the way.",
       "The Ankh glows — it has chosen you!",
       true, 140, 60 },
     { "Khonshu's Chamber",
@@ -361,7 +596,7 @@ static const RoomInfo ROOMS[7] = {
       "Khonshu falls — the final gate lies ahead!",
       false, 300, 100 },
     { "Anubis Gate",
-      "Anubis stands at the final gate. Prove your worth — reach him and answer.",
+      "The floor crumbles beneath your feet. Move carefully. Find the final clues.",
       "Anubis bows. The gate opens — you have conquered the tomb!",
       false, 200, 80 }
 };
@@ -468,7 +703,15 @@ MainWindow::MainWindow(QWidget *parent)
     , bossTiredTimer(0)
     , bossHitsThisPhase(0)
     , bossDyingTimer(0)
+    , cluesFound(0)
+    , requiredClues(3)
+    , relicsCollected(0)
+    , totalRelicsInGame(0)
+    , currentMechanic(RoomMechanic::NONE)
+    , realDoor(nullptr)
+    , spikeTimer(0)
 {
+    altar = {nullptr, nullptr, nullptr, nullptr, false};
     ui->setupUi(this);
 
     // ── Timers ──────────────────────────────────────────
@@ -895,19 +1138,41 @@ void MainWindow::onGameLoop()
         playerSprite->setPixmap(createPlayerSprite(0));
     }
 
-    // ── Move traps ─────────────────────────────────────
+    // ── Move traps (with chase behavior) ───────────────
+    QPointF playerCenter = playerSprite->sceneBoundingRect().center();
     for (auto &t : traps) {
         QPointF tp = t.item->pos();
-        if (t.horiz) {
-            float nx = float(tp.x()) + t.spd * t.dir;
-            if (nx <= t.mn) { nx = t.mn; t.dir = 1; }
-            if (nx >= t.mx) { nx = t.mx; t.dir = -1; }
-            t.item->setPos(nx, tp.y());
+        QPointF trapCenter = t.item->sceneBoundingRect().center();
+
+        // Check if player is within detection radius
+        float distToPlayer = qSqrt(qPow(playerCenter.x() - trapCenter.x(), 2) +
+                                    qPow(playerCenter.y() - trapCenter.y(), 2));
+
+        if (t.detectionRadius > 0 && distToPlayer < t.detectionRadius) {
+            // Chase mode: move toward player
+            t.chasing = true;
+            float cdx = float(playerCenter.x() - trapCenter.x());
+            float cdy = float(playerCenter.y() - trapCenter.y());
+            float clen = qSqrt(cdx * cdx + cdy * cdy);
+            if (clen > 1.f) {
+                float moveX = (cdx / clen) * t.chaseSpeed;
+                float moveY = (cdy / clen) * t.chaseSpeed;
+                t.item->setPos(tp.x() + moveX, tp.y() + moveY);
+            }
         } else {
-            float ny = float(tp.y()) + t.spd * t.dir;
-            if (ny <= t.mn) { ny = t.mn; t.dir = 1; }
-            if (ny >= t.mx) { ny = t.mx; t.dir = -1; }
-            t.item->setPos(tp.x(), ny);
+            // Normal patrol mode
+            t.chasing = false;
+            if (t.horiz) {
+                float nx = float(tp.x()) + t.spd * t.dir;
+                if (nx <= t.mn) { nx = t.mn; t.dir = 1; }
+                if (nx >= t.mx) { nx = t.mx; t.dir = -1; }
+                t.item->setPos(nx, tp.y());
+            } else {
+                float ny = float(tp.y()) + t.spd * t.dir;
+                if (ny <= t.mn) { ny = t.mn; t.dir = 1; }
+                if (ny >= t.mx) { ny = t.mx; t.dir = -1; }
+                t.item->setPos(tp.x(), ny);
+            }
         }
     }
 
@@ -940,12 +1205,26 @@ void MainWindow::onGameLoop()
         }
     }
 
-    // ── Door proximity hint ────────────────────────────
-    if (doorItem && pressEHint) {
+    // ── Clue fragment glow animation ──────────────────
+    updateClueGlow();
+
+    // ── Altar hint visibility ─────────────────────────
+    if (altar.sprite && altar.hint && altar.hitbox) {
         QPointF pc = playerSprite->sceneBoundingRect().center();
-        QPointF dc = doorItem->sceneBoundingRect().center();
-        float dist = qSqrt(qPow(pc.x()-dc.x(), 2) + qPow(pc.y()-dc.y(), 2));
-        pressEHint->setVisible(dist < 130.f);
+        QPointF ac = altar.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - ac.x(), 2) + qPow(pc.y() - ac.y(), 2));
+        altar.hint->setVisible(altar.active && dist < 120.f);
+    }
+
+    // ── Room-specific mechanics ───────────────────────
+    if (currentMechanic == RoomMechanic::SPIKE_TRAPS) {
+        updateSpikeTraps();
+    }
+    if (currentMechanic == RoomMechanic::COLLAPSING_FLOOR) {
+        updateCollapsingFloor();
+    }
+    if (currentMechanic == RoomMechanic::FAKE_DOORS) {
+        checkFakeDoorCollision();
     }
 
     // ── Boss fight (room 5 only) ───────────────────────
@@ -985,6 +1264,14 @@ void MainWindow::startGame()
     bossTiredTimer   = 0;
     bossHitsThisPhase= 0;
     bossDyingTimer   = 0;
+
+    // Exploration mechanics reset
+    cluesFound       = 0;
+    requiredClues    = 3;
+    relicsCollected  = 0;
+    totalRelicsInGame= 7;
+    currentMechanic  = RoomMechanic::NONE;
+    spikeTimer       = 0;
 
     // Sidebar: slot 5 now shows the boss room (7-room layout)
     mapLabels[5]->setText("Khonshu Boss");
@@ -1082,11 +1369,84 @@ void MainWindow::clearRoom()
     }
     bossState = BossState::INACTIVE;
 
+    // Clear destructible covers
+    for (auto &dc : destructibleCovers) {
+        if (dc.item && scene) { scene->removeItem(dc.item); delete dc.item; }
+    }
+    destructibleCovers.clear();
+
     for (auto &t : traps) {
         if (scene) scene->removeItem(t.item);
         delete t.item;
     }
     traps.clear();
+
+    // Clear clue fragments
+    for (auto &cf : clueFragments) {
+        if (cf.sprite && scene) { scene->removeItem(cf.sprite); delete cf.sprite; }
+        if (cf.glowEffect && scene) { scene->removeItem(cf.glowEffect); delete cf.glowEffect; }
+    }
+    clueFragments.clear();
+
+    // Clear statues
+    for (auto &s : statues) {
+        if (s.sprite && scene) { scene->removeItem(s.sprite); delete s.sprite; }
+        if (s.hitbox && scene) { scene->removeItem(s.hitbox); delete s.hitbox; }
+    }
+    statues.clear();
+
+    // Clear tablets
+    for (auto &tb : tablets) {
+        if (tb.sprite && scene) { scene->removeItem(tb.sprite); delete tb.sprite; }
+        if (tb.hitbox && scene) { scene->removeItem(tb.hitbox); delete tb.hitbox; }
+    }
+    tablets.clear();
+
+    // Clear torches
+    for (auto &tr : torches) {
+        if (tr.sprite && scene) { scene->removeItem(tr.sprite); delete tr.sprite; }
+        if (tr.hitbox && scene) { scene->removeItem(tr.hitbox); delete tr.hitbox; }
+    }
+    torches.clear();
+
+    // Clear relics
+    for (auto &r : relics) {
+        if (r.sprite && scene) { scene->removeItem(r.sprite); delete r.sprite; }
+    }
+    relics.clear();
+
+    // Clear altar
+    if (altar.sprite && scene) { scene->removeItem(altar.sprite); delete altar.sprite; }
+    if (altar.hitbox && scene) { scene->removeItem(altar.hitbox); delete altar.hitbox; }
+    if (altar.glowEffect && scene) { scene->removeItem(altar.glowEffect); delete altar.glowEffect; }
+    if (altar.hint && scene) { scene->removeItem(altar.hint); delete altar.hint; }
+    altar = {nullptr, nullptr, nullptr, nullptr, false};
+
+    // Clear room-specific mechanics
+    for (auto *fd : fakeDoors) {
+        if (scene) scene->removeItem(fd);
+        delete fd;
+    }
+    fakeDoors.clear();
+    realDoor = nullptr;
+
+    for (auto *sp : spikeTraps) {
+        if (scene) scene->removeItem(sp);
+        delete sp;
+    }
+    spikeTraps.clear();
+    spikeActive.clear();
+
+    for (auto *ct : collapsingTiles) {
+        if (scene) scene->removeItem(ct);
+        delete ct;
+    }
+    collapsingTiles.clear();
+    collapseTriggerTimer.clear();
+    tileCollapsed.clear();
+
+    // Reset per-room clue counter
+    cluesFound = 0;
 
     for (QGraphicsItem *item : roomItems) {
         if (scene) scene->removeItem(item);
@@ -1111,49 +1471,286 @@ void MainWindow::loadRoom(int room)
     clearRoom();
     if (playerSprite) playerSprite->setPos(20, 173);
 
+    // Show story intro for each room
+    showRoomIntro(room);
+
     // Background colour per room (7 rooms: 0–5 normal + 5 boss + 6 Anubis)
     static const QColor BG[7] = {
         {45,32,12}, {28,22,18}, {12,4,28},
-        {4,12,32},  {38,24,4},  {5,3,22},  // room 5: deep indigo moon-chamber
-        {4,2,10}                             // room 6: Anubis Gate
+        {4,12,32},  {38,24,4},  {5,3,22},
+        {4,2,10}
     };
     scene->setBackgroundBrush(QBrush(BG[room]));
 
     // Floor strip
     addRoomRect(0, 360, 891, 61, QColor(0,0,0,80));
 
-    // Room-specific atmosphere
-    switch (room) {
-    case 0:
-        addRoomRect(140,40,30,310, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
-        addRoomRect(680,40,30,310, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
-        addRoomText("ENTRANCE", 330, 15, QColor(180,150,80,160), 18, 1);
-        break;
-    case 1:
-        addRoomRect(200,20,20,340, QColor(70,60,50), QColor(100,90,80), 1, 1);
-        addRoomRect(600,20,20,340, QColor(70,60,50), QColor(100,90,80), 1, 1);
+    // Set required clues per room (boss room doesn't need clues)
+    requiredClues = (room == 5) ? 0 : 3;
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 0: ENTRANCE CHAMBER — Tutorial / exploration intro
+    // Mechanic: TUTORIAL (no enemies, learn the ropes)
+    // ═══════════════════════════════════════════════════════
+    if (room == 0) {
+        currentMechanic = RoomMechanic::TUTORIAL;
+
+        // Decorative pillars creating side paths
+        addRoomRect(140, 40, 30, 150, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
+        addRoomRect(140, 220, 30, 130, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
+        addRoomRect(680, 40, 30, 130, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
+        addRoomRect(680, 200, 30, 150, QColor(110,85,45), QColor(150,120,70), 1.5, 1);
+
+        // Center chamber area
+        addRoomRect(350, 100, 180, 180, QColor(60,45,25,100), QColor(100,80,50), 2, 1);
+        addRoomText("ENTRANCE", 380, 15, QColor(180,150,80,160), 18, 1);
+
+        // Obstacles to create exploration paths
+        addObstacle(250, 80, 40, 80, 0);
+        addObstacle(550, 200, 50, 90, 0);
+        addObstacle(300, 280, 45, 60, 0);
+
+        // Clue fragments scattered around
+        addClueFragment(100, 60);      // top-left corner
+        addClueFragment(600, 300);     // bottom-right area
+        addClueFragment(420, 140);     // center chamber
+        addClueFragment(200, 250);     // left alcove (bonus)
+
+        // Statues with lore
+        addStatue(85, 270, "The statue depicts Ra, the Sun God. 'Seek wisdom in shadows.'");
+        addStatue(750, 80, "An ancient pharaoh stands guard. 'Only the worthy may pass.'");
+
+        // Tablet with hint
+        addTablet(440, 280, "Tablet reads: 'Echoes speak without voice...'");
+
+        // Torch (reveals nothing special in tutorial)
+        addTorch(180, 150);
+
+        // Central altar
+        addAltarToRoom(390, 180);
+
+        // No enemies in tutorial
+        ui->controlsLabel->setText("WASD Move | E Interact | Collect 3 clues to activate altar");
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 1: GUARDIAN HALL — Stealth mechanic
+    // Mechanic: STEALTH_GUARDIAN (large detection radius, must sneak)
+    // ═══════════════════════════════════════════════════════
+    else if (room == 1) {
+        currentMechanic = RoomMechanic::STEALTH_GUARDIAN;
+
+        // Tall pillars for cover
+        addRoomRect(200, 20, 24, 340, QColor(70,60,50), QColor(100,90,80), 1, 1);
+        addRoomRect(450, 20, 24, 340, QColor(70,60,50), QColor(100,90,80), 1, 1);
+        addRoomRect(650, 20, 24, 340, QColor(70,60,50), QColor(100,90,80), 1, 1);
         addRoomText("GUARDIAN HALL", 290, 340, QColor(160,130,70,180), 16, 1);
-        break;
-    case 2:
-        for (int i = 0; i < 8; i++)
-            addRoomRect(80+i*100, 30+(i%3)*80, 12, 12,
-                        QColor(180,100,255, 100+i*18),
-                        QColor(220,160,255,180), 1, 1);
+
+        // Cover obstacles
+        addObstacle(120, 60, 50, 70, 0);
+        addObstacle(320, 180, 60, 50, 0);
+        addObstacle(550, 80, 45, 80, 0);
+        addObstacle(350, 290, 55, 50, 0);
+        addObstacle(580, 260, 40, 70, 0);
+
+        // Stealth guardian — moderate detection, manageable chase
+        addTrap(400, 140, 90, 120, true, 160, 680, 1.8f, 1.f, 0, 90.f, 2.5f);
+
+        // Clue fragments in cover positions
+        addClueFragment(90, 280);      // behind cover left
+        addClueFragment(520, 50);      // top right corner
+        addClueFragment(720, 300);     // far right
+        addClueFragment(280, 100);     // between pillars
+
+        // Statues
+        addStatue(140, 180, "A colossal guardian. 'Move when its gaze is elsewhere.'");
+
+        // Tablets
+        addTablet(600, 180, "Carved warning: 'The guardian sees all who rush.'");
+        addTablet(250, 300, "Hint: 'Footsteps leave traces behind...'");
+
+        // Torch in dark corner
+        addTorch(85, 40);
+
+        // Hidden relic (visible)
+        addRelic(750, 150, false);
+
+        // Central altar
+        addAltarToRoom(380, 200);
+
+        ui->controlsLabel->setText("WASD Move | E Interact | STEALTH: Stay behind cover!");
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 2: HALL OF ECHOES — Fake doors mechanic
+    // Mechanic: FAKE_DOORS (2 fake doors damage, 1 real altar)
+    // ═══════════════════════════════════════════════════════
+    else if (room == 2) {
+        currentMechanic = RoomMechanic::FAKE_DOORS;
+
+        // Ethereal atmosphere
+        for (int i = 0; i < 10; i++) {
+            addRoomRect(80 + i * 85, 30 + (i % 4) * 75, 10, 10,
+                        QColor(180, 100, 255, 80 + i * 15),
+                        QColor(220, 160, 255, 150), 1, 1);
+        }
         addRoomText("HALL OF ECHOES", 275, 340, QColor(180,100,255,180), 16, 1);
-        break;
-    case 3:
-        for (int i = 0; i < 5; i++)
-            addRoomRect(100+i*140,340,100,14, QColor(60,80,180,120),
-                        QColor(100,140,255,180), 1, 1);
-        addRoomText("TRIAL ROOM", 330, 15, QColor(100,140,255,180), 18, 1);
-        break;
-    case 4:
-        addRoomRect(780,120,100,20, QColor(200,160,40,180), QColor(255,210,80), 2, 1);
-        addRoomRect(800,80,60,42,   QColor(220,180,60,140), QColor(255,220,100), 2, 1);
-        addRoomText("ANKH SANCTUARY", 265, 340, QColor(200,160,50,180), 16, 1);
-        break;
-    case 5: // Khonshu's Chamber — no regular enemies, no door; boss fight only
-    {
+
+        // Obstacles creating maze-like paths
+        addObstacle(150, 50, 30, 120, 0);
+        addObstacle(280, 150, 35, 140, 0);
+        addObstacle(450, 60, 30, 130, 0);
+        addObstacle(580, 180, 35, 130, 0);
+        addObstacle(350, 280, 100, 30, 0);
+
+        // Fake doors (touching damages player)
+        addFakeDoor(200, 200);
+        addFakeDoor(550, 80);
+
+        // Spectres patrol only (no chase)
+        addTrap(320, 20, 55, 80, false, 20, 290, 2.2f, 1.f, 1, 0.f, 0.f);
+        addTrap(620, 120, 55, 80, false, 100, 320, 2.5f, -1.f, 1, 0.f, 0.f);
+
+        // Clue fragments
+        addClueFragment(100, 200);
+        addClueFragment(400, 100);
+        addClueFragment(700, 280);
+        addClueFragment(180, 320);
+
+        // Statues
+        addStatue(85, 60, "A ghostly figure. 'Not all paths lead forward.'");
+
+        // Tablets
+        addTablet(680, 40, "Glyphs shimmer: 'The true path reveals itself to the patient.'");
+        addTablet(130, 260, "Warning: 'Illusions guard this hall...'");
+
+        // Torch that reveals which door is fake (visual hint)
+        addTorch(120, 320);
+
+        // Hidden relic
+        addRelic(750, 320, false);
+
+        // Central altar (the REAL goal)
+        addAltarToRoom(360, 150);
+
+        ui->controlsLabel->setText("WASD Move | E Interact | BEWARE: Some doors are traps!");
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 3: TRIAL ROOM — Spike trap timing mechanic
+    // Mechanic: SPIKE_TRAPS (timed floor spikes)
+    // ═══════════════════════════════════════════════════════
+    else if (room == 3) {
+        currentMechanic = RoomMechanic::SPIKE_TRAPS;
+        spikeTimer = 0;
+
+        // Trial room decorations
+        for (int i = 0; i < 6; i++) {
+            addRoomRect(100 + i * 130, 345, 90, 12, QColor(60, 80, 180, 120),
+                        QColor(100, 140, 255, 180), 1, 1);
+        }
+        addRoomText("TRIAL ROOM", 350, 15, QColor(100,140,255,180), 18, 1);
+
+        // Spike trap zones (smaller, alternating pattern)
+        addSpikeTrap(130, 90, 70, 40);
+        addSpikeTrap(330, 90, 70, 40);
+        addSpikeTrap(530, 90, 70, 40);
+        addSpikeTrap(230, 190, 70, 40);
+        addSpikeTrap(430, 190, 70, 40);
+        addSpikeTrap(630, 190, 70, 40);
+        addSpikeTrap(130, 290, 70, 40);
+        addSpikeTrap(330, 290, 70, 40);
+        addSpikeTrap(530, 290, 70, 40);
+
+        // Safe obstacle platforms
+        addObstacle(180, 130, 50, 40, 0);
+        addObstacle(380, 130, 50, 40, 0);
+        addObstacle(580, 130, 50, 40, 0);
+        addObstacle(280, 230, 50, 40, 0);
+        addObstacle(480, 230, 50, 40, 0);
+
+        // Mummies patrol only (no chase)
+        addTrap(200, 150, 70, 60, true, 100, 650, 2.0f, 1.f, 0, 0.f, 0.f);
+        addTrap(400, 260, 70, 60, true, 100, 650, 2.2f, -1.f, 0, 0.f, 0.f);
+
+        // Clue fragments on safe spots
+        addClueFragment(90, 170);
+        addClueFragment(720, 100);
+        addClueFragment(300, 320);
+        addClueFragment(550, 300);
+
+        // Statues
+        addStatue(85, 40, "Ancient mechanism. 'Patience conquers the trial.'");
+
+        // Tablets
+        addTablet(720, 260, "Instructions: 'Watch the rhythm of the stones.'");
+
+        // Torch
+        addTorch(680, 50);
+
+        // Relic (visible, risky to get)
+        addRelic(720, 180, false);
+
+        // Altar in center
+        addAltarToRoom(350, 160);
+
+        ui->controlsLabel->setText("WASD Move | E Interact | TIME the spikes carefully!");
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 4: ANKH SANCTUARY — Hidden relic puzzle
+    // Mechanic: HIDDEN_RELIC_PUZZLE (torch reveals relic)
+    // ═══════════════════════════════════════════════════════
+    else if (room == 4) {
+        currentMechanic = RoomMechanic::HIDDEN_RELIC_PUZZLE;
+
+        // Golden sanctuary decorations
+        addRoomRect(720, 80, 100, 20, QColor(200, 160, 40, 180), QColor(255, 210, 80), 2, 1);
+        addRoomRect(740, 40, 60, 45, QColor(220, 180, 60, 140), QColor(255, 220, 100), 2, 1);
+        addRoomText("ANKH SANCTUARY", 285, 340, QColor(200,160,50,180), 16, 1);
+
+        // Maze-like sanctuary layout
+        addObstacle(150, 40, 40, 150, 1);
+        addObstacle(300, 120, 45, 180, 1);
+        addObstacle(480, 40, 40, 140, 1);
+        addObstacle(600, 150, 45, 160, 1);
+        addObstacle(200, 280, 200, 35, 1);
+
+        // Scarabs patrol only (no chase, stay away from altar area)
+        addTrap(120, 280, 65, 65, true, 100, 320, 2.2f, 1.f, 2, 0.f, 0.f);
+        addTrap(550, 60, 65, 65, false, 40, 140, 2.5f, 1.f, 2, 0.f, 0.f);
+
+        // Clue fragments
+        addClueFragment(100, 80);
+        addClueFragment(550, 100);
+        addClueFragment(250, 200);
+        addClueFragment(700, 300);
+
+        // Statues
+        addStatue(85, 280, "The Ankh. 'Life eternal awaits the worthy.'");
+        addStatue(650, 40, "Guardian of the sanctuary. 'Light reveals truth.'");
+
+        // Tablets
+        addTablet(350, 50, "Inscribed: 'The sacred relic hides in darkness.'");
+
+        // Important torch — reveals the hidden relic
+        addTorch(85, 60);
+
+        // Hidden relic (NOT visible until torch lit)
+        addRelic(750, 250, false);
+
+        // Altar
+        addAltarToRoom(380, 180);
+
+        ui->controlsLabel->setText("WASD Move | E Interact | Light the torch to reveal secrets!");
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ROOM 5: KHONSHU'S CHAMBER — Boss fight with destructible cover
+    // ═══════════════════════════════════════════════════════
+    else if (room == 5) {
+        currentMechanic = RoomMechanic::BOSS_FIGHT;
+
         // Moonlit atmosphere: scattered star particles
         for (int i = 0; i < 14; i++) {
             int sx = (i * 61 + 30) % 820;
@@ -1162,26 +1759,38 @@ void MainWindow::loadRoom(int room)
             addRoomRect(sx, sy, sr * 2, sr * 2,
                         QColor(200, 185, 255, 55 + i * 10));
         }
-        // Pillars the player can use for cover
-        addObstacle(185, 20, 32, 320, 2);
-        addObstacle(570, 20, 32, 320, 2);
+
         addRoomText("KHONSHU'S CHAMBER", 240, 340,
                     QColor(175, 135, 255, 210), 16, 1);
 
-        // Boss HP bar (background + fill)
+        // Destructible cover blocks (break after 5 crescent hits)
+        auto addCover = [&](qreal x, qreal y, qreal w, qreal h) {
+            auto *cover = scene->addRect(x, y, w, h,
+                                          QPen(QColor(120, 90, 180), 2),
+                                          QBrush(QColor(80, 60, 140, 220)));
+            cover->setZValue(3);
+            destructibleCovers.append({cover, 5});
+        };
+        addCover(150, 80, 50, 50);
+        addCover(150, 200, 50, 50);
+        addCover(150, 280, 50, 50);
+        addCover(350, 120, 50, 50);
+        addCover(350, 240, 50, 50);
+
+        // Boss HP bar
         addRoomRect(326, 4, 206, 18, QColor(28, 10, 10, 210),
                     QColor(140, 50, 50), 2, 15);
         bossHPBar = addRoomRect(328, 6, 200, 14,
                                 QColor(190, 42, 42, 230), Qt::transparent, 0, 16);
         addRoomText("KHONSHU HP", 232, 4, QColor(205, 155, 255, 230), 12, 15);
 
-        // Boss sprite (120×200 px, positioned center-right)
+        // Boss sprite
         bossSprite = new QGraphicsPixmapItem(createKhonshuSprite(120, 200));
         bossSprite->setPos(590, 90);
         bossSprite->setZValue(6);
         scene->addItem(bossSprite);
 
-        // Initialise boss state machine
+        // Initialize boss state
         bossState         = BossState::SHOOTING;
         bossHP            = 25;
         bossShootCount    = 0;
@@ -1192,78 +1801,67 @@ void MainWindow::loadRoom(int room)
 
         ui->controlsLabel->setText(
             "WASD Move | R Strike Boss (when glowing) | ESC Pause");
-        break;
     }
 
-    case 6:
-        addRoomRect(760,0,131,420, QColor(15,8,30,200), QColor(80,40,120), 2, 1);
-        addRoomRect(790,20,70,140, QColor(30,10,60,220), QColor(120,60,180), 2, 1);
-        addRoomText("ANUBIS GATE", 310, 340, QColor(120,60,200,200), 18, 1);
-        ui->controlsLabel->setText("WASD Move | E Interact | ESC Pause");
-        break;
+    // ═══════════════════════════════════════════════════════
+    // ROOM 6: ANUBIS GATE — Collapsing floor mechanic
+    // Mechanic: COLLAPSING_FLOOR (floor crumbles after stepping)
+    // ═══════════════════════════════════════════════════════
+    else if (room == 6) {
+        currentMechanic = RoomMechanic::COLLAPSING_FLOOR;
+
+        // Final gate atmosphere
+        addRoomRect(760, 0, 131, 420, QColor(15, 8, 30, 200), QColor(80, 40, 120), 2, 1);
+        addRoomRect(790, 20, 70, 140, QColor(30, 10, 60, 220), QColor(120, 60, 180), 2, 1);
+        addRoomText("ANUBIS GATE", 330, 340, QColor(120,60,200,200), 18, 1);
+
+        // Collapsing floor tiles (smaller)
+        addCollapsingTile(120, 60, 55, 55);
+        addCollapsingTile(280, 60, 55, 55);
+        addCollapsingTile(440, 60, 55, 55);
+        addCollapsingTile(200, 160, 55, 55);
+        addCollapsingTile(360, 160, 55, 55);
+        addCollapsingTile(520, 160, 55, 55);
+        addCollapsingTile(120, 260, 55, 55);
+        addCollapsingTile(280, 260, 55, 55);
+        addCollapsingTile(440, 260, 55, 55);
+
+        // Safe stone platforms
+        addObstacle(600, 80, 50, 60, 2);
+        addObstacle(600, 200, 50, 60, 2);
+        addObstacle(600, 300, 50, 60, 2);
+
+        // Dark mummies (no chase - patrol only)
+        addTrap(300, 120, 60, 60, true, 100, 550, 2.8f, 1.f, 3, 0.f, 0.f);
+        addTrap(400, 240, 60, 60, true, 100, 550, 3.0f, -1.f, 3, 0.f, 0.f);
+
+        // Clue fragments
+        addClueFragment(90, 100);
+        addClueFragment(550, 280);
+        addClueFragment(350, 50);
+        addClueFragment(180, 300);
+
+        // Statues
+        addStatue(700, 260, "Anubis awaits. 'Judge of the dead.'");
+
+        // Tablets
+        addTablet(85, 200, "Final warning: 'The floor hungers for the unworthy.'");
+
+        // Torch
+        addTorch(85, 320);
+
+        // Final relic (risky placement)
+        addRelic(500, 100, false);
+
+        // Altar for final riddle
+        addAltarToRoom(650, 170);
+
+        ui->controlsLabel->setText("WASD Move | E Interact | CAREFUL: The floor collapses!");
     }
 
-    // Golden door — only for non-boss rooms
-    if (room != 5) {
-        addRoomRect(793,152,79,116, QColor(255,200,50,40), QColor(255,200,50,100), 2, 2);
-        doorItem = addRoomRect(800,160,65,100, QColor(180,130,20,200), QColor(255,210,60), 3, 3);
-        addRoomText("ENTER", 808, 272, QColor(255,230,120), 13, 4);
-    }
-
-    // Enemies + Obstacles
-    switch (room) {
-    case 0: // Entrance — no enemies, no obstacles (tutorial)
-        break;
-
-    case 1: // Guardian Hall — mummy patrols full width
-        addTrap(360,140,90,120, true, 160,680, 2.2f, 1.f, 0); // mummy
-        addObstacle(415,  20, 38, 100, 0);   // fallen pillar top
-        addObstacle(555, 250, 38,  95, 0);   // stone block bottom-right
-        break;
-
-    case 2: // Hall of Echoes — spectres drift vertically
-        addTrap(280, 20,65, 90, false,  20,290, 2.5f,  1.f, 1); // specter
-        addTrap(560,100,65, 90, false, 100,330, 3.0f, -1.f, 1); // specter
-        addObstacle(320,  55, 28, 150, 0);   // sarcophagus left
-        addObstacle(535, 165, 28, 145, 0);   // sarcophagus right
-        break;
-
-    case 3: // Trial Room — two mummies sweep horizontally
-        addTrap(200,120,80, 70, true, 180,700, 2.8f,  1.f, 0); // mummy
-        addTrap(200,250,80, 70, true, 180,700, 3.2f, -1.f, 0); // mummy
-        addObstacle(375, 135, 48, 48, 0);   // rubble chunk A
-        addObstacle(555, 225, 48, 48, 0);   // rubble chunk B
-        break;
-
-    case 4: // Ankh Sanctuary — two scarabs
-        addTrap(160,180,75, 75, true,  140,620, 2.5f, 1.f, 2); // scarab
-        addTrap(430, 40,75, 75, false,  40,300, 2.8f, 1.f, 2); // scarab
-        addObstacle(455, 90, 34, 175, 1);   // golden altar pillar
-        break;
-
-    case 5: // Khonshu's Chamber — boss fight; no regular enemies
-        break;
-
-    case 6: // Anubis Gate — three dark mummies
-        addTrap(160, 80,70, 70, true, 140,730, 3.0f,  1.f, 3); // dark mummy
-        addTrap(160,190,70, 70, true, 140,730, 3.6f, -1.f, 3); // dark mummy
-        addTrap(160,300,70, 70, true, 140,730, 2.8f,  1.f, 3); // dark mummy
-        addObstacle(365,  40, 38,  92, 2);  // cursed dark stone A
-        addObstacle(545, 250, 38,  88, 2);  // cursed dark stone B
-        break;
-    }
-
-    // "Press E" hint above door — only for rooms with a door
-    if (room != 5) {
-        pressEHint = scene->addText("Press  E");
-        pressEHint->setDefaultTextColor(QColor(255,255,120));
-        QFont hf; hf.setPixelSize(14); hf.setBold(true);
-        pressEHint->setFont(hf);
-        pressEHint->setPos(794, 132);
-        pressEHint->setZValue(20);
-        pressEHint->setVisible(false);
-        roomItems.append(pressEHint);
-    }
+    // Doors removed - altar system handles room transitions
+    doorItem = nullptr;
+    pressEHint = nullptr;
 
     // Update HUD
     ui->roomNameLabel->setText(ROOMS[room].name);
@@ -1274,18 +1872,81 @@ void MainWindow::loadRoom(int room)
 
 
 // ═══════════════════════════════════════════════════════
-// TRY INTERACT  — E key handler
+// TRY INTERACT  — E key handler (checks all interactables)
 // ═══════════════════════════════════════════════════════
 
 void MainWindow::tryInteract()
 {
-    if (!gameActive || riddleOpen || !playerSprite || !doorItem) return;
+    if (!gameActive || riddleOpen || !playerSprite) return;
 
     QPointF pc = playerSprite->sceneBoundingRect().center();
-    QPointF dc = doorItem->sceneBoundingRect().center();
-    float dist = qSqrt(qPow(pc.x()-dc.x(),2) + qPow(pc.y()-dc.y(),2));
+    const float interactRadius = 70.f;
 
-    if (dist < 130.f) showRiddle();
+    // Priority 1: Clue fragments
+    for (auto &cf : clueFragments) {
+        if (cf.collected || !cf.sprite) continue;
+        QPointF cc = cf.sprite->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - cc.x(), 2) + qPow(pc.y() - cc.y(), 2));
+        if (dist < interactRadius) {
+            tryCollectClue();
+            return;
+        }
+    }
+
+    // Priority 2: Statues
+    for (auto &s : statues) {
+        if (!s.hitbox) continue;
+        QPointF sc = s.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - sc.x(), 2) + qPow(pc.y() - sc.y(), 2));
+        if (dist < interactRadius) {
+            tryInteractStatue();
+            return;
+        }
+    }
+
+    // Priority 3: Tablets
+    for (auto &tb : tablets) {
+        if (!tb.hitbox) continue;
+        QPointF tc = tb.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - tc.x(), 2) + qPow(pc.y() - tc.y(), 2));
+        if (dist < interactRadius) {
+            tryInteractTablet();
+            return;
+        }
+    }
+
+    // Priority 4: Torches
+    for (auto &tr : torches) {
+        if (!tr.hitbox) continue;
+        QPointF trc = tr.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - trc.x(), 2) + qPow(pc.y() - trc.y(), 2));
+        if (dist < interactRadius) {
+            tryInteractTorch();
+            return;
+        }
+    }
+
+    // Priority 5: Relics
+    for (auto &r : relics) {
+        if (r.collected || !r.visible || !r.sprite) continue;
+        QPointF rc = r.sprite->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - rc.x(), 2) + qPow(pc.y() - rc.y(), 2));
+        if (dist < interactRadius) {
+            tryCollectRelic();
+            return;
+        }
+    }
+
+    // Priority 6: Altar (only if active)
+    if (altar.active && altar.hitbox) {
+        QPointF ac = altar.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - ac.x(), 2) + qPow(pc.y() - ac.y(), 2));
+        if (dist < 100.f) {
+            showRiddle();
+            return;
+        }
+    }
+
 }
 
 
@@ -1348,10 +2009,12 @@ void MainWindow::onRiddleCorrect()
 
     setEventText(r.solvedText);
 
-    if (currentRoom == 6)
+    if (currentRoom == 6) {
         triggerWin();
-    else
+    } else {
+        // Immediately advance to next room
         loadRoom(currentRoom + 1);
+    }
 }
 
 
@@ -1461,7 +2124,8 @@ QGraphicsTextItem* MainWindow::addRoomText(const QString &txt, qreal x, qreal y,
 
 void MainWindow::addTrap(qreal x, qreal y, qreal w, qreal h,
                           bool horiz, float mn, float mx, float spd,
-                          float startDir, int enemyType)
+                          float startDir, int enemyType,
+                          float detectRadius, float chaseSpd)
 {
     // Invisible rect used purely for collision / movement bookkeeping
     auto *item = new QGraphicsRectItem(0, 0, w, h);
@@ -1483,7 +2147,12 @@ void MainWindow::addTrap(qreal x, qreal y, qreal w, qreal h,
     auto *sprite = new QGraphicsPixmapItem(spr, item);
     sprite->setPos(0, 0);
 
-    traps.append({item, sprite, horiz, mn, mx, spd, startDir, enemyType});
+    // Store home position for chase return behavior
+    float homeX = float(x) + float(w) / 2.f;
+    float homeY = float(y) + float(h) / 2.f;
+
+    traps.append({item, sprite, horiz, mn, mx, spd, startDir, enemyType,
+                  detectRadius, chaseSpd > 0 ? chaseSpd : spd * 1.5f, false, homeX, homeY});
 }
 
 void MainWindow::addObstacle(qreal x, qreal y, qreal w, qreal h, int style)
@@ -1676,6 +2345,33 @@ void MainWindow::updateCrescents()
             continue;
         }
 
+        // Check collision with destructible covers
+        bool hitCover = false;
+        for (int j = destructibleCovers.size() - 1; j >= 0; j--) {
+            auto &dc = destructibleCovers[j];
+            if (dc.item && c.item->sceneBoundingRect().intersects(dc.item->sceneBoundingRect())) {
+                // Damage cover
+                dc.hp--;
+                if (dc.hp <= 0) {
+                    // Cover destroyed
+                    scene->removeItem(dc.item);
+                    delete dc.item;
+                    destructibleCovers.remove(j);
+                } else {
+                    // Visual feedback - fade cover
+                    int alpha = 220 - (5 - dc.hp) * 35;
+                    dc.item->setBrush(QBrush(QColor(80, 60, 140, alpha)));
+                }
+                // Remove crescent
+                scene->removeItem(c.item);
+                delete c.item;
+                crescents.remove(i);
+                hitCover = true;
+                break;
+            }
+        }
+        if (hitCover) continue;
+
         // Crescent hits player (only when not already invincible)
         if (!invincible && playerRect.intersects(c.item->sceneBoundingRect())) {
             scene->removeItem(c.item);
@@ -1727,8 +2423,538 @@ void MainWindow::tryBossHit()
         }
         crescents.clear();
         setEventText("KHONSHU FALLS! The Moon God crumbles into dust...");
+    } else if (bossHitsThisPhase >= 5) {
+        // Used all 5 hits - end tired phase immediately
+        bossState = BossState::SHOOTING;
+        bossShootTimer = 0;
+        bossSprite->setOpacity(1.0);
+        setEventText("Khonshu recovers! Dodge the crescents!");
     } else {
         setEventText(QString("Hit! Khonshu HP: %1 | Hits this phase: %2 / 5")
                      .arg(bossHP).arg(bossHitsThisPhase));
     }
+}
+
+
+// ═══════════════════════════════════════════════════════
+// INTERACTABLE HELPERS — Clues, Statues, Tablets, etc.
+// ═══════════════════════════════════════════════════════
+
+void MainWindow::addClueFragment(qreal x, qreal y)
+{
+    // Glow effect behind the clue
+    auto *glow = scene->addRect(x - 6, y - 6, 40, 40,
+                                 Qt::NoPen, QBrush(QColor(255, 210, 80, 40)));
+    glow->setZValue(4);
+    // NOT added to roomItems - tracked in clueFragments vector
+
+    // Clue sprite
+    auto *sprite = new QGraphicsPixmapItem(createClueSprite());
+    sprite->setPos(x, y);
+    sprite->setZValue(5);
+    scene->addItem(sprite);
+
+    clueFragments.append({sprite, glow, false, 0.f});
+}
+
+void MainWindow::addStatue(qreal x, qreal y, const QString &lore)
+{
+    auto *sprite = new QGraphicsPixmapItem(createStatueSprite());
+    sprite->setPos(x, y);
+    sprite->setZValue(3);
+    scene->addItem(sprite);
+
+    auto *hitbox = scene->addRect(x, y, 40, 80, Qt::NoPen, Qt::NoBrush);
+    hitbox->setZValue(1);
+    // NOT added to roomItems - tracked in statues vector
+
+    statues.append({sprite, hitbox, lore});
+}
+
+void MainWindow::addTablet(qreal x, qreal y, const QString &hint)
+{
+    auto *sprite = new QGraphicsPixmapItem(createTabletSprite());
+    sprite->setPos(x, y);
+    sprite->setZValue(3);
+    scene->addItem(sprite);
+
+    auto *hitbox = scene->addRect(x, y, 50, 40, Qt::NoPen, Qt::NoBrush);
+    hitbox->setZValue(1);
+    // NOT added to roomItems - tracked in tablets vector
+
+    tablets.append({sprite, hitbox, hint});
+}
+
+void MainWindow::addTorch(qreal x, qreal y, QList<QGraphicsItem*> reveals)
+{
+    auto *sprite = new QGraphicsPixmapItem(createTorchSprite(20, 45, false));
+    sprite->setPos(x, y);
+    sprite->setZValue(4);
+    scene->addItem(sprite);
+
+    auto *hitbox = scene->addRect(x - 5, y, 30, 50, Qt::NoPen, Qt::NoBrush);
+    hitbox->setZValue(1);
+    // NOT added to roomItems - tracked in torches vector
+
+    torches.append({sprite, hitbox, false, reveals});
+}
+
+void MainWindow::addRelic(qreal x, qreal y, bool startVisible)
+{
+    auto *sprite = new QGraphicsPixmapItem(createRelicSprite());
+    sprite->setPos(x, y);
+    sprite->setZValue(5);
+    sprite->setVisible(startVisible);
+    scene->addItem(sprite);
+
+    relics.append({sprite, false, startVisible});
+}
+
+void MainWindow::addAltarToRoom(qreal x, qreal y)
+{
+    auto *sprite = new QGraphicsPixmapItem(createAltarSprite(80, 60, false));
+    sprite->setPos(x, y);
+    sprite->setZValue(3);
+    scene->addItem(sprite);
+
+    auto *hitbox = scene->addRect(x, y, 80, 60, Qt::NoPen, Qt::NoBrush);
+    hitbox->setZValue(1);
+
+    auto *glowRect = scene->addRect(x - 10, y - 20, 100, 100,
+                                     Qt::NoPen, QBrush(QColor(255, 230, 100, 0)));
+    glowRect->setZValue(2);
+
+    auto *hint = scene->addText("Press E");
+    hint->setDefaultTextColor(QColor(255, 255, 120));
+    QFont hf; hf.setPixelSize(13); hf.setBold(true);
+    hint->setFont(hf);
+    hint->setPos(x + 10, y - 22);
+    hint->setZValue(20);
+    hint->setVisible(false);
+
+    // NOT added to roomItems - tracked in altar struct
+    altar = {sprite, hitbox, glowRect, hint, false};
+}
+
+void MainWindow::tryCollectClue()
+{
+    if (!playerSprite) return;
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+
+    for (auto &cf : clueFragments) {
+        if (cf.collected || !cf.sprite) continue;
+
+        QPointF cc = cf.sprite->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - cc.x(), 2) + qPow(pc.y() - cc.y(), 2));
+
+        if (dist < 70.f) {
+            cf.collected = true;
+            cf.sprite->setVisible(false);
+            if (cf.glowEffect) cf.glowEffect->setVisible(false);
+
+            cluesFound++;
+            setEventText(QString("Clue fragment collected! (%1/%2)")
+                         .arg(cluesFound).arg(requiredClues));
+
+            checkAltarActivation();
+            return;
+        }
+    }
+}
+
+void MainWindow::tryInteractStatue()
+{
+    if (!playerSprite) return;
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+
+    for (auto &s : statues) {
+        if (!s.hitbox) continue;
+
+        QPointF sc = s.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - sc.x(), 2) + qPow(pc.y() - sc.y(), 2));
+
+        if (dist < 70.f) {
+            setEventText(s.loreText);
+            return;
+        }
+    }
+}
+
+void MainWindow::tryInteractTablet()
+{
+    if (!playerSprite) return;
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+
+    for (auto &tb : tablets) {
+        if (!tb.hitbox) continue;
+
+        QPointF tc = tb.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - tc.x(), 2) + qPow(pc.y() - tc.y(), 2));
+
+        if (dist < 70.f) {
+            setEventText(tb.hintText);
+            return;
+        }
+    }
+}
+
+void MainWindow::tryInteractTorch()
+{
+    if (!playerSprite) return;
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+
+    for (auto &tr : torches) {
+        if (!tr.hitbox) continue;
+
+        QPointF trc = tr.hitbox->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - trc.x(), 2) + qPow(pc.y() - trc.y(), 2));
+
+        if (dist < 70.f) {
+            tr.activated = !tr.activated;
+            tr.sprite->setPixmap(createTorchSprite(20, 45, tr.activated));
+
+            if (tr.activated) {
+                setEventText("The torch ignites! Something stirs in the shadows...");
+                // Reveal hidden items
+                for (auto *item : tr.revealsItems) {
+                    item->setVisible(true);
+                }
+                // Also reveal any hidden relics
+                for (auto &r : relics) {
+                    if (!r.visible && r.sprite) {
+                        r.visible = true;
+                        r.sprite->setVisible(true);
+                    }
+                }
+            } else {
+                setEventText("The torch dims...");
+                for (auto *item : tr.revealsItems) {
+                    item->setVisible(false);
+                }
+            }
+            return;
+        }
+    }
+}
+
+void MainWindow::tryCollectRelic()
+{
+    if (!playerSprite) return;
+    QPointF pc = playerSprite->sceneBoundingRect().center();
+
+    for (auto &r : relics) {
+        if (r.collected || !r.visible || !r.sprite) continue;
+
+        QPointF rc = r.sprite->sceneBoundingRect().center();
+        float dist = qSqrt(qPow(pc.x() - rc.x(), 2) + qPow(pc.y() - rc.y(), 2));
+
+        if (dist < 70.f) {
+            r.collected = true;
+            r.sprite->setVisible(false);
+
+            relicsCollected++;
+            score += 50;
+            ui->scoreLabel->setText(QString("🏆 %1").arg(score));
+            setEventText(QString("Ancient relic found! (+50 points) [%1/%2 relics]")
+                         .arg(relicsCollected).arg(totalRelicsInGame));
+            return;
+        }
+    }
+}
+
+void MainWindow::checkAltarActivation()
+{
+    if (!altar.sprite || altar.active) return;
+
+    if (cluesFound >= requiredClues) {
+        altar.active = true;
+        altar.sprite->setPixmap(createAltarSprite(80, 60, true));
+
+        // Animate glow
+        if (altar.glowEffect) {
+            altar.glowEffect->setBrush(QBrush(QColor(255, 230, 100, 80)));
+        }
+
+        setEventText("The altar awakens! Approach and press E to face the riddle.");
+    }
+}
+
+void MainWindow::updateClueGlow()
+{
+    for (auto &cf : clueFragments) {
+        if (cf.collected || !cf.glowEffect) continue;
+
+        cf.glowPhase += 0.08f;
+        int alpha = int(40 + 30 * qSin(cf.glowPhase));
+        cf.glowEffect->setBrush(QBrush(QColor(255, 210, 80, alpha)));
+    }
+
+    // Also pulse altar glow if active
+    if (altar.sprite && altar.active && altar.glowEffect) {
+        static float altarPhase = 0;
+        altarPhase += 0.06f;
+        int alpha = int(60 + 40 * qSin(altarPhase));
+        altar.glowEffect->setBrush(QBrush(QColor(255, 230, 100, alpha)));
+    }
+}
+
+void MainWindow::updateEnemyChase()
+{
+    // This logic is now integrated into the main trap movement loop in onGameLoop()
+}
+
+
+// ═══════════════════════════════════════════════════════
+// ROOM MECHANIC HELPERS — Spikes, Fake Doors, Collapsing
+// ═══════════════════════════════════════════════════════
+
+void MainWindow::addFakeDoor(qreal x, qreal y)
+{
+    auto *door = scene->addRect(x, y, 65, 100,
+                                 QPen(QColor(255, 100, 50), 3),
+                                 QBrush(QColor(140, 80, 20, 200)));
+    door->setZValue(3);
+    fakeDoors.append(door);
+    // NOT added to roomItems - tracked in fakeDoors vector
+
+    // Fake "ENTER" text
+    auto *txt = addRoomText("ENTER", x + 8, y + 72, QColor(255, 180, 80), 13, 4);
+    Q_UNUSED(txt);
+}
+
+void MainWindow::addSpikeTrap(qreal x, qreal y, qreal w, qreal h)
+{
+    auto *trap = scene->addRect(x, y, w, h,
+                                 QPen(QColor(80, 60, 40), 1),
+                                 QBrush(QColor(60, 45, 30, 180)));
+    trap->setZValue(2);
+    spikeTraps.append(trap);
+    spikeActive.append(false);
+    // NOT added to roomItems - tracked in spikeTraps vector
+}
+
+void MainWindow::addCollapsingTile(qreal x, qreal y, qreal w, qreal h)
+{
+    auto *tile = scene->addRect(x, y, w, h,
+                                 QPen(QColor(100, 85, 55), 2),
+                                 QBrush(QColor(85, 70, 45, 230)));
+    tile->setZValue(2);
+    collapsingTiles.append(tile);
+    collapseTriggerTimer.append(-1);  // -1 = not triggered
+    tileCollapsed.append(false);
+    // NOT added to roomItems - tracked in collapsingTiles vector
+}
+
+void MainWindow::updateSpikeTraps()
+{
+    spikeTimer++;
+
+    // Spikes cycle every 120 frames (2 seconds): 60 frames up, 60 frames down
+    bool spikesUp = (spikeTimer % 120) < 60;
+
+    for (int i = 0; i < spikeTraps.size(); i++) {
+        // Alternate pattern: even/odd spikes offset
+        bool thisUp = (i % 2 == 0) ? spikesUp : !spikesUp;
+        spikeActive[i] = thisUp;
+
+        QColor col = thisUp ? QColor(180, 50, 50, 220) : QColor(60, 45, 30, 180);
+        spikeTraps[i]->setBrush(QBrush(col));
+
+        // Check player collision with active spikes
+        if (thisUp && playerSprite && !invincible) {
+            if (playerSprite->sceneBoundingRect().intersects(
+                    spikeTraps[i]->sceneBoundingRect())) {
+                onTrapHit();
+            }
+        }
+    }
+}
+
+void MainWindow::updateCollapsingFloor()
+{
+    if (!playerSprite) return;
+
+    QRectF pr = playerSprite->sceneBoundingRect();
+
+    for (int i = 0; i < collapsingTiles.size(); i++) {
+        QRectF tr = collapsingTiles[i]->sceneBoundingRect();
+
+        // If tile already collapsed, damage player if they walk on it
+        if (tileCollapsed[i]) {
+            if (pr.intersects(tr) && !invincible) {
+                onTrapHit();
+                setEventText("You fall through the broken floor!");
+            }
+            continue;
+        }
+
+        // Check if player is standing on tile
+        if (pr.intersects(tr)) {
+            if (collapseTriggerTimer[i] < 0) {
+                // Start collapse countdown (90 frames = 1.5 seconds)
+                collapseTriggerTimer[i] = 90;
+                collapsingTiles[i]->setBrush(QBrush(QColor(140, 80, 40, 230)));
+            }
+        }
+
+        // Count down and collapse
+        if (collapseTriggerTimer[i] > 0) {
+            collapseTriggerTimer[i]--;
+
+            // Visual warning: shake/flash
+            int shake = (collapseTriggerTimer[i] % 6 < 3) ? 1 : -1;
+            QRectF r = collapsingTiles[i]->rect();
+            collapsingTiles[i]->setPos(shake, 0);
+
+            if (collapseTriggerTimer[i] <= 0) {
+                // Collapse!
+                tileCollapsed[i] = true;
+                collapsingTiles[i]->setBrush(QBrush(QColor(20, 15, 10, 100)));
+                collapsingTiles[i]->setPen(QPen(QColor(40, 30, 20, 100)));
+
+                // Check if player falls
+                if (pr.intersects(tr) && !invincible) {
+                    onTrapHit();
+                    setEventText("The floor gives way beneath you!");
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::checkFakeDoorCollision()
+{
+    if (!playerSprite || invincible) return;
+
+    QRectF pr = playerSprite->sceneBoundingRect();
+
+    for (auto *fd : fakeDoors) {
+        if (pr.intersects(fd->sceneBoundingRect())) {
+            onTrapHit();
+            setEventText("A trap! That door was a deadly illusion!");
+            return;
+        }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════
+// ROOM INTRO — Story popup when entering each level
+// ═══════════════════════════════════════════════════════
+
+void MainWindow::showRoomIntro(int room)
+{
+    static const QString ROOM_STORIES[7] = {
+        // Room 0: Entrance Chamber
+        "ENTRANCE CHAMBER\n\n"
+        "You descend into the ancient tomb, torchlight flickering against "
+        "hieroglyph-covered walls. The air is thick with centuries of dust.\n\n"
+        "Your mission: Find the scattered clue fragments hidden throughout "
+        "each chamber. Once you collect enough, the central altar will "
+        "awaken, presenting you with an ancient riddle.\n\n"
+        "Explore carefully. The tomb holds many secrets.",
+
+        // Room 1: Guardian Hall
+        "GUARDIAN HALL\n\n"
+        "A massive stone guardian patrols these halls — the eternal protector "
+        "of the pharaoh's secrets. Its glowing eyes scan for intruders.\n\n"
+        "WARNING: The guardian can detect movement from great distances. "
+        "Use the stone pillars for cover. Move only when its back is turned. "
+        "If spotted, it will pursue relentlessly.\n\n"
+        "Stealth is your ally here.",
+
+        // Room 2: Hall of Echoes
+        "HALL OF ECHOES\n\n"
+        "Ghostly spectres drift through this ethereal chamber, remnants of "
+        "souls who failed the tomb's trials. Strange illusions shimmer in "
+        "the purple mist.\n\n"
+        "BEWARE: Not all doors are what they seem. Some are deadly traps "
+        "designed to punish the hasty. The spectres patrol their eternal "
+        "routes but will not give chase.\n\n"
+        "Trust your instincts. Find the true path.",
+
+        // Room 3: Trial Room
+        "TRIAL ROOM\n\n"
+        "Ancient mechanisms line the floor — pressure plates connected to "
+        "deadly spike traps that rise and fall in an eternal rhythm.\n\n"
+        "The spikes alternate in a pattern. Watch carefully, time your "
+        "movements, and cross during the safe moments. The mummy guardians "
+        "patrol but will not pursue you.\n\n"
+        "Patience will see you through.",
+
+        // Room 4: Ankh Sanctuary
+        "ANKH SANCTUARY\n\n"
+        "Golden light bathes this sacred chamber, home to the Ankh — "
+        "symbol of eternal life. Scarab beetles patrol the sanctuary, "
+        "sacred guardians of the ancient artifact.\n\n"
+        "A hidden relic lies somewhere in the darkness. Light the torch "
+        "to reveal what shadows conceal. The scarabs keep to their paths "
+        "and will not give chase.\n\n"
+        "The Ankh awaits the worthy.",
+
+        // Room 5: Khonshu's Chamber
+        "KHONSHU'S CHAMBER\n\n"
+        "The Moon God Khonshu rises before you, his crescent staff "
+        "glowing with divine power. This is no puzzle — this is battle.\n\n"
+        "Khonshu hurls crescent projectiles at you. Dodge behind the "
+        "stone covers, but beware — they can only absorb 5 hits before "
+        "crumbling. When Khonshu tires and glows, rush in and strike "
+        "with R. You can land up to 5 hits per opening.\n\n"
+        "Defeat the Moon God to reach the final gate.",
+
+        // Room 6: Anubis Gate
+        "ANUBIS GATE\n\n"
+        "The final chamber. Anubis, Judge of the Dead, awaits at the "
+        "gate between worlds. The floor itself is cursed — ancient tiles "
+        "crumble moments after you step on them.\n\n"
+        "Dark mummies patrol these halls. Move quickly but carefully. "
+        "Once a tile falls, there is no return. Find the clues, face "
+        "the final riddle, and escape the tomb.\n\n"
+        "Your journey ends here — one way or another."
+    };
+
+    if (room < 0 || room > 6) return;
+
+    // Create story dialog
+    QDialog *intro = new QDialog(this);
+    intro->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+    intro->setModal(true);
+    intro->setFixedSize(500, 380);
+    intro->setStyleSheet(
+        "QDialog {"
+        "  background-color: #0d0905;"
+        "  border: 3px solid #c8a03c;"
+        "  border-radius: 16px;"
+        "}"
+    );
+
+    QVBoxLayout *layout = new QVBoxLayout(intro);
+    layout->setContentsMargins(24, 20, 24, 20);
+    layout->setSpacing(15);
+
+    // Story text
+    QLabel *storyLabel = new QLabel(ROOM_STORIES[room], intro);
+    storyLabel->setWordWrap(true);
+    storyLabel->setStyleSheet(
+        "color: #e8d8b0; font-size: 13px; font-family: Copperplate;"
+        "background: transparent; line-height: 1.4;"
+    );
+    storyLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    layout->addWidget(storyLabel);
+
+    layout->addStretch();
+
+    // Continue button
+    QPushButton *continueBtn = new QPushButton("Enter Chamber", intro);
+    continueBtn->setStyleSheet(
+        "QPushButton { background: rgba(200,160,60,200); color: #0d0905;"
+        "border: 2px solid #ffe090; border-radius: 8px; font-size: 14px;"
+        "font-weight: bold; padding: 10px 30px; }"
+        "QPushButton:hover { background: rgba(255,200,80,220); }"
+    );
+    connect(continueBtn, &QPushButton::clicked, intro, &QDialog::accept);
+    layout->addWidget(continueBtn, 0, Qt::AlignCenter);
+
+    intro->exec();
+    delete intro;
 }

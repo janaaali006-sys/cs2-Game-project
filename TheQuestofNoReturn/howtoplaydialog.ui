@@ -119,46 +119,68 @@ border: none;</string>
      <widget class="QLabel" name="instructionsLabel">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>70</y>
-        <width>381</width>
-        <height>321</height>
+        <x>20</x>
+        <y>10</y>
+        <width>520</width>
+        <height>800</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">color: #F5E6C8;
-font-size: 18px;
-padding: 20px;
+font-size: 15px;
+padding: 15px;
 background: transparent;
 border: none;</string>
       </property>
       <property name="text">
        <string>Welcome to The Quest of No Return.
 
-Your mission is to survive the ancient Egyptian temple and reach the sacred Ankh before time runs out.
+Explore the ancient Egyptian temple, collect clue fragments, and reach the sacred Ankh before time runs out.
 
 MOVEMENT
 • Use WASD keys to move through the temple.
-• Explore carefully and search every chamber.
+• Explore every corner to find hidden treasures.
 
-RIDDLES
-• Some rooms contain riddles and ancient puzzles.
-• Solve them correctly to continue deeper into the temple.
+CLUE FRAGMENTS
+• Each room contains 3 glowing clue fragments.
+• Walk near them to collect (they pulse gold).
+• Collect all 3 to activate the room's altar.
+
+THE ALTAR
+• After collecting 3 clues, the altar glows.
+• Press E at the altar to face a riddle.
+• Answer correctly to advance to the next room.
+
+TORCHES &amp; RELICS
+• Light torches with E to reveal hidden relics.
+• Relics are bonus collectibles that boost your score.
+
+STATUES &amp; TABLETS
+• Press E near statues for ancient lore.
+• Tablets provide hints for riddles.
 
 GUARDIANS
-• Dangerous guardians protect the sacred chambers.
-• Some guardians chase you while others test your knowledge.
+• Mummies, scarabs, and spectres patrol the halls.
+• Some will chase you if you get too close!
+• Avoid them or lose a life.
 
-ARTEFACTS
-• Collect ancient artefacts hidden across the temple.
-• Artefacts may improve score or aid survival.
+ROOM HAZARDS
+• Spike traps activate in cycles - time your movement.
+• Collapsing floors give way beneath you.
+• Fake doors are deadly traps in disguise.
+
+BOSS FIGHT
+• Khonshu guards the final chamber.
+• Dodge his crescent projectiles.
+• Attack with R when he's tired (after 8 shots).
+• Hide behind destructible cover for safety.
 
 LIVES &amp; TIMER
-• Mistakes may cost lives.
-• If all lives are lost or the timer reaches zero, the expedition fails.
+• Contact with enemies or traps costs lives.
+• If all lives are lost or time runs out, you fail.
 
 GOAL
-• Reach the final chamber and claim the sacred Ankh to win.</string>
+• Survive all 7 chambers and claim the sacred Ankh!</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
