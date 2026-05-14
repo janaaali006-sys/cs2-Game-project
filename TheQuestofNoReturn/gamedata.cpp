@@ -1,0 +1,32 @@
+#include "gamedata.h"
+
+const RoomInfo ROOMS[7] = {
+    { "Entrance Chamber",
+      "Explore the chamber. Collect 3 clue fragments to awaken the altar.",
+      "The seal breaks — the passage is open!",
+      false, 100, 60 },
+    { "Guardian Hall",
+      "A vigilant guardian patrols. Use cover, find clues, avoid detection.",
+      "The colossus crumbles — you may pass!",
+      false, 120, 60 },
+    { "Hall of Echoes",
+      "Spectres drift through illusions. Beware false doors. Seek the true altar.",
+      "The echoes answer your wisdom — the path clears!",
+      false, 130, 60 },
+    { "Trial Room",
+      "Deadly spikes rise in rhythm. Time your steps. Gather the clues.",
+      "The stone tablet shatters — trial complete!",
+      false, 150, 70 },
+    { "Ankh Sanctuary",
+      "Sacred scarabs guard hidden secrets. Light the torch to reveal the way.",
+      "The Ankh glows — it has chosen you!",
+      true, 140, 60 },
+    { "Khonshu's Chamber",
+      "The Moon God rises! Dodge the crescents — press R near Khonshu when he tires.",
+      "Khonshu falls — the final gate lies ahead!",
+      false, 300, 100 },
+    { "Anubis Gate",
+      "The floor crumbles beneath your feet. Move carefully. Find the final clues.",
+      "Anubis bows. The gate opens — you have conquered the tomb!",
+      false, 200, 80 }
+};

@@ -16,7 +16,11 @@ qt_add_executable(TheQuestofNoReturn
     SharedEnums.h
     howtoplaydialog.h howtoplaydialog.cpp howtoplaydialog.ui
     riddledialog.h riddledialog.cpp
-
+    gameobject.h
+    gamedata.h gamedata.cpp
+    enemy.h enemy.cpp
+    interactable.h interactable.cpp
+    gamehud.h gamehud.cpp
 )
 
 qt_add_resources(TheQuestofNoReturn "resources"
